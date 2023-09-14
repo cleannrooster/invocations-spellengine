@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "invoke:item/frostinvoker_spell_book"
+  }
+
+}

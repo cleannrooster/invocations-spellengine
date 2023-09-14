@@ -1,0 +1,47 @@
+{
+  "school": "ARCANE",
+  "range": 16,
+  "learn": {
+    "tier": 0
+  },
+  "cast": {
+    "duration": 2.5,
+    "animation": "spell_engine:two_handed_channeling"
+  },
+  "release": {
+    "custom_impact": true,
+    "target": {
+      "type": "CURSOR"
+    },
+    "particles": [
+      {
+        "particle_id": "cloud",
+        "shape": "CIRCLE",
+        "origin": "CENTER",
+        "count": 130.0,
+        "min_speed": 0.5,
+        "max_speed": 0.9
+      }
+    ],
+    "sound": {
+      "id": "minecraft:entity.illusioner.cast_spell"
+    },
+    "animation": "spell_engine:one_handed_projectile_release"},
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 1,
+          "spell_power_coefficient": 2
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown_duration": 2,
+    "item_id": "runes:arcane_stone",
+    "effect_id": "invoke:invoking"
+
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "runes:arcane_stone"
+    },
+    {
+      "item": "runes:frost_stone"
+    },
+    {
+      "item": "runes:fire_stone"
+    }
+  ],
+  "result":
+  {
+    "item": "invoke:null_rune"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "school": "FIRE",
+  "range": 12,
+  "learn": {
+    "tier": 1
+  },
+  "cast": {
+    "duration": 1,
+    "animation": "spell_engine:one_handed_projectile_charge",
+    "sound": {
+      "id": "spell_engine:generic_fire_casting",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 1.0,
+        "min_speed": 0.05,
+        "max_speed": 0.1
+      }
+    ]
+  },
+  "release": {
+    "target": {
+      "type": "PROJECTILE",
+      "projectile": {
+        "velocity": 5.0,
+        "homing_angle": 0,
+        "divergence": 20,
+        "perks": {
+          "extra_launch_count": 12,
+          "extra_launch_delay": 1
+        },
+
+        "client_data": {
+          "travel_particles": [
+            {
+              "particle_id": "electric_spark",
+              "shape": "CIRCLE",
+              "rotation": "LOOK",
+              "origin": "CENTER",
+              "count": 4.0,
+              "min_speed": 0.0,
+              "max_speed": 0.1
+            },
+            {
+              "particle_id": "smoke",
+              "shape": "CIRCLE",
+              "rotation": "LOOK",
+              "origin": "CENTER",
+              "count": 2.0,
+              "min_speed": 0.0,
+              "max_speed": 0.1
+            }
+          ],
+          "model_id": "wizards:projectile/fireball_projectile",
+          "scale": 0.5
+        }
+      }
+    },
+    "animation": "spell_engine:one_handed_projectile_release",
+    "sound": {
+      "id": "entity.generic.explode"
+    }
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.2
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "lava",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 15.0,
+          "min_speed": 3.0,
+          "max_speed": 18.0
+        }
+        ]
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "ADD",
+          "duration": 0.1,
+          "amplifier": 0,
+          "effect_id": "invoke:invoking"
+        },
+        "apply_to_caster": true
+      }
+    }
+  ],
+  "cost": {
+    "item_id": "runes:fire_stone",
+
+    "cooldown_duration": 0.25,
+    "effect_id": "invoke:invoking"
+
+  }
+}

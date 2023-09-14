@@ -1,0 +1,134 @@
+{
+  "school": "FROST",
+  "range": 8,
+  "learn": {
+    "tier": 0
+  },
+  "cast": {
+    "duration": 8,
+
+    "channel_ticks" : 10,
+    "animation": "spell_engine:two_handed_channeling",
+    "sound": {
+      "id": "spell_engine:generic_frost_casting",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "minecraft:snowflake",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 2,
+        "min_speed": 0.0025,
+        "max_speed": 0.03
+      },
+      {
+        "particle_id": "spell_engine:frost_shard",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 4,
+        "min_speed": 0.005,
+        "max_speed": 0.05
+      }
+    ]
+  },
+  "release": {
+    "custom_impact": true,
+    "target": {
+      "type": "CURSOR"
+    },
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    },
+    "animation": "spell_engine:one_handed_area_release"
+
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0,
+          "spell_power_coefficient": 0.6
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "minecraft:snowflake",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 10,
+          "min_speed": 0.025,
+          "max_speed": 0.3
+        },
+        {
+          "particle_id": "spell_engine:frost_shard",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 15.0,
+          "min_speed": 0.05,
+          "max_speed": 0.4
+        }
+      ]
+
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "ADD",
+          "duration": 1,
+          "amplifier": 0,
+          "effect_id": "invoke:invoking"
+        },
+        "apply_to_caster": true
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "duration": 1,
+          "amplifier": 2,
+          "effect_id": "slowness",
+          "apply_limit": {
+            "health_base": 100,
+            "spell_power_multiplier": 2
+          }
+        },
+        "apply_to_caster": true
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "ADD",
+          "duration": 1,
+          "amplifier": 4,
+          "effect_id": "spell_power:frost"
+        },
+        "apply_to_caster": true
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "duration": 1,
+          "amplifier": 2,
+          "effect_id": "slowness",
+          "apply_limit": {
+            "health_base": 100,
+            "spell_power_multiplier": 2
+          }
+        }
+      }
+    }
+  ],
+  "cost": {
+    "item_id": "runes:frost_stone",
+    "cooldown_duration": 0.5,
+    "effect_id": "invoke:invoking"
+  }
+}

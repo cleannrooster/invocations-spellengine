@@ -1,0 +1,61 @@
+{
+  "school": "FROST",
+  "range": 3,
+  "learn": {
+    "tier": 2
+  },
+  "cast": {
+    "duration": 1,
+    "sound": {
+      "id": "spell_engine:generic_frost_casting",
+      "randomness": 0
+    }
+  },
+  "release": {
+    "custom_impact": true,
+    "target": {
+      "type": "AREA",
+      "area": {
+        "angle_degrees": 90,
+        "vertical_range_multiplier": 1
+      }
+    },
+    "sound": {
+      "id": "wizards:frost_nova_release"
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:snowflake",
+        "shape": "CIRCLE",
+        "origin": "CENTER",
+        "count": 130.0,
+        "min_speed": 0.2,
+        "max_speed": 0.6
+      },
+      {
+        "particle_id": "spell_engine:frost_shard",
+        "shape": "CIRCLE",
+        "origin": "CENTER",
+        "count": 130.0,
+        "min_speed": 0.5,
+        "max_speed": 0.9
+      }
+    ],
+    "animation": "spell_engine:one_handed_projectile_release"},
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 1,
+          "spell_power_coefficient": 1
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown_duration": 2,
+    "cooldown_proportional": true,
+    "effect_id": "invoke:invoking"
+  }
+}

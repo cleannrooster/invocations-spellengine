@@ -1,0 +1,87 @@
+{
+  "school": "FIRE",
+  "range": 6,
+  "learn": {
+    "tier": 0
+  },
+  "cast": {
+    "duration": 1,
+    "animation": "spell_engine:two_handed_channeling",
+    "sound": {
+      "id": "spell_engine:generic_fire_casting",
+      "randomness": 0
+    }
+  },
+  "release": {
+    "target": {
+      "type": "AREA",
+      "area": {
+        "distance_dropoff": "SQUARED",
+        "angle_degrees": 360
+      }
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:flame",
+        "angle": 360,
+        "shape": "CONE",
+        "rotation": "LOOK",
+        "origin": "LAUNCH_POINT",
+        "count": 360.0,
+        "min_speed": 1,
+        "max_speed": 1
+      }
+    ],
+    "sound": {
+      "id": "entity.blaze.shoot"
+    }
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.9,
+          "knockback": 18
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "lava",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 3.0,
+          "min_speed": 0.5,
+          "max_speed": 3.0
+        }
+      ]
+    },
+    {
+      "action": {
+        "type": "FIRE",
+        "fire": {
+          "duration": 4
+        }
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "ADD",
+          "duration": 0.1,
+          "amplifier": 0,
+          "effect_id": "invoke:invoking"
+        },
+        "apply_to_caster": true
+      }
+    }
+  ],
+  "cost": {
+    "item_id": "runes:fire_stone",
+
+    "cooldown_duration": 0.5,
+    "effect_id": "invoke:invoking"
+
+  }
+}

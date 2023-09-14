@@ -1,0 +1,117 @@
+{
+  "school": "FIRE",
+  "range": 8,
+  "learn": {
+    "tier": 1
+  },
+  "cast": {
+    "channel_ticks" : 1,
+    "duration": 4,
+    "animation": "spell_engine:two_handed_channeling",
+    "start_sound": {
+      "id": "entity.generic.explode",
+      "randomness": 0
+    },
+    "sound": {
+      "id": "spell_engine:generic_fire_casting",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "minecraft:smoke",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 10,
+        "min_speed": 0.18,
+        "max_speed": 0.2
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 20,
+        "min_speed": 0.24,
+        "max_speed": 0.26
+      }
+    ]
+  },
+  "release": {
+
+    "custom_impact": true,
+    "target": {
+      "type": "AREA",
+      "area": {
+        "angle_degrees": 360,
+        "vertical_range_multiplier": 1
+      }
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:fire_explosion",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 2.0,
+        "min_speed": 0.3,
+        "max_speed": 0.5
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 450,
+        "min_speed": 0.6,
+        "max_speed": 0.8
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 200,
+        "min_speed": 0.4,
+        "max_speed": 0.4
+      }
+    ],
+
+    "sound": {
+      "id": "entity.generic.explode"
+    },
+  "animation": "spell_engine:one_handed_projectile_release"},
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 1.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "lava",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 50.0,
+          "min_speed": 3.0,
+          "max_speed": 18.0
+        }
+      ]
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "ADD",
+          "duration": 0.1,
+          "amplifier": 0,
+          "effect_id": "invoke:invoking"
+        },
+        "apply_to_caster": true
+      }
+    }
+  ],
+  "cost": {
+    "item_id": "runes:fire_stone",
+    "effect_id": "invoke:invoking",
+    "cooldown_duration": 2,
+    "cooldown_proportional": true
+  }
+}

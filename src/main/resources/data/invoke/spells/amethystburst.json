@@ -1,0 +1,100 @@
+{
+  "school": "ARCANE",
+  "range": 64,
+  "learn": {
+    "tier": 0
+  },
+  "cast": {
+    "duration": 1,
+    "animation": "spell_engine:one_handed_projectile_charge",
+    "sound": {
+      "id": "spell_engine:generic_arcane_casting",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:arcane_spell",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 1.0,
+        "min_speed": 0.05,
+        "max_speed": 0.1
+      }
+    ]
+  },
+  "release": {
+    "target": {
+      "type": "PROJECTILE",
+      "projectile": {
+        "velocity": 1.8,
+        "homing_angle": 3,
+        "divergence": 45,
+        "perks": {
+          "extra_launch_count": 7,
+          "extra_launch_delay": 1
+        },
+        "client_data": {
+          "travel_particles": [
+            {
+              "particle_id": "spell_engine:arcane_spell",
+              "shape": "CIRCLE",
+              "rotation": "LOOK",
+              "origin": "CENTER",
+              "count": 2.0,
+              "min_speed": 0.05,
+              "max_speed": 0.1
+            }
+          ],
+          "model_id": "wizards:projectile/arcane_missile",
+          "render": "DEEP",
+          "scale": 0.35
+        }
+      }
+    },
+    "animation": "spell_engine:one_handed_projectile_release",
+    "sound": {
+      "id": "spell_engine:generic_arcane_release"
+    }
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0.6,
+          "spell_power_coefficient": 0.3
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:arcane_hit",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 40,
+          "min_speed": 0.2,
+          "max_speed": 0.7
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_1"
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "SET",
+          "duration": 0.05,
+          "amplifier": 9,
+          "effect_id": "regeneration"
+        },
+        "apply_to_caster": true
+      }
+    }
+  ],
+  "cost": {
+    "item_id": "runes:arcane_stone",
+    "cooldown_duration": 0.5,
+    "effect_id": "invoke:invoking"
+  }
+}

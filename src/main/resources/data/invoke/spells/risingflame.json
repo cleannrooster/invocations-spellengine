@@ -1,0 +1,111 @@
+{
+  "school": "FIRE",
+  "range": 8,
+  "learn": {
+    "tier": 0
+  },
+  "cast": {
+    "duration": 4,
+    "channel_ticks" : 2,
+    "animation": "spell_engine:two_handed_channeling",
+    "sound": {
+      "id": "spell_engine:generic_fire_casting",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "minecraft:smoke",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 2,
+        "min_speed": 0.0025,
+        "max_speed": 0.03
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 4,
+        "min_speed": 0.005,
+        "max_speed": 0.05
+      }
+    ]
+  },
+  "release": {
+    "target": {
+      "type": "CURSOR"
+    },
+    "sound": {
+      "id": "spell_engine:generic_fire_release"
+    },
+    "animation": "spell_engine:one_handed_area_release"
+
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0,
+          "spell_power_coefficient": 0.9
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "minecraft:smoke",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 10,
+          "min_speed": 0.025,
+          "max_speed": 0.3
+        },
+        {
+          "particle_id": "spell_engine:flame",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 15.0,
+          "min_speed": 0.05,
+          "max_speed": 0.4
+        }
+      ]
+
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "ADD",
+          "duration": 0.2,
+          "amplifier": 0,
+          "effect_id": "invoke:invoking"
+        },
+        "apply_to_caster": true
+      },
+      "particles": [
+        {
+          "particle_id": "minecraft:smoke",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 2,
+          "min_speed": 0.0025,
+          "max_speed": 0.03
+        },
+        {
+          "particle_id": "spell_engine:flame",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 4,
+          "min_speed": 0.005,
+          "max_speed": 0.05
+        }
+      ]
+    }
+
+  ],
+  "cost": {
+    "item_id": "runes:fire_stone",
+
+    "cooldown_duration": 0.5,
+    "effect_id": "invoke:invoking"
+  }
+}
