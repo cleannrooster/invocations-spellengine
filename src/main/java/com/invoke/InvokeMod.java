@@ -68,10 +68,7 @@ import org.lwjgl.system.jemalloc.ExtentAlloc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static net.minecraft.registry.Registries.ENTITY_TYPE;
@@ -218,7 +215,7 @@ public class InvokeMod implements ModInitializer {
 				ENTITY_TYPE,
 				new Identifier(MODID, "glaciersmall"),
 				FabricEntityTypeBuilder.<GlacierSmall>create(SpawnGroup.MISC, GlacierSmall::new)
-						.dimensions(EntityDimensions.changing(0.75F, 0.75F)) // dimensions in Minecraft units of the render
+						.dimensions(EntityDimensions.changing(1.5F, 1.5F)) // dimensions in Minecraft units of the render
 						.trackRangeBlocks(128)
 						.trackedUpdateRate(1)
 						.build()
@@ -227,7 +224,7 @@ public class InvokeMod implements ModInitializer {
 				ENTITY_TYPE,
 				new Identifier(MODID, "glaciermedium"),
 				FabricEntityTypeBuilder.<GlacierSmall>create(SpawnGroup.MISC, GlacierSmall::new)
-						.dimensions(EntityDimensions.changing(1.5F, 1.5F)) // dimensions in Minecraft units of the render
+						.dimensions(EntityDimensions.changing(3.0F, 3.0F)) // dimensions in Minecraft units of the render
 						.trackRangeBlocks(128)
 						.trackedUpdateRate(1)
 						.build()
@@ -236,7 +233,7 @@ public class InvokeMod implements ModInitializer {
 				ENTITY_TYPE,
 				new Identifier(MODID, "glacierlarge"),
 				FabricEntityTypeBuilder.<GlacierSmall>create(SpawnGroup.MISC, GlacierSmall::new)
-						.dimensions(EntityDimensions.changing(3F, 3F)) // dimensions in Minecraft units of the render
+						.dimensions(EntityDimensions.changing(4.5F, 4.5F)) // dimensions in Minecraft units of the render
 						.trackRangeBlocks(128)
 						.trackedUpdateRate(1)
 						.build()
@@ -245,7 +242,7 @@ public class InvokeMod implements ModInitializer {
 				ENTITY_TYPE,
 				new Identifier(MODID, "glacierhuge"),
 				FabricEntityTypeBuilder.<GlacierSmall>create(SpawnGroup.MISC, GlacierSmall::new)
-						.dimensions(EntityDimensions.changing(4.5F, 4.5F)) // dimensions in Minecraft units of the render
+						.dimensions(EntityDimensions.changing(6.0F, 6.0F)) // dimensions in Minecraft units of the render
 						.trackRangeBlocks(128)
 						.trackedUpdateRate(1)
 						.build()
@@ -360,27 +357,8 @@ public class InvokeMod implements ModInitializer {
 					for(Entity entity : data1.targets()) {
 						data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
 
-						playerDamageInterface.resetInvoke();
-
 						SpellProjectile projectile = new SpellProjectile(data1.caster().getWorld(), data1.caster(), 0, 0, 0, SpellProjectile.Behaviour.FLY, SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")), entity, data1.impactContext(), new Spell.ProjectileData().perks);
-						if(containerFromItemStack(data1.caster().getMainHandStack()) != null) {
 
-							List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-							NbtList list = new NbtList();
-							for(String string : stringlist){
-								if(!string.contains("invoke"))
-									list.add(NbtString.of(string));
-							}
-							list.add(NbtString.of(new Identifier(MODID,"nullinvoke").toString()));
-							NbtCompound object = new NbtCompound();
-							NbtCompound object1 = data1.caster().getMainHandStack().getOrCreateNbt();
-
-							object.putBoolean("is_proxy", true);
-							object1.remove("spell_container");
-							object.put("spell_ids", list);
-							object1.put("spell_container", object);
-						}
 						playerDamageInterface.missilesAdd(projectile);
 					}
 				}
@@ -412,37 +390,13 @@ public class InvokeMod implements ModInitializer {
 				if (!data1.caster().getWorld().isClient) {
 					for(Entity entity : data1.targets()) {
 
-						playerDamageInterface.resetInvoke();
-
-						if(containerFromItemStack(data1.caster().getMainHandStack()) != null) {
-
-							List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-							NbtList list = new NbtList();
-							for(String string : stringlist){
-								if(!string.contains("invoke"))
-									list.add(NbtString.of(string));
-							}
-							list.add(NbtString.of(new Identifier(MODID,"nullinvoke").toString()));
-							NbtCompound object = new NbtCompound();
-							NbtCompound object1 = data1.caster().getMainHandStack().getOrCreateNbt();
-
-							object.putBoolean("is_proxy", true);
-							object1.remove("spell_container");
-							object.put("spell_ids", list);
-							object1.put("spell_container", object);
-						}
 						if(!playerDamageInterface.getTargets().contains(entity) && entity instanceof LivingEntity) {
 							data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
 							playerDamageInterface.glaciersAdd(entity);
 						}
 					}
 				}
-				if(data1.caster() instanceof InvokerEntity invokerEntity){
 
-
-
-				}
 			}
 			return false;
 		});
@@ -465,22 +419,28 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 			if (!data1.caster().getWorld().isClient) {
 				if(!data1.targets().isEmpty()) {
-
+					List<GlacierSmall> list2 = new ArrayList<>();
 					for (Entity target : data1.targets()) {
 						if (target instanceof GlacierSmall small) {
 							ParticleHelper.sendBatches(small,SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")).impact[0].particles);
 							List<LivingEntity> list = small.getWorld().getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class),small.getBoundingBox().stretch(1.5,1.5,1.5).expand(4),Objects::nonNull);
 							for(LivingEntity living : list){
-								living.timeUntilRegen = 0;
-								living.damage(SpellDamageSource.player(MagicSchool.FROST,data1.caster()),(float)data1.impactContext().power().randomValue());
+								SpellHelper.performImpacts(living.getWorld(),data1.caster(),living,SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),data1.impactContext());
 							}
 							small.playSound(SoundEvents.BLOCK_GLASS_BREAK,1,1);
 							small.discard();
 						}
 						else{
+							if(list2.isEmpty()) {
+								GlacierSmall newGlacier = new GlacierSmall(ICECRASH2, data1.caster().getWorld(), -1, data1.caster().getRotationVector(), data1.caster(), data1.impactContext());
+								newGlacier.setPosition(target.getX(), target.getY(), target.getZ());
+								list2.add(newGlacier);
+								data1.caster().getWorld().spawnEntity(newGlacier);
+							}
+
 							target.timeUntilRegen = 0;
 
-							target.damage(SpellDamageSource.player(MagicSchool.FROST,data1.caster()),(float)data1.impactContext().power().randomValue());
+							SpellHelper.performImpacts(target.getWorld(),data1.caster(),target,SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),data1.impactContext());
 
 						}
 					}
@@ -539,8 +499,25 @@ public class InvokeMod implements ModInitializer {
 				for(GlacierSmall glacierSmall : small){
 					List<Entity> list2 = glacierSmall.getWorld().getOtherEntities(glacierSmall,glacierSmall.getBoundingBox().stretch(1.5,1.5,1.5).expand(4,0,4));
 					ParticleHelper.sendBatches( glacierSmall, SpellRegistry.getSpell(new Identifier(MODID,"resonance")).release.particles);
+					SoundHelper.playSound(data1.caster().getWorld(),glacierSmall,SpellRegistry.getSpell(new Identifier(MODID,"resonance")).release.sound);
 					for(Entity entity : list2){
 						SpellHelper.performImpacts(entity.getWorld(), (LivingEntity) data1.caster(), entity,SpellRegistry.getSpell(new Identifier(MODID,"resonance")),data1.impactContext());
+					}
+				}
+				if(small.isEmpty()){
+					for(int ii = 0; ii < 4; ii++) {
+						int[] sign1 = {1,-1,1,-1};
+						int[] sign2 = {1,-1,-1,1};
+						Vec3d direction = data1.caster().getPos().add(sign1[ii]*2+ data1.caster().getRandom().nextDouble() * 4*sign1[ii], 0, sign2[ii]*2+data1.caster().getRandom().nextDouble() * 4*sign2[ii]);
+						Optional<BlockPos> air = BlockPos.findClosest(BlockPos.ofFloored(direction), 4, 4, pos ->
+								data1.caster().getWorld().getBlockState(pos).isSolidBlock(data1.caster().getWorld(), pos)
+										&& !data1.caster().getWorld().getBlockState(pos.add(0, 1, 0)).isSolidBlock(data1.caster().getWorld(), pos));
+						if (air.isPresent()) {
+							GlacierSmall newGlacier = new GlacierSmall(ICECRASH2, data1.caster().getWorld(), -1, data1.caster().getRotationVector(), data1.caster(), data1.impactContext());
+							newGlacier.setPosition(air.get().getX() + 0.5, air.get().getY() + 1, air.get().getZ() + 0.5);
+							newGlacier.age = 160;
+							data1.caster().getWorld().spawnEntity(newGlacier);
+						}
 					}
 				}
 			}
@@ -582,28 +559,6 @@ public class InvokeMod implements ModInitializer {
 						pearl.setVelocity(data1.caster(), data1.caster().getPitch(), data1.caster().getYaw(), 0.0f, 1.5f, 1.0f);
 						data1.caster().getWorld().spawnEntity(pearl);
 
-						if(data1.caster() instanceof InvokerEntity playerDamageInterface) {
-
-							playerDamageInterface.resetInvoke();
-
-							if (containerFromItemStack(data1.caster().getMainHandStack()) != null) {
-
-								List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-								NbtList list = new NbtList();
-								for(String string : stringlist){
-									if(!string.contains("invoke"))
-										list.add(NbtString.of(string));
-								}
-								list.add(NbtString.of(new Identifier(MODID,"nullinvoke").toString()));
-								NbtCompound object = new NbtCompound();
-								NbtCompound object1 = data1.caster().getMainHandStack().getOrCreateNbt();
-
-								object.putBoolean("is_proxy", true);
-								object1.remove("spell_container");
-								object.put("spell_ids", list);
-								object1.put("spell_container", object);								}
-							}
 						}
 					return true;
 
@@ -631,27 +586,7 @@ public class InvokeMod implements ModInitializer {
 						pearl.setVelocity(data1.caster(), data1.caster().getPitch(), data1.caster().getYaw(), 0.0f, 1.5f, 1.0f);
 						living.getWorld().spawnEntity(pearl);
 					}
-					/*if(data1.caster() instanceof InvokerEntity playerDamageInterface) {
 
-						playerDamageInterface.resetInvoke();
-
-						if (containerFromItemStack(data1.caster().getMainHandStack()) != null) {
-							List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-							NbtList list = new NbtList();
-							for(String string : stringlist){
-								if(!string.contains("invoke"))
-									list.add(NbtString.of(string));
-							}
-							list.add(NbtString.of(new Identifier(MODID,"nullinvoke").toString()));
-							NbtCompound object = new NbtCompound();
-							NbtCompound object1 = data1.caster().getMainHandStack().getOrCreateNbt();
-
-							object.putBoolean("is_proxy", true);
-							object1.remove("spell_container");
-							object.put("spell_ids", list);
-							object1.put("spell_container", object);						}
-					}*/
 				}
 			}
 			return true;
@@ -660,9 +595,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 
 				entity.InvokeAdd(1);
 				int value = entity.getInvokeValue();
@@ -699,9 +632,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 				entity.InvokeAdd(2);
 				int value = entity.getInvokeValue();
 				if(entity.getInvokeValue() < 0){
@@ -734,9 +665,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 				entity.InvokeAdd(3);
 				int value = entity.getInvokeValue();
 				if(entity.getInvokeValue() < 0){
@@ -768,9 +697,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 
 				entity.InvokeAdd(1);
 				int value = entity.getInvokeValue();
@@ -807,9 +734,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 				entity.InvokeAdd(2);
 				int value = entity.getInvokeValue();
 				if(entity.getInvokeValue() < 0){
@@ -842,9 +767,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 				entity.InvokeAdd(3);
 				int value = entity.getInvokeValue();
 				if(entity.getInvokeValue() < 0){
@@ -876,9 +799,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 				entity.InvokeAdd(1);
 				int value = entity.getInvokeValue();
 				if(entity.getInvokeValue() < 0){
@@ -911,9 +832,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 				entity.InvokeAdd(2);
 				int value = entity.getInvokeValue();
 				if(entity.getInvokeValue() < 0){
@@ -946,9 +865,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 				entity.InvokeAdd(3);
 				int value = entity.getInvokeValue();
 				if(entity.getInvokeValue() < 0){
@@ -980,9 +897,7 @@ public class InvokeMod implements ModInitializer {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
 			if(data1.caster() instanceof InvokerEntity entity) {
-				if(!data1.caster().hasStatusEffect(INVOKING)) {
-					data1.caster().addStatusEffect(new StatusEffectInstance(INVOKING, -1, 0, false, false));
-				}
+
 				int random = data1.caster().getRandom().nextInt(3);
 				String spellstring = new Identifier(InvokeMod.MODID, "nullinvoke").toString();
 				if(random == 0) {

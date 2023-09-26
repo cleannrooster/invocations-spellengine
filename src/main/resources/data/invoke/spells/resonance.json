@@ -5,7 +5,7 @@
     "tier": 0
   },
   "cast": {
-    "duration": 8,
+    "duration": 16,
     "channel_ticks": 12,
     "animation": "spell_engine:two_handed_channeling",
     "sound": {
@@ -66,8 +66,9 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 2,
-    "cooldown_proportional": true,
-    "effect_id": "invoke:invoking"
+    "cooldown_duration": 8,
+    "item_id": "runes:frost_stone",
+
+    "cooldown_proportional": true
   }
 }

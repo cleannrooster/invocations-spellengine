@@ -39,9 +39,8 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 2,
-    "item_id": "runes:arcane_stone",
-    "effect_id": "invoke:invoking"
+    "cooldown_duration": 8,
+    "item_id": "runes:arcane_stone"
 
   }
 }

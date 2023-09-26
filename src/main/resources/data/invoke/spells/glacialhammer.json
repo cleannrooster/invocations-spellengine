@@ -28,7 +28,7 @@
         "type": "DAMAGE",
         "damage": {
           "knockback": 1,
-          "spell_power_coefficient": 1
+          "spell_power_coefficient": 0.5
         }
       },
       "particles": [
@@ -36,7 +36,7 @@
           "particle_id": "spell_engine:frost_shard",
           "shape": "SPHERE",
           "origin": "CENTER",
-          "count": 450,
+          "count": 50,
           "min_speed": 0.6,
           "max_speed": 0.8
         },
@@ -44,7 +44,7 @@
           "particle_id": "spell_engine:snowflake",
           "shape": "SPHERE",
           "origin": "CENTER",
-          "count": 200,
+          "count": 20,
           "min_speed": 0.4,
           "max_speed": 0.4
         }

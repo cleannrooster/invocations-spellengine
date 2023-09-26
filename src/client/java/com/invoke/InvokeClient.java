@@ -30,10 +30,10 @@ public class InvokeClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
 		EntityRendererRegistry.register(InvokeMod.GAZEHITTER, FlyingItemEntityRenderer::new);
-		EntityRendererRegistry.register(InvokeMod.ICECRASH, context -> new GlacierRenderer<GlacierSmall>(context,2,false));
-		EntityRendererRegistry.register(InvokeMod.ICECRASH2, context -> new GlacierRenderer<GlacierSmall>(context,4,false));
-		EntityRendererRegistry.register(InvokeMod.ICECRASH3, context -> new GlacierRenderer<GlacierSmall>(context,6,false));
-		EntityRendererRegistry.register(InvokeMod.ICECRASH4, context -> new GlacierRenderer<GlacierSmall>(context,8,false));
+		EntityRendererRegistry.register(InvokeMod.ICECRASH, context -> new GlacierRenderer<GlacierSmall>(context,2,true));
+		EntityRendererRegistry.register(InvokeMod.ICECRASH2, context -> new GlacierRenderer<GlacierSmall>(context,4,true));
+		EntityRendererRegistry.register(InvokeMod.ICECRASH3, context -> new GlacierRenderer<GlacierSmall>(context,6,true));
+		EntityRendererRegistry.register(InvokeMod.ICECRASH4, context -> new GlacierRenderer<GlacierSmall>(context,8,true));
 
 		EntityModelLayerRegistry.registerModelLayer(GlacierSmallModel.LAYER_LOCATION, GlacierSmallModel::createBodyLayer);
 

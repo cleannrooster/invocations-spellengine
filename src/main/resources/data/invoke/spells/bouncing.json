@@ -80,22 +80,10 @@
       "sound": {
         "id": "spell_engine:generic_healing_impact_1"
       }
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "apply_mode": "SET",
-          "duration": 0.05,
-          "amplifier": 9,
-          "effect_id": "regeneration"
-        },
-        "apply_to_caster": true
-      }
     }
   ],
   "cost": {
     "item_id": "runes:arcane_stone",
-    "effect_id": "invoke:invoking"
+    "cooldown_duration": 8
   }
 }

@@ -85,7 +85,8 @@
   ],
   "cost": {
     "item_id": "runes:frost_stone",
-    "cooldown_duration": 0.5,
-    "effect_id": "invoke:invoking"
+    "cooldown_duration": 6,
+    "cooldown_proportional": true
+
   }
 }

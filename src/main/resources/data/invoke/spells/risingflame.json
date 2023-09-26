@@ -69,43 +69,12 @@
         }
       ]
 
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "apply_mode": "ADD",
-          "duration": 0.2,
-          "amplifier": 0,
-          "effect_id": "invoke:invoking"
-        },
-        "apply_to_caster": true
-      },
-      "particles": [
-        {
-          "particle_id": "minecraft:smoke",
-          "shape": "PIPE",
-          "origin": "FEET",
-          "count": 2,
-          "min_speed": 0.0025,
-          "max_speed": 0.03
-        },
-        {
-          "particle_id": "spell_engine:flame",
-          "shape": "PIPE",
-          "origin": "FEET",
-          "count": 4,
-          "min_speed": 0.005,
-          "max_speed": 0.05
-        }
-      ]
     }
 
   ],
   "cost": {
     "item_id": "runes:fire_stone",
 
-    "cooldown_duration": 0.5,
-    "effect_id": "invoke:invoking"
+    "cooldown_duration": 1
   }
 }

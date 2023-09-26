@@ -74,7 +74,6 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 30,
-    "effect_id": "invoke:invoking"
+    "cooldown_duration": 30
   }
 }

@@ -94,24 +94,10 @@
           "max_speed": 18.0
         }
       ]
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "apply_mode": "ADD",
-          "duration": 0.1,
-          "amplifier": 0,
-          "effect_id": "invoke:invoking"
-        },
-        "apply_to_caster": true
-      }
     }
   ],
   "cost": {
     "item_id": "runes:fire_stone",
-    "effect_id": "invoke:invoking",
-    "cooldown_duration": 2,
-    "cooldown_proportional": true
+    "cooldown_duration": 6
   }
 }

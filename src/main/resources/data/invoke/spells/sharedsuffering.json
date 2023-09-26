@@ -76,18 +76,6 @@
       "action": {
         "type": "STATUS_EFFECT",
         "status_effect": {
-          "apply_mode": "ADD",
-          "duration": 1,
-          "amplifier": 0,
-          "effect_id": "invoke:invoking"
-        },
-        "apply_to_caster": true
-      }
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
           "duration": 1,
           "amplifier": 2,
           "effect_id": "slowness",
@@ -128,7 +116,6 @@
   ],
   "cost": {
     "item_id": "runes:frost_stone",
-    "cooldown_duration": 0.5,
-    "effect_id": "invoke:invoking"
+    "cooldown_duration": 1
   }
 }

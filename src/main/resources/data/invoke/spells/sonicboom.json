@@ -69,23 +69,10 @@
           "max_speed": 0.7
         }
       ]
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "apply_mode": "ADD",
-          "duration": 0.1,
-          "amplifier": 0,
-          "effect_id": "invoke:invoking"
-        },
-        "apply_to_caster": true
-      }
     }
   ],
   "cost": {
-    "cooldown_duration": 0.5,
-    "effect_id": "invoke:invoking",
+    "cooldown_duration": 8,
     "item_id": "runes:arcane_stone"
   }
 }
