@@ -10,7 +10,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.spell_engine.entity.SpellProjectile;
-import net.spell_engine.internals.SpellCasterEntity;
 import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_power.api.MagicSchool;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,9 +23,18 @@ import java.util.List;
 
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin implements InvokerEntity {
+	int casttime = 0;
 	public int invokeValue = -1;
 	public List<SpellProjectile> magicmissiles = new ArrayList<>();
 	public List<Entity> glaciertargets = new ArrayList<>();
+
+	public int getcasttime() {
+		return casttime;
+	}
+	public int addcasttime(int value) {
+		casttime += value;
+		return casttime;
+	}
 
 	public void missilesAdd(SpellProjectile entity) {
 		magicmissiles.add(entity);
@@ -37,6 +45,10 @@ public class PlayerEntityMixin implements InvokerEntity {
 		magicmissiles = new ArrayList<>();
 	}
 
+	@Override
+	public void targetsRefresh() {
+		glaciertargets = new ArrayList<>();
+	}
 
 		@Override
 	public List<SpellProjectile> getMissiles() {

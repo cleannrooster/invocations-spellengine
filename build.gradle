@@ -77,7 +77,7 @@ dependencies {
 	// Dependencies
 	modImplementation("software.bernie.geckolib:geckolib-fabric-${project.gecko_mc_prefix}${project.gecko_lib_version_fabric}")
     modImplementation(files("run/mods/wizards-fabric-0.9.23+1.20.1.jar"))
-	modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-fabric")
+	//modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-fabric")
 	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric")
 	modImplementation("maven.modrinth:runes:${project.runes_version}-fabric")
 	// Uncomment the following line to enable the deprecated Fabric API modules.
@@ -86,6 +86,8 @@ dependencies {
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
+	modCompileOnly fileTree(dir: "run/mods", includes: ['*.jar'])
+
 	include(implementation("com.github.LlamaLad7:MixinExtras:${project.mixin_extras_version}"))
 	modImplementation("dev.emi:trinkets:${project.trinkets_version}")
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"

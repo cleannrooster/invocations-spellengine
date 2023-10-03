@@ -17,8 +17,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
-import net.spell_engine.internals.SpellCasterEntity;
 import net.spell_engine.internals.SpellRegistry;
+import net.spell_engine.internals.casting.SpellCasterEntity;
 import net.spell_power.api.attributes.SpellAttributes;
 
 import java.util.Objects;
