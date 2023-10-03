@@ -51,12 +51,11 @@ import net.spell_engine.api.loot.LootConfig;
 import net.spell_engine.api.spell.CustomSpellHandler;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.entity.SpellProjectile;
-import net.spell_engine.internals.SpellCasterEntity;
 import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.SpellRegistry;
+import net.spell_engine.internals.casting.SpellCasterEntity;
 import net.spell_engine.particle.ParticleHelper;
-import net.spell_engine.tinyconfig.ConfigManager;
 import net.spell_engine.utils.SoundHelper;
 import net.spell_engine.utils.TargetHelper;
 import net.spell_power.api.MagicSchool;
@@ -288,11 +287,11 @@ public class InvokeMod implements ModInitializer {
 						return (TargetHelper.actionAllowed(TargetHelper.TargetingMode.AREA, TargetHelper.Intent.HARMFUL, player, target2)
 						);
 					};
-					List<Entity> list = player.getWorld().getOtherEntities(player,player.getBoundingBox().expand(SpellRegistry.getSpell(new Identifier(MODID,"freezeaura")).range),selectionPredicate);
+					List<Entity> list = player.getWorld().getOtherEntities(player, player.getBoundingBox().expand(SpellRegistry.getSpell(new Identifier(MODID, "freezeaura")).range), selectionPredicate);
 					Spell spell = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "freezeaura"));
 
-					for(Entity entity :list){
-						if(!entity.isFrozen() && player instanceof SpellCasterEntity entity1 && ammoForSpell(player,spell,player.getMainHandStack()).satisfied()&& !entity1.getCooldownManager().isCoolingDown(new Identifier(InvokeMod.MODID, "freezeaura"))) {
+					for (Entity entity : list) {
+						if (!entity.isFrozen() && player instanceof SpellCasterEntity entity1 && ammoForSpell(player, spell, player.getMainHandStack()).satisfied() && !entity1.getCooldownManager().isCoolingDown(new Identifier(InvokeMod.MODID, "freezeaura"))) {
 							SpellHelper.AmmoResult ammoResult = ammoForSpell(player, spell, player.getMainHandStack());
 							if (ammoResult.ammo() != null) {
 								for (int ii = 0; ii < player.getInventory().size(); ++ii) {
@@ -311,43 +310,63 @@ public class InvokeMod implements ModInitializer {
 						}
 					}
 				}
-						if (player instanceof InvokerEntity playerDamageInterface && !playerDamageInterface.getMissiles().isEmpty() && player instanceof SpellCasterEntity antity && !Objects.equals(antity.getCurrentSpellId(), new Identifier(MODID, "magic_missile"))) {
-							SpellProjectile missile = playerDamageInterface.getMissiles().get(0);
-							Vec3d launchPoint = launchPoint(player);
-							Spell.ProjectileData projectileData = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile;
-							float velocity = projectileData.velocity;
-							float divergence = 20F;
-							missile.setVelocity(player, (float) (player.getPitch() - player.getRandom().nextFloat() * 60), (float) (player.getYaw() + player.getRandom().nextFloat() * 120D - 60), (float) player.getRoll(), velocity, divergence);
 
-							missile.setPosition(launchPoint);
-							missile.range = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).range;
-							missile.getPitch(player.getPitch());
-							missile.setYaw(player.getYaw());
-							player.getWorld().spawnEntity(missile);
-							playerDamageInterface.getMissiles().remove(playerDamageInterface.getMissiles().get(0));
+				if (player instanceof InvokerEntity playerDamageInterface && player instanceof SpellCasterEntity caster ) {
 
-						}
-						if (player instanceof InvokerEntity playerDamageInterface && !playerDamageInterface.getTargets().isEmpty() && player instanceof SpellCasterEntity antity && !Objects.equals(antity.getCurrentSpellId(), new Identifier(MODID, "upheaval"))) {
-							if (!player.getWorld().isClient) {
-								Entity missile = playerDamageInterface.getTargets().get(0);
+						if (caster.getCooldownManager().isCoolingDown(new Identifier(MODID, "magic_missile"))) {
+							float duration = SpellHelper.getCooldownDuration(player,SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")))*20;
+							int missilesleft = playerDamageInterface.getMissiles().size();
+							int coodlownleft = (int) ((1-caster.getCooldownManager().getCooldownProgress(new Identifier(MODID, "magic_missile"),1))*20+1);
+							int missilesperrelease = (int) (((float)missilesleft/(float)coodlownleft));
+							for(int iii = 0; iii < missilesperrelease; iii++) {
+								if( !playerDamageInterface.getMissiles().isEmpty()) {
+									SpellProjectile missile = playerDamageInterface.getMissiles().get(0);
+									Vec3d launchPoint = launchPoint(player);
+									Spell.ProjectileData projectileData = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile;
+									float velocity = projectileData.velocity;
+									float divergence = 20F;
+									missile.setVelocity(player, (float) (player.getPitch() - player.getRandom().nextFloat() * 60), (float) (player.getYaw() + player.getRandom().nextFloat() * 120D - 60), (float) player.getRoll(), velocity, divergence);
 
-								Optional<BlockPos> air = BlockPos.findClosest(BlockPos.ofFloored(missile.getPos()),2,2, pos ->
-										player.getWorld().getBlockState(pos).isSolidBlock(player.getWorld(),pos)
-												&& !player.getWorld().getBlockState(pos.add(0,1,0)).isSolidBlock(player.getWorld(),pos));
-								if(air.isPresent()) {
-									GlacierSmall newGlacier =
-											new GlacierSmall(ICECRASH3, player.getWorld(), -1, player.getRotationVector(), player,
-													new SpellHelper.ImpactContext(1.0F,1.0F,null,SpellPower.getSpellPower(MagicSchool.FROST,player,player.getMainHandStack()), TargetHelper.TargetingMode.AREA));
-									newGlacier.setPosition(air.get().getX()+0.5,air.get().getY()+1,air.get().getZ()+0.5);
-									player.getWorld().spawnEntity(newGlacier);
+									missile.setPosition(launchPoint);
+									missile.range = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).range;
+									missile.getPitch(player.getPitch());
+									missile.setYaw(player.getYaw());
+									player.getWorld().spawnEntity(missile);
+									playerDamageInterface.getMissiles().remove(playerDamageInterface.getMissiles().get(0));
 								}
-								playerDamageInterface.getTargets().remove(missile);
-
-
 							}
 						}
-					}
+
+						if ( !playerDamageInterface.getTargets().isEmpty() && caster.getCooldownManager().isCoolingDown(new Identifier(MODID, "upheaval"))) {
+							if (!player.getWorld().isClient) {
+								float duration = SpellHelper.getCooldownDuration(player,SpellRegistry.getSpell(new Identifier(MODID, "upheaval")))*20;
+								int missilesleft = playerDamageInterface.getTargets().size();
+								int coodlownleft = (int) ((1-caster.getCooldownManager().getCooldownProgress(new Identifier(MODID, "upheaval"),1))*20+1);
+								int missilesperrelease = (int)(((float)missilesleft/(float)coodlownleft));
+								for(int iii = 0; iii < missilesperrelease; iii++) {
+									if (!playerDamageInterface.getTargets().isEmpty()) {
+
+										Entity missile = playerDamageInterface.getTargets().get(0);
+
+										Optional<BlockPos> air = BlockPos.findClosest(BlockPos.ofFloored(missile.getPos()), 2, 2, pos ->
+												player.getWorld().getBlockState(pos).isSolidBlock(player.getWorld(), pos)
+														&& !player.getWorld().getBlockState(pos.add(0, 1, 0)).isSolidBlock(player.getWorld(), pos));
+										if (air.isPresent()) {
+											GlacierSmall newGlacier =
+													new GlacierSmall(ICECRASH3, player.getWorld(), -1, player.getRotationVector(), player,
+															new SpellHelper.ImpactContext(1.0F, 1.0F, null, SpellPower.getSpellPower(MagicSchool.FROST, player, player.getMainHandStack()), TargetHelper.TargetingMode.AREA));
+											newGlacier.setPosition(air.get().getX() + 0.5, air.get().getY() + 1, air.get().getZ() + 0.5);
+											player.getWorld().spawnEntity(newGlacier);
+										}
+										playerDamageInterface.getTargets().remove(missile);
+									}
+
+								}
+							}
+						}
 				}
+			}
+		}
 		);
 		CustomSpellHandler.register(new Identifier(MODID,"magic_missile"),(data) -> {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
@@ -355,6 +374,7 @@ public class InvokeMod implements ModInitializer {
 			if(data1.caster() instanceof InvokerEntity playerDamageInterface){
 				if (!data1.caster().getWorld().isClient) {
 					for(Entity entity : data1.targets()) {
+
 						data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
 
 						SpellProjectile projectile = new SpellProjectile(data1.caster().getWorld(), data1.caster(), 0, 0, 0, SpellProjectile.Behaviour.FLY, SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")), entity, data1.impactContext(), new Spell.ProjectileData().perks);
@@ -391,7 +411,8 @@ public class InvokeMod implements ModInitializer {
 					for(Entity entity : data1.targets()) {
 
 						if(!playerDamageInterface.getTargets().contains(entity) && entity instanceof LivingEntity) {
-							data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
+
+								data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
 							playerDamageInterface.glaciersAdd(entity);
 						}
 					}

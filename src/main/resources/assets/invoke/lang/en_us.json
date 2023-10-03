@@ -51,7 +51,7 @@
   "spell.invoke.resonance.name": "Invocation VI: Frozen Resonance",
   "spell.invoke.resonance.description": "Channel to deal {damage} frost damage in an area around you. If there are no mini-glaciers in an area around you, summon 4 of them nearby. Any mini-glaciers within a bigger area also deal this same frost damage in an area around them.",
   "spell.invoke.upheaval.name": "Invocation IV: Glacial Upheaval",
-  "spell.invoke.upheaval.description": "Channel to select as many enemies as you want. Enemies selected get one mini-glacier spawned underneath them and dealing Glacial Cascade damage.",
+  "spell.invoke.upheaval.description": "Channel to select as many enemies as you want. Enemies selected get one mini-glacier spawned underneath them, dealing Glacial Cascade damage.",
   "spell.invoke.sharedsuffering.name": "Invocation III: Shared Suffering",
   "spell.invoke.sharedsuffering.description": "Channel to deal {damage} frost DPS to a single enemy, freezing both of you. You gain increasing frost power as you channel.",
 
@@ -62,7 +62,7 @@
   "spell.invoke.enders_gaze.name": "Invocation IV: Ender's Gaze",
   "spell.invoke.enders_gaze.description": "Summon five rotating ender eyes around a target, each dealing {damage} arcane spell damage every 2/5ths of a second for 4 seconds. The eyes detach upon the death of their host, reattaching to the nearest enemy and refreshing the duration.",
   "spell.invoke.magic_missile.name": "Invocation V: Magic Missile",
-  "spell.invoke.magic_missile.description": "{damage} Arcane DPS. Channel to queue projectiles against your current target. Upon releasing, all built up projectiles will sequentially shoot out, targeting whatever you were targeting at the time they were queued. You can channel as long as you like, potentially building up an infinite amount of magic missiles.",
+  "spell.invoke.magic_missile.description": "{damage} Arcane DPS. Channel to queue projectiles against your current target. Upon releasing and while the spell is on cooldown, all built up projectiles will sequentially shoot out, targeting whatever you were targeting at the time they were queued.",
   "spell.invoke.hijack.name": "Invocation VII: Hijack",
   "spell.invoke.hijack.description": "Throw an ender pearl with your target's name on it.",
   "spell.invoke.arcaneoverdrive.name": "Invocation I: Arcane Shillelagh",
