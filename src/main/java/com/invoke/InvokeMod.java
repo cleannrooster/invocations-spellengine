@@ -314,6 +314,7 @@ public class InvokeMod implements ModInitializer {
 				if (player instanceof InvokerEntity playerDamageInterface && player instanceof SpellCasterEntity caster ) {
 
 						if (caster.getCooldownManager().isCoolingDown(new Identifier(MODID, "magic_missile"))) {
+
 							float duration = SpellHelper.getCooldownDuration(player,SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")))*20;
 							int missilesleft = playerDamageInterface.getMissiles().size();
 							int coodlownleft = (int) ((1-caster.getCooldownManager().getCooldownProgress(new Identifier(MODID, "magic_missile"),1))*20+1);
@@ -322,8 +323,8 @@ public class InvokeMod implements ModInitializer {
 								if( !playerDamageInterface.getMissiles().isEmpty()) {
 									SpellProjectile missile = playerDamageInterface.getMissiles().get(0);
 									Vec3d launchPoint = launchPoint(player);
-									Spell.ProjectileData projectileData = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile;
-									float velocity = projectileData.velocity;
+									Spell.ProjectileData projectileData = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile.projectile;
+									float velocity = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile.launch_properties.velocity;
 									float divergence = 20F;
 									missile.setVelocity(player, (float) (player.getPitch() - player.getRandom().nextFloat() * 60), (float) (player.getYaw() + player.getRandom().nextFloat() * 120D - 60), (float) player.getRoll(), velocity, divergence);
 
@@ -377,7 +378,7 @@ public class InvokeMod implements ModInitializer {
 
 						data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
 
-						SpellProjectile projectile = new SpellProjectile(data1.caster().getWorld(), data1.caster(), 0, 0, 0, SpellProjectile.Behaviour.FLY, SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")), entity, data1.impactContext(), new Spell.ProjectileData().perks);
+						SpellProjectile projectile = new SpellProjectile(data1.caster().getWorld(), data1.caster(), 0, 0, 0, SpellProjectile.Behaviour.FLY, new Identifier(MODID,"magic_missile"), entity, data1.impactContext(), new Spell.ProjectileData().perks);
 
 						playerDamageInterface.missilesAdd(projectile);
 					}
@@ -446,7 +447,7 @@ public class InvokeMod implements ModInitializer {
 							ParticleHelper.sendBatches(small,SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")).impact[0].particles);
 							List<LivingEntity> list = small.getWorld().getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class),small.getBoundingBox().stretch(1.5,1.5,1.5).expand(4),Objects::nonNull);
 							for(LivingEntity living : list){
-								SpellHelper.performImpacts(living.getWorld(),data1.caster(),living,SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),data1.impactContext());
+								SpellHelper.performImpacts(living.getWorld(),data1.caster(),living,data1.caster(),SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),data1.impactContext());
 							}
 							small.playSound(SoundEvents.BLOCK_GLASS_BREAK,1,1);
 							small.discard();
@@ -461,7 +462,7 @@ public class InvokeMod implements ModInitializer {
 
 							target.timeUntilRegen = 0;
 
-							SpellHelper.performImpacts(target.getWorld(),data1.caster(),target,SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),data1.impactContext());
+							SpellHelper.performImpacts(target.getWorld(),data1.caster(),target,data1.caster(),SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),data1.impactContext());
 
 						}
 					}
@@ -483,7 +484,7 @@ public class InvokeMod implements ModInitializer {
 							living.damage(living.getDamageSources().freeze(), 1.0f);
 
 						}
-						SpellHelper.performImpacts(data1.caster().getWorld(), (LivingEntity) data1.caster(), target, SpellRegistry.getSpell(new Identifier(MODID, "sharedsuffering")), data1.impactContext());
+						SpellHelper.performImpacts(data1.caster().getWorld(), (LivingEntity) data1.caster(), target,data1.caster(), SpellRegistry.getSpell(new Identifier(MODID, "sharedsuffering")), data1.impactContext());
 					}
 				}
 
@@ -514,7 +515,7 @@ public class InvokeMod implements ModInitializer {
 				List<Entity> list = data1.caster().getWorld().getOtherEntities(data1.caster(),data1.caster().getBoundingBox().stretch(1.5,1.5,1.5).expand(4,0,4));
 				ParticleHelper.sendBatches( data1.caster(), SpellRegistry.getSpell(new Identifier(MODID,"resonance")).release.particles);
 				for(Entity entity : list){
-					SpellHelper.performImpacts(entity.getWorld(), data1.caster(), entity,SpellRegistry.getSpell(new Identifier(MODID,"resonance")),data1.impactContext());
+					SpellHelper.performImpacts(entity.getWorld(), data1.caster(), entity,data1.caster(),SpellRegistry.getSpell(new Identifier(MODID,"resonance")),data1.impactContext());
 				}
 				List<GlacierSmall> small = data1.caster().getWorld().getEntitiesByType(TypeFilter.instanceOf(GlacierSmall.class),data1.caster().getBoundingBox().expand(SpellRegistry.getSpell(new Identifier(MODID,"resonance")).range), Objects::nonNull);
 				for(GlacierSmall glacierSmall : small){
@@ -522,7 +523,7 @@ public class InvokeMod implements ModInitializer {
 					ParticleHelper.sendBatches( glacierSmall, SpellRegistry.getSpell(new Identifier(MODID,"resonance")).release.particles);
 					SoundHelper.playSound(data1.caster().getWorld(),glacierSmall,SpellRegistry.getSpell(new Identifier(MODID,"resonance")).release.sound);
 					for(Entity entity : list2){
-						SpellHelper.performImpacts(entity.getWorld(), (LivingEntity) data1.caster(), entity,SpellRegistry.getSpell(new Identifier(MODID,"resonance")),data1.impactContext());
+						SpellHelper.performImpacts(entity.getWorld(), (LivingEntity) data1.caster(), entity,data1.caster(),SpellRegistry.getSpell(new Identifier(MODID,"resonance")),data1.impactContext());
 					}
 				}
 				if(small.isEmpty()){

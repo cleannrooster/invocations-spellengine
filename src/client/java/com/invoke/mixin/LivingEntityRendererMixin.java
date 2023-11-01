@@ -18,6 +18,7 @@ import net.spell_engine.client.render.SpellProjectileRenderer;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.SpellRegistry;
+import net.spell_engine.internals.casting.SpellCasterClient;
 import net.spell_engine.internals.casting.SpellCasterEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,8 +29,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LivingEntityRendererMixin<T extends LivingEntity> {
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     public void render(T entity, float f, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
-        if(entity instanceof SpellCasterEntity caster){
-            if(caster.getCurrentSpellId() != null && caster.getCurrentSpellId().equals(new Identifier(InvokeMod.MODID,"meteorrush"))){
+        if(entity instanceof SpellCasterClient caster){
+            if(caster.getCurrentSpell() != null && caster.getCurrentSpell().equals(SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"meteorrush")))){
                 /*Spell spell = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"greaterfireball"));
                 SpellProjectile projectile = new SpellProjectile(entity.getWorld(),entity,entity.getX(),entity.getY(),entity.getZ(), SpellProjectile.Behaviour.FLY,
                         spell,null,new SpellHelper.ImpactContext(), new Spell.ProjectileData().perks);

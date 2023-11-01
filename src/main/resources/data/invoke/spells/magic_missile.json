@@ -27,25 +27,33 @@
     "custom_impact": true,
 
     "target": {
-      "type": "CURSOR",
+      "type": "PROJECTILE",
+
+
       "projectile": {
-        "velocity": 1.2,
-        "homing_angle": 30,
-        "client_data": {
-          "travel_particles": [
-            {
-              "particle_id": "spell_engine:arcane_spell",
-              "shape": "CIRCLE",
-              "rotation": "LOOK",
-              "origin": "CENTER",
-              "count": 2.0,
-              "min_speed": 0.05,
-              "max_speed": 0.1
+        "launch_properties": {
+          "velocity": 1.2
+        },
+        "projectile": {
+          "homing_angle": 30,
+          "client_data": {
+            "travel_particles": [
+              {
+                "particle_id": "spell_engine:arcane_spell",
+                "shape": "CIRCLE",
+                "rotation": "LOOK",
+                "origin": "CENTER",
+                "count": 2.0,
+                "min_speed": 0.05,
+                "max_speed": 0.1
+              }
+            ],
+            "model": {
+              "model_id": "wizards:projectile/arcane_missile",
+              "render": "DEEP",
+              "scale": 0.5
             }
-          ],
-          "model_id": "wizards:projectile/arcane_missile",
-          "render": "DEEP",
-          "scale": 0.5
+          }
         }
       }
     },

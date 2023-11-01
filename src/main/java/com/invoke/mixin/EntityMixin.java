@@ -54,14 +54,10 @@ public class EntityMixin {
                     int i = 0;
                     List<Entity> targets = player1.getWorld().getOtherEntities(player1, player1.getBoundingBox().expand(spell.range), selectionPredicate);
 
-                    if(entity.getCurrentSpellId() != null) {
-                        LivingEntity living = (LivingEntity) entity;
-                        i = (int) (entity.getCurrentCastProgress() * SpellHelper.getCastDuration(living, SpellRegistry.getSpell(entity.getCurrentSpellId())));
-                    }
                     SpellHelper.ImpactContext context = new SpellHelper.ImpactContext(1.0F, 1.0F, (Vec3d) null, SpellPower.getSpellPower(spell.school, player1), impactTargetingMode(spell));
 
                     for (Entity target1 : targets) {
-                        SpellHelper.performImpacts(player1.getWorld(), player1, target1, SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "arcaneoverdrive")), new SpellHelper.ImpactContext());
+                        SpellHelper.performImpacts(player1.getWorld(), player1, target1,player1, SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "arcaneoverdrive")), new SpellHelper.ImpactContext());
                     }
                     ParticleHelper.sendBatches(player1, spell.release.particles);
                     SpellHelper.AmmoResult ammoResult = ammoForSpell(player1, spell, stack);

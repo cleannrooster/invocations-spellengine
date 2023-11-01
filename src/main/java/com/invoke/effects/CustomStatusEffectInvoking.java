@@ -53,14 +53,10 @@ public class CustomStatusEffectInvoking extends StatusEffect {
                 int i = 0;
                 List<Entity> targets = player1.getWorld().getOtherEntities(player1, player1.getBoundingBox().expand(spell1.range), selectionPredicate);
 
-                if(entity1.getCurrentSpellId() != null) {
-                    LivingEntity living = (LivingEntity) entity;
-                    i = (int) (entity1.getCurrentCastProgress() * SpellHelper.getCastDuration(living, SpellRegistry.getSpell(entity1.getCurrentSpellId())));
-                }
                 SpellHelper.ImpactContext context = new SpellHelper.ImpactContext(1.0F, 1.0F, (Vec3d) null, SpellPower.getSpellPower(spell1.school, player1), impactTargetingMode(spell1));
 
                 for (Entity target1 : targets) {
-                    SpellHelper.performImpacts(player1.getWorld(), player1, target1, SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "greaterfireball")), new SpellHelper.ImpactContext());
+                    SpellHelper.performImpacts(player1.getWorld(), player1, target1,player1, SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "greaterfireball")), new SpellHelper.ImpactContext());
                 }
                 ParticleHelper.sendBatches(player1, spell1.release.particles);
 

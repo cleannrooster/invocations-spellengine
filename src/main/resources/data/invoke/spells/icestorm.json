@@ -16,30 +16,35 @@
   "release": {
     "target": {
       "type": "PROJECTILE",
-      "projectile": {
-        "velocity": 4.0,
-        "homing_angle": 1.5,
-        "divergence": 15,
 
-        "perks": {
+      "projectile": {
+        "launch_properties": {
+          "velocity": 4.0,
           "extra_launch_count": 2,
           "extra_launch_delay": 1
+
         },
-        "client_data": {
-          "travel_particles": [
-            {
-              "particle_id": "spell_engine:snowflake",
-              "shape": "CIRCLE",
-              "rotation": "LOOK",
-              "origin": "CENTER",
-              "count": 2.0,
-              "min_speed": 0.05,
-              "max_speed": 0.1
+        "projectile": {
+          "homing_angle": 1.5,
+          "divergence": 15,
+          "client_data": {
+            "travel_particles": [
+              {
+                "particle_id": "spell_engine:snowflake",
+                "shape": "CIRCLE",
+                "rotation": "LOOK",
+                "origin": "CENTER",
+                "count": 2.0,
+                "min_speed": 0.05,
+                "max_speed": 0.1
+              }
+            ],
+            "model": {
+              "model_id": "wizards:projectile/frostbolt_projectile",
+              "render": "DEEP",
+              "scale": 0.6
             }
-          ],
-          "model_id": "wizards:projectile/frostbolt_projectile",
-          "render": "DEEP",
-          "scale": 0.6
+          }
         }
       },
       "area": {

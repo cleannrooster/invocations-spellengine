@@ -114,7 +114,7 @@ public class EndersGaze extends SpellProjectile implements FlyingItemEntity {
                         living.getAttributes().addTemporaryModifiers(builder.build());
 
                     target.timeUntilRegen = 0;
-                    SpellHelper.performImpacts(this.getWorld(),living2,this.target,this.spell,this.context);
+                    SpellHelper.performImpacts(this.getWorld(),living2,this.target,living2,this.spell,this.context);
                     if(target instanceof LivingEntity living)
                         living.getAttributes().removeModifiers(builder.build());
 

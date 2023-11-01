@@ -16,8 +16,12 @@
   "release": {
     "target": {
       "type": "PROJECTILE",
+
       "projectile": {
-        "velocity": 4.0,
+        "launch_properties": {
+          "velocity": 1.5
+        },
+      "projectile": {
         "homing_angle": 1.5,
         "client_data": {
           "travel_particles": [
@@ -31,10 +35,13 @@
               "max_speed": 0.1
             }
           ],
-          "model_id": "wizards:projectile/frostbolt_projectile",
-          "render": "DEEP",
-          "scale": 0.6
+          "model": {
+            "model_id": "wizards:projectile/frostbolt_projectile",
+            "render": "DEEP",
+            "scale": 0.6
+          }
         }
+      }
       },
       "area": {
         "distance_dropoff": "SQUARED",

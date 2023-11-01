@@ -25,24 +25,30 @@
   "release": {
     "target": {
       "type": "PROJECTILE",
-      "projectile": {
-        "velocity": 5.0,
-        "homing_angle": 180.0,
 
-        "client_data": {
-          "travel_particles": [
-            {
-              "particle_id": "sonic_boom",
-              "angle": "20",
-              "shape": "CONE",
-              "origin": "CENTER",
-              "count": 1,
-              "min_speed": 0,
-              "max_speed": 0
+      "projectile": {
+        "launch_properties": {
+          "velocity": 5.0
+        },
+        "projectile": {
+          "homing_angle": 180.0,
+          "client_data": {
+            "travel_particles": [
+              {
+                "particle_id": "sonic_boom",
+                "angle": "20",
+                "shape": "CONE",
+                "origin": "CENTER",
+                "count": 1,
+                "min_speed": 0,
+                "max_speed": 0
+              }
+            ],
+            "model": {
+              "model_id": "magma_block",
+              "scale": 0.01
             }
-          ],
-          "model_id": "magma_block",
-          "scale": 0.01
+          }
         }
       }
     },

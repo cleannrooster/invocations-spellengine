@@ -95,7 +95,7 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
             List<Entity> list = this.getWorld().getOtherEntities(this,this.getBoundingBox().stretch(1.5,1.5,1.5), entity -> entity != this.getOwner());
             spell.impact[0].action.damage.spell_power_coefficient *= this.getBoundingBox().getXLength()/3.0F;
             for(Entity target : list) {
-                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.spell,this.context);
+                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(),this.spell,this.context);
             }
             spell.impact[0].action.damage.spell_power_coefficient /= this.getBoundingBox().getXLength()/3.0F;
 

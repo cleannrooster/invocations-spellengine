@@ -25,31 +25,39 @@
   "release": {
     "target": {
       "type": "PROJECTILE",
+
       "projectile": {
-        "velocity": 0.9,
-        "homing_angle": 180,
-        "perks": {
-          "ricochet": 8,
-          "ricochet_range": 16,
-          "chain_reaction_size": 4,
-          "chain_reaction_triggers": 16,
-          "chain_reaction_increment": -1
+
+        "launch_properties": {
+          "velocity": 0.9
         },
-        "client_data": {
-          "travel_particles": [
-            {
-              "particle_id": "spell_engine:arcane_spell",
-              "shape": "CIRCLE",
-              "rotation": "LOOK",
-              "origin": "CENTER",
-              "count": 2.0,
-              "min_speed": 0.05,
-              "max_speed": 0.1
+        "projectile": {
+          "homing_angle": 180,
+          "perks": {
+            "ricochet": 8,
+            "ricochet_range": 16,
+            "chain_reaction_size": 4,
+            "chain_reaction_triggers": 16,
+            "chain_reaction_increment": -1
+          },
+          "client_data": {
+            "travel_particles": [
+              {
+                "particle_id": "spell_engine:arcane_spell",
+                "shape": "CIRCLE",
+                "rotation": "LOOK",
+                "origin": "CENTER",
+                "count": 2.0,
+                "min_speed": 0.05,
+                "max_speed": 0.1
+              }
+            ],
+            "model": {
+              "model_id": "wizards:projectile/arcane_missile",
+              "render": "DEEP",
+              "scale": 0.50
             }
-          ],
-          "model_id": "wizards:projectile/arcane_missile",
-          "render": "DEEP",
-          "scale": 0.50
+          }
         }
       }
     },

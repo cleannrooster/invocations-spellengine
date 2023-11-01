@@ -27,46 +27,52 @@
     "target": {
       "type": "PROJECTILE",
       "projectile": {
-        "velocity": 5.0,
-        "homing_angle": 180.0,
-        "perks": {
-          "extra_launch_count": 2,
-          "extra_launch_delay": 4,
-          "chain_reaction_size": 8,
-          "chain_reaction_triggers": 8,
-          "chain_reaction_increment": -1
+        "launch_properties": {
+          "velocity": 5.0
         },
-        "client_data": {
-          "travel_particles": [
-            {
-              "particle_id": "sonic_boom",
-              "angle": "20",
-              "shape": "CONE",
-              "origin": "CENTER",
-              "count": 1,
-              "min_speed": 0,
-              "max_speed": 0
-            },
-            {
-              "particle_id": "sculk_charge",
-              "angle": "20",
-              "shape": "CIRCLE",
-              "rotation": "LOOK",
-              "origin": "CENTER",
-              "count": 12
+        "projectile": {
+          "velocity": 5.0,
+          "homing_angle": 180.0,
+          "perks": {
+            "extra_launch_count": 2,
+            "extra_launch_delay": 4,
+            "chain_reaction_size": 8,
+            "chain_reaction_triggers": 8,
+            "chain_reaction_increment": -1
+          },
+          "client_data": {
+            "travel_particles": [
+              {
+                "particle_id": "sonic_boom",
+                "angle": "20",
+                "shape": "CONE",
+                "origin": "CENTER",
+                "count": 1,
+                "min_speed": 0,
+                "max_speed": 0
+              },
+              {
+                "particle_id": "sculk_charge",
+                "angle": "20",
+                "shape": "CIRCLE",
+                "rotation": "LOOK",
+                "origin": "CENTER",
+                "count": 12
+              },
+              {
+                "particle_id": "sculk_charge_pop",
+                "angle": "20",
+                "shape": "CIRCLE",
+                "rotation": "LOOK",
+                "origin": "CENTER",
+                "count": 12
+              }
+            ],
+            "model": {
+            "model_id": "magma_block",
+            "scale": 0.01
             }
-          ,
-            {
-              "particle_id": "sculk_charge_pop",
-              "angle": "20",
-              "shape": "CIRCLE",
-              "rotation": "LOOK",
-              "origin": "CENTER",
-              "count": 12
-            }
-          ],
-          "model_id": "magma_block",
-          "scale": 0.01
+          }
         }
       }
     },

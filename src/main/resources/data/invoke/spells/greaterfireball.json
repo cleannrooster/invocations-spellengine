@@ -25,45 +25,13 @@
   "release": {
     "target": {
       "type": "PROJECTILE",
-      "projectile": {
-        "velocity": 3,
-        "homing_angle": 1.0,
-        "area_impact": {
-          "radius": 8.0,
-          "area": {
-            "distance_dropoff": "SQUARED"
-          },
-          "particles": [
-            {
-              "particle_id": "spell_engine:fire_explosion",
-              "shape": "SPHERE",
-              "origin": "CENTER",
-              "count": 2.0,
-              "min_speed": 0.3,
-              "max_speed": 0.5
-            },
-            {
-              "particle_id": "spell_engine:flame",
-              "shape": "SPHERE",
-              "origin": "CENTER",
-              "count": 450,
-              "min_speed": 0.6,
-              "max_speed": 0.8
-            },
-            {
-              "particle_id": "spell_engine:flame",
-              "shape": "SPHERE",
-              "origin": "CENTER",
-              "count": 200,
-              "min_speed": 0.4,
-              "max_speed": 0.4
-            }
-          ],
 
-          "sound": {
-            "id": "entity.generic.explode"
-          }
+      "projectile": {
+        "launch_properties": {
+          "velocity": 3
         },
+      "projectile": {
+        "homing_angle": 1.0,
 
         "client_data": {
           "travel_particles": [
@@ -86,10 +54,13 @@
               "max_speed": 0.1
             }
           ],
-          "model_id": "wizards:projectile/fireball_projectile",
-          "render": "DEEP",
-          "scale": 2
+          "model": {
+            "model_id": "wizards:projectile/fireball_projectile",
+            "render": "DEEP",
+            "scale": 2
+          }
         }
+      }
       }
     },
     "animation": "spell_engine:one_handed_projectile_release",
@@ -117,6 +88,41 @@
       ]
     }
   ],
+  "area_impact": {
+    "radius": 8.0,
+    "area": {
+      "distance_dropoff": "SQUARED"
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:fire_explosion",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 2.0,
+        "min_speed": 0.3,
+        "max_speed": 0.5
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 450,
+        "min_speed": 0.6,
+        "max_speed": 0.8
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 200,
+        "min_speed": 0.4,
+        "max_speed": 0.4
+      }
+    ],
+    "sound": {
+      "id": "entity.generic.explode"
+    }
+  },
   "cost": {
     "item_id": "runes:fire_stone",
 

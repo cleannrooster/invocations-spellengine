@@ -18,7 +18,9 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.internals.SpellRegistry;
+import net.spell_engine.internals.casting.SpellCasterClient;
 import net.spell_engine.internals.casting.SpellCasterEntity;
+import net.spell_engine.mixin.client.ClientPlayerEntityMixin;
 import net.spell_power.api.attributes.SpellAttributes;
 
 import java.util.Objects;
@@ -57,10 +59,9 @@ public class InvokeClient implements ClientModInitializer {
 				if (SpellRegistry.getSpell(new Identifier(MODID, "meteorrush")) != null) {
 					Spell spell = SpellRegistry.getSpell(new Identifier(MODID, "meteorrush"));
 
-					if (player instanceof SpellCasterEntity caster) {
-
-						if (Objects.equals(caster.getCurrentSpellId(), new Identifier(MODID, "meteorrush"))) {
-							speed *= 0.1*(2/caster.getCurrentCastProgress()-2);
+					if (player instanceof SpellCasterClient caster) {
+						if (caster.getSpellCastProgress() != null && Objects.equals(caster.getCurrentSpell(), SpellRegistry.getSpell(new Identifier(MODID, "meteorrush")))) {
+							speed *= 0.1*(2/caster.getSpellCastProgress().ratio()-2);
 							player.setVelocity(player.getRotationVec(1).subtract(0, player.getRotationVec(1).y, 0).normalize().multiply(speed, speed * modifier, speed).add(0, player.getVelocity().y, 0));
 						}
 					}
