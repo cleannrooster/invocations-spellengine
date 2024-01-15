@@ -5,8 +5,8 @@
     "tier": 0
   },
   "cast": {
-    "duration": 8,
-    "channel_ticks" : 9,
+    "duration": 1,
+    "channel_ticks": 5,
     "animation": "spell_engine:one_handed_projectile_charge",
     "sound": {
       "id": "spell_engine:generic_fire_casting",
@@ -31,7 +31,7 @@
         "launch_properties": {
           "velocity": 0.8,
           "extra_launch_count": 2,
-          "extra_launch_delay": 8
+          "extra_launch_delay": 2
         },
         "projectile": {
           "velocity": 0.8,
@@ -116,7 +116,7 @@
         "particle_id": "lava",
         "shape": "CIRCLE",
         "origin": "CENTER",
-        "count": 90.0,
+        "count": 20.0,
         "min_speed": 1.5,
         "max_speed": 6.0
       },
@@ -124,7 +124,7 @@
         "particle_id": "flame",
         "shape": "SPHERE",
         "origin": "CENTER",
-        "count": 100.0,
+        "count": 20.0,
         "min_speed": 0.2,
         "max_speed": 0.4
       },
@@ -132,17 +132,14 @@
         "particle_id": "smoke",
         "shape": "SPHERE",
         "origin": "CENTER",
-        "count": 90.0,
+        "count": 20.0,
         "min_speed": 0.1,
         "max_speed": 0.3
       }
     ]
   },
   "cost": {
-    "item_id": "runes:fire_stone",
-    "cooldown_duration": 16,
-    "cooldown_proportional": true
-
-
+    "effect_id": "spell_power:fire",
+    "cooldown_duration": 6
   }
 }

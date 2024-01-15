@@ -3,9 +3,9 @@
 	"id": "invoke",
 	"version": "${version}",
 	"name": "Invocations Mod",
-	"description": "Invoke powerful spells, up to nine spells per spell book!",
+	"description": "Invoke powerful spells, 24 Spells in one book!",
 	"authors": [
-		"Me!"
+		"cleannrooster/Forg"
 	],
 	"contact": {
 		"homepage": "",

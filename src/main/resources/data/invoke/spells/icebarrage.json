@@ -5,13 +5,13 @@
     "tier": 1
   },
   "cast": {
-    "duration": 12,
+    "duration": 1,
     "animation": "spell_engine:two_handed_channeling",
     "sound": {
       "id": "spell_engine:generic_frost_casting",
       "randomness": 0
     },
-    "channel_ticks": 4
+    "channel_ticks": 2
   },
   "release": {
     "target": {
@@ -91,9 +91,7 @@
     }
   ],
   "cost": {
-    "item_id": "runes:frost_stone",
-    "cooldown_duration": 6,
-    "cooldown_proportional": true
-
+    "effect_id": "spell_power:frost",
+    "cooldown_duration": 6
   }
 }

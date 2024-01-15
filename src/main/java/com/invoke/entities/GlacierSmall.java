@@ -34,7 +34,7 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
     private int chain = -1;
     public Spell spell = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"glacier"));
     public SpellHelper.ImpactContext context;
-
+    public boolean nodamage = false;
     public GlacierSmall(EntityType<GlacierSmall> entityType, World level) {
         super(entityType, level);
         this.noClip = true;
@@ -91,7 +91,7 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
         if(firstUpdate && this.getOwner()!= null){
             this.setRotation(this.getOwner().getYaw(),this.getOwner().getPitch());
         }
-        if(firstUpdate && this.getOwner() != null && this.spell != null && this.context != null){
+        if( !nodamage && firstUpdate && this.getOwner() != null && this.spell != null && this.context != null){
             List<Entity> list = this.getWorld().getOtherEntities(this,this.getBoundingBox().stretch(1.5,1.5,1.5), entity -> entity != this.getOwner());
             spell.impact[0].action.damage.spell_power_coefficient *= this.getBoundingBox().getXLength()/3.0F;
             for(Entity target : list) {
@@ -161,6 +161,11 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
     public void writeCustomDataToNbt(NbtCompound compoundTag) {
         super.writeCustomDataToNbt(compoundTag);
 
+    }
+
+    @Override
+    public boolean canHit() {
+        return false;
     }
 
     @Override

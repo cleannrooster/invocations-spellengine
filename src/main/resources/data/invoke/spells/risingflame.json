@@ -5,7 +5,7 @@
     "tier": 0
   },
   "cast": {
-    "duration": 4,
+    "duration": 1,
     "channel_ticks" : 2,
     "animation": "spell_engine:two_handed_channeling",
     "sound": {
@@ -73,8 +73,7 @@
 
   ],
   "cost": {
-    "item_id": "runes:fire_stone",
-
-    "cooldown_duration": 1
+    "effect_id": "spell_power:fire",
+    "cooldown_duration": 6
   }
 }

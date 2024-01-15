@@ -18,10 +18,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.effect.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
 import net.minecraft.item.EnderPearlItem;
@@ -54,13 +51,17 @@ import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.SpellRegistry;
+import net.spell_engine.internals.casting.SpellCast;
+import net.spell_engine.internals.casting.SpellCasterClient;
 import net.spell_engine.internals.casting.SpellCasterEntity;
+import net.spell_engine.mixin.client.ClientPlayerEntityMixin;
 import net.spell_engine.particle.ParticleHelper;
 import net.spell_engine.utils.SoundHelper;
 import net.spell_engine.utils.TargetHelper;
 import net.spell_power.api.MagicSchool;
 import net.spell_power.api.SpellDamageSource;
 import net.spell_power.api.SpellPower;
+import net.spell_power.api.attributes.SpellAttributes;
 import net.spell_power.api.statuseffects.StatusEffects_SpellPower;
 import net.spell_power.internals.SpellStatusEffect;
 import org.lwjgl.system.jemalloc.ExtentAlloc;
@@ -93,6 +94,32 @@ public class InvokeMod implements ModInitializer {
 			"combustion",
 			"armageddon"
 	};
+	private static final String[] ARCANE3FIRE1 = {
+			"scorchingwind",
+			"magic_missile",
+			"blink",
+			"sonicboom"
+	};
+	private static final String[] PUREARCANE = {
+			"sonicboom",
+			"magic_missile",
+			"enders_gaze",
+			"agonizingblast",
+
+	};
+	private static final String[] ARCANE3FIRE2 = {
+
+			"meteorrush",
+			"amethystburst",
+			"sharedsuffering",
+			"upheaval",
+	};
+	private static final String[] ARCANE3FIRE3 = {
+			"supernova",
+			"meteorrush",
+			"buckshot",
+			"amethystburst",
+	};
 	private static final String[] ARCANE_INVOKER_LIST = {
 			"arcaneoverdrive",
 			"blink",
@@ -104,6 +131,7 @@ public class InvokeMod implements ModInitializer {
 			"bouncing",
 			"agonizingblast"
 	};
+
 	private static final String[] FROST_INVOKER_LIST = {
 			"glacialhammer",
 			"icebarrage",
@@ -115,7 +143,64 @@ public class InvokeMod implements ModInitializer {
 			"freezeaura",
 			"deathchill"
 	};
+	private static final String[] PUREFROST = {
+			"resonance",
+			"glacialhammer",
+			"icebarrage",
+			"icestorm",
+	};
+	private static final String[] FROST3ARCANE1 = {
 
+			"glacier",
+			"icebarrage",
+			"magic_missile",
+			"bouncing",
+	};
+	private static final String[] FROST3ARCANE2 = {
+			"icebarrage",
+			"glacier",
+			"icestorm",
+			"resonance"
+
+	};
+	private static final String[] FROST3ARCANE3 = {
+			"upheaval",
+			"icestorm",
+			"amethystburst",
+			"supernova"
+	};
+	private static final String[] PUREFIRE = {
+
+			"greaterfireball",
+			"combustion",
+			"risingflame",
+			"supernova",
+	};
+	private static final String[] FIRE3ARCANE1 = {
+
+			"flameray",
+			"greaterfireball",
+			"meteorrush",
+			"armageddon",
+
+	};
+	private static final String[] FIRE3ARCANE2 = {
+
+			"hijack",
+			"bouncing",
+			"buckshot",
+			"magic_missile"
+	};
+	private static final String[] FIRE3ARCANE3 = {
+			"sonicboom",
+			"agonizingblast",
+			"amethystburst",
+			"supernova"
+	};
+	private static final String[][][] TOTAL_LIST = {{PUREARCANE,FROST3ARCANE2,FROST3ARCANE1 , PUREFROST},
+			{ARCANE3FIRE1,FROST3ARCANE1,FROST3ARCANE3,PUREARCANE},
+			{ARCANE3FIRE2,FIRE3ARCANE3, FROST3ARCANE2, ARCANE3FIRE2},
+			{PUREFIRE, FIRE3ARCANE2, FIRE3ARCANE2, FIRE3ARCANE1}};
 	private static final String[] FULL_LIST = {
 			"risingflame",
 			"flameray",
@@ -183,7 +268,7 @@ public class InvokeMod implements ModInitializer {
 		Registry.register(Registries.STATUS_EFFECT, rawId++, new Identifier(MODID, "flamerush").toString(), FLAMERUSH);
 		Registry.register(Registries.STATUS_EFFECT, rawId++, new Identifier(MODID, "freezeaura").toString(), FREEZEAURA);
 
-		SpellBookItem book = SpellBooks.create(new Identifier(MODID,"arcaneinvoker"));
+		SpellBookItem book = SpellBooks.create(new Identifier(MODID,"invoker"));
 		Item nullrune = new Item(new FabricItemSettings());
 		ItemGroupEvents.modifyEntriesEvent(KEY).register((content) -> {
 			content.add(nullrune);
@@ -206,10 +291,8 @@ public class InvokeMod implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(KEY).register((content) -> {
 			content.add(book);
 		});
-		Registry.register(Registries.ITEM,new Identifier(MODID,"arcaneinvoker_spell_book"),book);
-		SpellBooks.createAndRegister(new Identifier(MODID,"fireinvoker"),KEY);
-		SpellBooks.createAndRegister(new Identifier(MODID,"frostinvoker"),KEY);
-		SpellBooks.createAndRegister(new Identifier(MODID,"wildinvoker"),KEY);
+		Registry.register(Registries.ITEM,new Identifier(MODID,"invoker_spell_book"),book);
+		//SpellBooks.createAndRegister(new Identifier(MODID,"wildinvoker"),KEY);
 		ICECRASH = Registry.register(
 				ENTITY_TYPE,
 				new Identifier(MODID, "glaciersmall"),
@@ -247,28 +330,17 @@ public class InvokeMod implements ModInitializer {
 						.build()
 		);
 		LOGGER.info("Hello Fabric world!");
-		CustomSpellHandler.register(new Identifier(MODID,"nullinvoke"), (data) ->{
+
+		CustomSpellHandler.register(new Identifier(MODID,"runicinvocation"), (data) ->{
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
-			if(data1.caster() instanceof InvokerEntity entity) {
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-				String spellstring = new Identifier(InvokeMod.MODID, "nullinvoke").toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-						list.add(NbtString.of(string));
-				}
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				object1.remove("spell_container");
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
+			if(data1.caster() instanceof InvokerEntity entity && data1.caster() instanceof SpellCasterEntity caster) {
 
-				object.put("spell_ids", list);
-				object1.put("spell_container", object);
-
-
+				//SpellHelper.startCasting(data1.caster(),new Identifier(MODID,TOTAL_LIST[combination[0]][combination[1]][combination[2]]),1.0F,(int)Math.ceil(spell.cast.duration*20));
+				return false;
 			}
-			return true;
+			return false;
+
 		});
 		GAZEHITTER = Registry.register(
 				ENTITY_TYPE,
@@ -282,69 +354,32 @@ public class InvokeMod implements ModInitializer {
 
 		ServerTickEvents.START_SERVER_TICK.register(server -> {
 			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-				if (player.hasStatusEffect(FREEZEAURA)) {
-					Predicate<Entity> selectionPredicate = (target2) -> {
-						return (TargetHelper.actionAllowed(TargetHelper.TargetingMode.AREA, TargetHelper.Intent.HARMFUL, player, target2)
-						);
-					};
-					List<Entity> list = player.getWorld().getOtherEntities(player, player.getBoundingBox().expand(SpellRegistry.getSpell(new Identifier(MODID, "freezeaura")).range), selectionPredicate);
-					Spell spell = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "freezeaura"));
-
-					for (Entity entity : list) {
-						if (!entity.isFrozen() && player instanceof SpellCasterEntity entity1 && ammoForSpell(player, spell, player.getMainHandStack()).satisfied() && !entity1.getCooldownManager().isCoolingDown(new Identifier(InvokeMod.MODID, "freezeaura"))) {
-							SpellHelper.AmmoResult ammoResult = ammoForSpell(player, spell, player.getMainHandStack());
-							if (ammoResult.ammo() != null) {
-								for (int ii = 0; ii < player.getInventory().size(); ++ii) {
-									ItemStack stack1 = player.getInventory().getStack(ii);
-									if (stack1.isOf(ammoResult.ammo().getItem())) {
-										stack1.decrement(1);
-										if (stack1.isEmpty()) {
-											player.getInventory().removeOne(stack1);
-										}
-										break;
-									}
-								}
-							}
-							entity.setFrozenTicks(999);
-
-						}
-					}
-				}
 
 				if (player instanceof InvokerEntity playerDamageInterface && player instanceof SpellCasterEntity caster ) {
 
-						if (caster.getCooldownManager().isCoolingDown(new Identifier(MODID, "magic_missile"))) {
+						if (caster.getCurrentSpell() == null) {
 
 							float duration = SpellHelper.getCooldownDuration(player,SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")))*20;
-							int missilesleft = playerDamageInterface.getMissiles().size();
-							int coodlownleft = (int) ((1-caster.getCooldownManager().getCooldownProgress(new Identifier(MODID, "magic_missile"),1))*20+1);
-							int missilesperrelease = (int) (((float)missilesleft/(float)coodlownleft));
-							for(int iii = 0; iii < missilesperrelease; iii++) {
-								if( !playerDamageInterface.getMissiles().isEmpty()) {
-									SpellProjectile missile = playerDamageInterface.getMissiles().get(0);
-									Vec3d launchPoint = launchPoint(player);
-									Spell.ProjectileData projectileData = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile.projectile;
-									float velocity = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile.launch_properties.velocity;
-									float divergence = 20F;
-									missile.setVelocity(player, (float) (player.getPitch() - player.getRandom().nextFloat() * 60), (float) (player.getYaw() + player.getRandom().nextFloat() * 120D - 60), (float) player.getRoll(), velocity, divergence);
 
-									missile.setPosition(launchPoint);
-									missile.range = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).range;
-									missile.getPitch(player.getPitch());
-									missile.setYaw(player.getYaw());
-									player.getWorld().spawnEntity(missile);
-									playerDamageInterface.getMissiles().remove(playerDamageInterface.getMissiles().get(0));
-								}
+							if( !playerDamageInterface.getMissiles().isEmpty()) {
+								SpellProjectile missile = playerDamageInterface.getMissiles().get(0);
+								Vec3d launchPoint = launchPoint(player);
+								Spell.ProjectileData projectileData = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile.projectile;
+								float velocity = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).release.target.projectile.launch_properties.velocity;
+								float divergence = 20F;
+								missile.setVelocity(player, (float) (player.getPitch() - player.getRandom().nextFloat() * 60), (float) (player.getYaw() + player.getRandom().nextFloat() * 120D - 60), (float) player.getRoll(), velocity, divergence);
+
+								missile.setPosition(launchPoint);
+								missile.range = SpellRegistry.getSpell(new Identifier(MODID, "magic_missile")).range;
+								missile.getPitch(player.getPitch());
+								missile.setYaw(player.getYaw());
+								player.getWorld().spawnEntity(missile);
+								playerDamageInterface.getMissiles().remove(playerDamageInterface.getMissiles().get(0));
 							}
 						}
 
-						if ( !playerDamageInterface.getTargets().isEmpty() && caster.getCooldownManager().isCoolingDown(new Identifier(MODID, "upheaval"))) {
+						if (caster.getCurrentSpell() == null) {
 							if (!player.getWorld().isClient) {
-								float duration = SpellHelper.getCooldownDuration(player,SpellRegistry.getSpell(new Identifier(MODID, "upheaval")))*20;
-								int missilesleft = playerDamageInterface.getTargets().size();
-								int coodlownleft = (int) ((1-caster.getCooldownManager().getCooldownProgress(new Identifier(MODID, "upheaval"),1))*20+1);
-								int missilesperrelease = (int)(((float)missilesleft/(float)coodlownleft));
-								for(int iii = 0; iii < missilesperrelease; iii++) {
 									if (!playerDamageInterface.getTargets().isEmpty()) {
 
 										Entity missile = playerDamageInterface.getTargets().get(0);
@@ -363,7 +398,7 @@ public class InvokeMod implements ModInitializer {
 									}
 
 								}
-							}
+
 						}
 				}
 			}
@@ -436,6 +471,29 @@ public class InvokeMod implements ModInitializer {
 
 			}
 			return true;
+		});
+		CustomSpellHandler.register(new Identifier(MODID,"heo"),(data) -> {
+			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
+			if (!data1.caster().getWorld().isClient) {
+				if(!data1.targets().isEmpty()) {
+					List<GlacierSmall> list2 = new ArrayList<>();
+					for (Entity target : data1.targets()) {
+
+							GlacierSmall newGlacier = new GlacierSmall(ICECRASH2, data1.caster().getWorld(), -1, data1.caster().getRotationVector(), data1.caster(), data1.impactContext());
+							newGlacier.setPosition(target.getX(), target.getY(), target.getZ());
+							newGlacier.spell = SpellRegistry.getSpell(new Identifier(MODID,"heo"));
+							newGlacier.nodamage = true;
+							list2.add(newGlacier);
+							data1.caster().getWorld().spawnEntity(newGlacier);
+							target.timeUntilRegen = 0;
+						SpellHelper.performImpacts(data1.caster().getWorld(), data1.caster(), target, data1.caster(), SpellRegistry.getSpell(new Identifier(MODID,"heo")),data1.impactContext());
+
+					}
+					return true;
+				}
+
+			}
+			return false;
 		});
 		CustomSpellHandler.register(new Identifier(MODID,"glacialhammer"),(data) -> {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
@@ -613,353 +671,6 @@ public class InvokeMod implements ModInitializer {
 			}
 			return true;
 		});
-		CustomSpellHandler.register(new Identifier(MODID,"onefrost"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-
-				entity.InvokeAdd(1);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-
-
-
-				String spellstring = new Identifier(InvokeMod.MODID, FROST_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"twofrost"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-				entity.InvokeAdd(2);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-				String spellstring = new Identifier(InvokeMod.MODID, FROST_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"threefrost"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-				entity.InvokeAdd(3);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-				String spellstring = new Identifier(InvokeMod.MODID, FROST_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"onefire"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-
-				entity.InvokeAdd(1);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-
-
-
-				String spellstring = new Identifier(InvokeMod.MODID, FIRE_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"twofire"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-				entity.InvokeAdd(2);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-				String spellstring = new Identifier(InvokeMod.MODID, FIRE_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"threefire"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-				entity.InvokeAdd(3);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-				String spellstring = new Identifier(InvokeMod.MODID, FIRE_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"onearcane"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-				entity.InvokeAdd(1);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-				String spellstring = new Identifier(InvokeMod.MODID, ARCANE_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"twoarcane"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-				entity.InvokeAdd(2);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-				String spellstring = new Identifier(InvokeMod.MODID, ARCANE_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"threearcane"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-				entity.InvokeAdd(3);
-				int value = entity.getInvokeValue();
-				if(entity.getInvokeValue() < 0){
-					value = 0;
-				}
-				else if (entity.getInvokeValue() > 8){
-					value = 8;
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-				String spellstring = new Identifier(InvokeMod.MODID, ARCANE_INVOKER_LIST[value]).toString();
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke"))
-
-						list.add(NbtString.of(string));
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-			}
-			return true;
-		});
-		CustomSpellHandler.register(new Identifier(MODID,"wild"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity entity) {
-
-				int random = data1.caster().getRandom().nextInt(3);
-				String spellstring = new Identifier(InvokeMod.MODID, "nullinvoke").toString();
-				if(random == 0) {
-					spellstring = new Identifier(InvokeMod.MODID, ARCANE_INVOKER_LIST[data1.caster().getRandom().nextInt(9)]).toString();
-					ParticleHelper.sendBatches(data1.caster(), SpellRegistry.getSpell(new Identifier(MODID, "twoarcane")).release.particles);
-
-					SoundHelper.playSound(data1.caster().getWorld(),data1.caster(),SpellRegistry.getSpell(new Identifier(MODID, "twoarcane")).release.sound);
-
-				}
-				if(random == 1) {
-					spellstring = new Identifier(InvokeMod.MODID, FIRE_INVOKER_LIST[data1.caster().getRandom().nextInt(9)]).toString();
-					ParticleHelper.sendBatches(data1.caster(), SpellRegistry.getSpell(new Identifier(MODID, "twofire")).release.particles);
-
-					SoundHelper.playSound(data1.caster().getWorld(), data1.caster(), SpellRegistry.getSpell(new Identifier(MODID, "twofire")).release.sound);
-
-				}
-				if(random == 2) {
-					spellstring = new Identifier(InvokeMod.MODID, FROST_INVOKER_LIST[data1.caster().getRandom().nextInt(9)]).toString();
-					ParticleHelper.sendBatches(data1.caster(), SpellRegistry.getSpell(new Identifier(MODID, "twofrost")).release.particles);
-
-					SoundHelper.playSound(data1.caster().getWorld(), data1.caster(), SpellRegistry.getSpell(new Identifier(MODID, "twofrost")).release.sound);
-
-				}
-				List<String> stringlist = containerFromItemStack(data1.caster().getMainHandStack()).spell_ids;
-
-				NbtList list = new NbtList();
-				for(String string : stringlist){
-					if(!string.contains("invoke")) {
-						list.add(NbtString.of(string));
-					}
-				}
-				list.add(NbtString.of(spellstring));
-				NbtCompound object1 = data1.itemStack().getOrCreateNbt();
-				NbtCompound object = new NbtCompound();
-				object.putBoolean("is_proxy", true);
-
-				object.put("spell_ids", list);
-				object1.put("spell_container",object);
-			}
-			return false;
-		});
 	}
 }

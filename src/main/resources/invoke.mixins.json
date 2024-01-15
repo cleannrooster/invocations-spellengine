@@ -4,7 +4,8 @@
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
 		"PlayerEntityMixin",
-		"EntityMixin"
+		"EntityMixin",
+		"SpellCastMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

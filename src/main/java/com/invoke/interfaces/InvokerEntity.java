@@ -7,8 +7,8 @@ import net.spell_engine.particle.ParticleHelper;
 import java.util.List;
 
 public interface InvokerEntity{
-      void InvokeAdd(int value);
-      int getInvokeValue();
+      void InvokeSet(int value, int which);
+      int[] getInvokeValue();
       int getcasttime();
       int addcasttime(int value);
 

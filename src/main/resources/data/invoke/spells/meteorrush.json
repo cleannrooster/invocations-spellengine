@@ -6,7 +6,7 @@
   },
   "cast": {
     "channel_ticks" : 1,
-    "duration": 4,
+    "duration": 2,
     "animation": "spell_engine:two_handed_channeling",
     "start_sound": {
       "id": "entity.generic.explode",
@@ -97,7 +97,7 @@
     }
   ],
   "cost": {
-    "item_id": "runes:fire_stone",
+    "effect_id": "spell_power:fire",
     "cooldown_duration": 6
   }
 }

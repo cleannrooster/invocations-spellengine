@@ -95,9 +95,7 @@
     }
   ],
   "cost": {
-    "item_id": "runes:fire_stone",
-
-    "cooldown_duration": 1
-
+    "effect_id": "spell_power:fire",
+    "cooldown_duration": 6
   }
 }

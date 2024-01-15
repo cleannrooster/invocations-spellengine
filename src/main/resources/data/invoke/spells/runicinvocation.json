@@ -5,7 +5,8 @@
     "tier": 1
   },
   "cast": {
-    "duration": 0,
+    "duration": 1,
+    "channel_ticks" : 1,
     "animation": "spell_engine:two_handed_channeling"
   },
   "release": {
@@ -16,21 +17,8 @@
         "angle_degrees": 90,
         "vertical_range_multiplier": 1
       }
-    },
-    "particles": [
-      {
-        "particle_id": "cloud",
-        "shape": "CIRCLE",
-        "origin": "CENTER",
-        "count": 130.0,
-        "min_speed": 0.5,
-        "max_speed": 0.9
-      }
-    ],
-    "sound": {
-      "id": "minecraft:entity.player.attack.knockback"
-    },
-    "animation": "spell_engine:one_handed_projectile_release"},
+    }
+  },
   "impact": [
     {
       "action": {
@@ -43,6 +31,6 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 1
+    "cooldown_duration": 6
   }
 }

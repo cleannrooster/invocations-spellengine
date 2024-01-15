@@ -43,7 +43,7 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 2,
-    "cooldown_proportional": true
+    "effect_id": "spell_power:fire",
+    "cooldown_duration": 6
   }
 }

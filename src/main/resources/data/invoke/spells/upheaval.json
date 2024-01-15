@@ -5,7 +5,7 @@
     "tier": 0
   },
   "cast": {
-    "duration": 999,
+    "duration": 1,
     "channel_ticks": 1,
     "animation": "spell_engine:one_handed_projectile_charge",
     "sound": {
@@ -62,7 +62,7 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 2,
-    "item_id": "runes:frost_stone"
+    "effect_id": "spell_power:frost",
+    "cooldown_duration": 6
   }
 }

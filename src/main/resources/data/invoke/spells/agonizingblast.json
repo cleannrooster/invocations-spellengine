@@ -28,14 +28,14 @@
       "type": "PROJECTILE",
       "projectile": {
         "launch_properties": {
-          "velocity": 5.0
+          "velocity": 5.0,
+          "extra_launch_count": 2,
+          "extra_launch_delay": 4
         },
         "projectile": {
           "velocity": 5.0,
           "homing_angle": 180.0,
           "perks": {
-            "extra_launch_count": 2,
-            "extra_launch_delay": 4,
             "chain_reaction_size": 8,
             "chain_reaction_triggers": 8,
             "chain_reaction_increment": -1
@@ -57,7 +57,7 @@
                 "shape": "CIRCLE",
                 "rotation": "LOOK",
                 "origin": "CENTER",
-                "count": 12
+                "count": 4
               },
               {
                 "particle_id": "sculk_charge_pop",
@@ -65,7 +65,7 @@
                 "shape": "CIRCLE",
                 "rotation": "LOOK",
                 "origin": "CENTER",
-                "count": 12
+                "count": 4
               }
             ],
             "model": {
@@ -103,8 +103,8 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 16,
-    "item_id": "runes:arcane_stone"
+    "effect_id": "spell_power:arcane",
+    "cooldown_duration": 6
 
   }
 }

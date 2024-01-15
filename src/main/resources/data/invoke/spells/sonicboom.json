@@ -78,7 +78,7 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 8,
-    "item_id": "runes:arcane_stone"
+    "effect_id": "spell_power:arcane",
+    "cooldown_duration": 6
   }
 }

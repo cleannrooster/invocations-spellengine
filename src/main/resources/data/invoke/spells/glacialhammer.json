@@ -52,6 +52,7 @@
     }
   ],
   "cost": {
-    "cooldown_duration": 1
+    "effect_id": "spell_power:frost",
+    "cooldown_duration": 6
   }
 }

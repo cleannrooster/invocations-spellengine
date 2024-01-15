@@ -57,7 +57,7 @@
           "model": {
             "model_id": "wizards:projectile/fireball_projectile",
             "render": "DEEP",
-            "scale": 2
+            "scale": 3
           }
         }
       }
@@ -124,9 +124,7 @@
     }
   },
   "cost": {
-    "item_id": "runes:fire_stone",
-
+    "effect_id": "spell_power:fire",
     "cooldown_duration": 6
-
   }
 }

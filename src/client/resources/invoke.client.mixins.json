@@ -3,7 +3,8 @@
   "package": "com.invoke.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "LivingEntityRendererMixin"
+    "LivingEntityRendererMixin",
+    "SpellRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

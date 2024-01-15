@@ -24,7 +24,7 @@ import java.util.List;
 @Mixin(PlayerEntity.class)
 public class PlayerEntityMixin implements InvokerEntity {
 	int casttime = 0;
-	public int invokeValue = -1;
+	public int[] invokeValue = {0,0,0};
 	public List<SpellProjectile> magicmissiles = new ArrayList<>();
 	public List<Entity> glaciertargets = new ArrayList<>();
 
@@ -88,17 +88,19 @@ public class PlayerEntityMixin implements InvokerEntity {
 	}*/
 
 	@Override
-	public void InvokeAdd(int value) {
-		invokeValue += value;
+	public void InvokeSet(int value, int which) {
+		invokeValue[which] = value;
 	}
 
 	@Override
-	public int getInvokeValue() {
-		return invokeValue % 9;
+	public int[] getInvokeValue() {
+		return invokeValue;
 	}
 	@Override
 	public void resetInvoke() {
-		invokeValue = -1;
+		invokeValue[0] = 0;
+		invokeValue[1] = 0;
+		invokeValue[2] = 0;
 	}
 
 }
