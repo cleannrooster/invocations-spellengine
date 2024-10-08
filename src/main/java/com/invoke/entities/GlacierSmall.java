@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.SpellInfo;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.SpellRegistry;
@@ -28,13 +29,16 @@ import net.spell_engine.utils.SoundHelper;
 import java.util.List;
 import java.util.Optional;
 
+import static com.invoke.InvokeMod.MODID;
+
 public class GlacierSmall extends ExplosiveProjectileEntity {
 
     private  Vec3d direction = new Vec3d(0,1,0);
     private int chain = -1;
-    public Spell spell = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"glacier"));
+    public Spell spell = SpellRegistry.getSpell(new Identifier(MODID,"glacier"));
     public SpellHelper.ImpactContext context;
     public boolean nodamage = false;
+    public int lastresonance = 0;
     public GlacierSmall(EntityType<GlacierSmall> entityType, World level) {
         super(entityType, level);
         this.noClip = true;
@@ -95,7 +99,9 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
             List<Entity> list = this.getWorld().getOtherEntities(this,this.getBoundingBox().stretch(1.5,1.5,1.5), entity -> entity != this.getOwner());
             spell.impact[0].action.damage.spell_power_coefficient *= this.getBoundingBox().getXLength()/3.0F;
             for(Entity target : list) {
-                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(),this.spell,this.context);
+                SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"glacier")),new Identifier(MODID,"glacier"));
+
+                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(),info,this.context);
             }
             spell.impact[0].action.damage.spell_power_coefficient /= this.getBoundingBox().getXLength()/3.0F;
 
@@ -140,6 +146,9 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
             this.discard();
         }
         this.firstUpdate = false;
+        if(this.lastresonance > 0){
+            lastresonance--;
+        }
     }
 
     @Override

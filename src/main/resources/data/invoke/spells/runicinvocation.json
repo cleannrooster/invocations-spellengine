@@ -1,11 +1,13 @@
 {
   "school": "PHYSICAL_MELEE",
+  "group": "primary",
   "range": 3,
   "learn": {
     "tier": 1
   },
   "cast": {
     "duration": 1,
+    "haste_affected": false,
     "channel_ticks" : 1,
     "animation": "spell_engine:two_handed_channeling"
   },
@@ -25,12 +27,12 @@
         "type": "DAMAGE",
         "damage": {
           "knockback": 1,
-          "spell_power_coefficient": 2
+          "spell_power_coefficient": 0.01
         }
       }
     }
   ],
   "cost": {
-    "cooldown_duration": 6
+    "cooldown_duration": 4
   }
 }

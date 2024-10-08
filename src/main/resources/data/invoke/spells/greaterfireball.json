@@ -107,14 +107,40 @@
         "shape": "SPHERE",
         "origin": "CENTER",
         "count": 450,
-        "min_speed": 0.6,
+        "min_speed": 0.7,
         "max_speed": 0.8
       },
       {
-        "particle_id": "spell_engine:flame",
+        "particle_id": "spell_engine:flame_medium_a",
         "shape": "SPHERE",
         "origin": "CENTER",
-        "count": 200,
+        "count": 450,
+        "min_speed": 0.7,
+        "max_speed": 0.8
+      }
+    ,
+      {
+        "particle_id": "spell_engine:flame_medium_b",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 450,
+        "min_speed": 0.7,
+        "max_speed": 0.8
+      },
+      {
+        "particle_id": "spell_engine:flame_medium_a",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 150,
+        "min_speed": 0.4,
+        "max_speed": 0.4
+      }
+    ,
+      {
+        "particle_id": "spell_engine:flame_medium_b",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 150,
         "min_speed": 0.4,
         "max_speed": 0.4
       }
@@ -125,6 +151,6 @@
   },
   "cost": {
     "effect_id": "spell_power:fire",
-    "cooldown_duration": 6
+    "cooldown_duration": 1
   }
 }

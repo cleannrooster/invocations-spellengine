@@ -59,7 +59,7 @@
   "spell.invoke.icebarrage.name": "Ice Barrage",
   "spell.invoke.icebarrage.description": "Channel to release a  barrage of frostbolts, dealing {damage} frost dps.",
   "spell.invoke.resonance.name": "Frozen Resonance",
-  "spell.invoke.resonance.description": "Channel to deal {damage} frost damage in an area around you. If there are no mini-glaciers in an area around you, summon 4 of them nearby. Any mini-glaciers within a bigger area also deal this same frost damage in an area around them.",
+  "spell.invoke.resonance.description": "Channel to deal {damage} frost damage in an area around you 5 times a second. One mini-glacier within a bigger area will also deal this same frost damage in an area around it. If there are no mini-glaciers in an area around you, four of them will be summoned nearby.",
   "spell.invoke.upheaval.name": "Glacial Upheaval",
   "spell.invoke.upheaval.description": "Channel to select as many enemies as you want. Enemies selected get one mini-glacier spawned underneath them, dealing Glacial Cascade damage.",
   "spell.invoke.sharedsuffering.name": "Shared Suffering",

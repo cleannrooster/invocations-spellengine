@@ -103,6 +103,6 @@
   ],
   "cost": {
     "item_id": "runes:fire_stone",
-    "cooldown_duration": 0.5
+    "cooldown_duration": 0.6
   }
 }

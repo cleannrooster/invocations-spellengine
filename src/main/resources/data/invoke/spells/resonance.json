@@ -5,7 +5,8 @@
     "tier": 0
   },
   "cast": {
-    "duration": 1,
+    "duration": 3,
+    "haste_affected": false,
     "channel_ticks": 4,
     "animation": "spell_engine:two_handed_channeling",
     "sound": {
@@ -60,13 +61,13 @@
         "type": "DAMAGE",
         "damage": {
           "knockback": 1,
-          "spell_power_coefficient": 1
+          "spell_power_coefficient": 0.4
         }
       }
     }
   ],
   "cost": {
     "effect_id": "spell_power:frost",
-    "cooldown_duration": 6
+    "cooldown_duration": 1
   }
 }

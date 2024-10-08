@@ -11,7 +11,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellContainerHelper;
-import net.spell_power.api.MagicSchool;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

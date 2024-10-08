@@ -35,7 +35,7 @@
 		"java": ">=17",
 		"fabric-api": "*",
 		"wizards": ">=0.9.23",
-		"spell_engine": ">=0.12.0"
+		"spell_engine": ">=0.14.1"
 
 	},
 	"suggests": {

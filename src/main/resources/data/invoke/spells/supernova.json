@@ -103,6 +103,6 @@
   ],
   "cost": {
     "effect_id": "spell_power:fire",
-    "cooldown_duration": 6
+    "cooldown_duration": 1
   }
 }

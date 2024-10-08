@@ -17,6 +17,7 @@ import net.minecraft.nbt.NbtString;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.SpellInfo;
 import net.spell_engine.internals.*;
 import net.spell_engine.internals.casting.SpellCasterEntity;
 import net.spell_engine.particle.ParticleHelper;
@@ -54,9 +55,10 @@ public class CustomStatusEffectInvoking extends StatusEffect {
                 List<Entity> targets = player1.getWorld().getOtherEntities(player1, player1.getBoundingBox().expand(spell1.range), selectionPredicate);
 
                 SpellHelper.ImpactContext context = new SpellHelper.ImpactContext(1.0F, 1.0F, (Vec3d) null, SpellPower.getSpellPower(spell1.school, player1), impactTargetingMode(spell1));
+                SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"greaterfireball")),new Identifier(MODID,"greaterfireball"));
 
                 for (Entity target1 : targets) {
-                    SpellHelper.performImpacts(player1.getWorld(), player1, target1,player1, SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "greaterfireball")), new SpellHelper.ImpactContext());
+                    SpellHelper.performImpacts(player1.getWorld(), player1, target1,player1, info, new SpellHelper.ImpactContext());
                 }
                 ParticleHelper.sendBatches(player1, spell1.release.particles);
 

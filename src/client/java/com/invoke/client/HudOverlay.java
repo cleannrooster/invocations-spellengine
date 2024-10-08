@@ -24,7 +24,7 @@ public class HudOverlay implements HudRenderCallback {
             x = width / 2;
             y = height;
         }
-        if (client.player != null && client.player instanceof InvokerEntity entity && SpellContainerHelper.containerWithProxy(client.player.getMainHandStack(), client.player) != null && SpellContainerHelper.containerWithProxy(client.player.getMainHandStack(), client.player).spell_ids != null && SpellContainerHelper.containerWithProxy(client.player.getMainHandStack(), client.player).spell_ids.contains("invoke:runicinvocation")) {
+        if (client.player != null && client.player instanceof InvokerEntity entity && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player) != null && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player).spell_ids != null && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player).spell_ids.contains("invoke:runicinvocation")) {
 
 
             if (entity.getInvokeValue()[2] == 1) {

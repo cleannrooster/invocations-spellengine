@@ -27,8 +27,7 @@ import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.internals.casting.SpellCasterClient;
 import net.spell_engine.internals.casting.SpellCasterEntity;
-import net.spell_power.api.MagicSchool;
-import net.spell_power.api.attributes.SpellAttributes;
+import net.spell_power.api.SpellPowerMechanics;
 
 import java.sql.Array;
 import java.util.Arrays;
@@ -240,7 +239,7 @@ public class InvokeClient implements ClientModInitializer {
 
 			if (player != null && level != null) {
 
-				double speed = player.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * player.getAttributeValue(SpellAttributes.HASTE.attribute) * 0.01 * 4;
+				double speed = player.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * player.getAttributeValue(SpellPowerMechanics.HASTE.attribute) * 0.01 * 4;
 				BlockHitResult result = level.raycast(new RaycastContext(player.getPos(), player.getPos().add(0, -2, 0), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.ANY, player));
 				if (player.isSneaking()) {
 					speed *= 0;

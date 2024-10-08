@@ -47,6 +47,7 @@ import net.spell_engine.api.item.trinket.SpellBooks;
 import net.spell_engine.api.loot.LootConfig;
 import net.spell_engine.api.spell.CustomSpellHandler;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.SpellInfo;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_engine.internals.SpellHelper;
@@ -58,12 +59,9 @@ import net.spell_engine.mixin.client.ClientPlayerEntityMixin;
 import net.spell_engine.particle.ParticleHelper;
 import net.spell_engine.utils.SoundHelper;
 import net.spell_engine.utils.TargetHelper;
-import net.spell_power.api.MagicSchool;
 import net.spell_power.api.SpellDamageSource;
 import net.spell_power.api.SpellPower;
-import net.spell_power.api.attributes.SpellAttributes;
-import net.spell_power.api.statuseffects.StatusEffects_SpellPower;
-import net.spell_power.internals.SpellStatusEffect;
+import net.spell_power.api.SpellSchools;
 import org.lwjgl.system.jemalloc.ExtentAlloc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -291,7 +289,7 @@ public class InvokeMod implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(KEY).register((content) -> {
 			content.add(book);
 		});
-		Registry.register(Registries.ITEM,new Identifier(MODID,"invoker_spell_book"),book);
+		Registry.register(Registries.ITEM,new Identifier(MODID,"invoker_spell_book"),book.asItem());
 		//SpellBooks.createAndRegister(new Identifier(MODID,"wildinvoker"),KEY);
 		ICECRASH = Registry.register(
 				ENTITY_TYPE,
@@ -390,7 +388,7 @@ public class InvokeMod implements ModInitializer {
 										if (air.isPresent()) {
 											GlacierSmall newGlacier =
 													new GlacierSmall(ICECRASH3, player.getWorld(), -1, player.getRotationVector(), player,
-															new SpellHelper.ImpactContext(1.0F, 1.0F, null, SpellPower.getSpellPower(MagicSchool.FROST, player, player.getMainHandStack()), TargetHelper.TargetingMode.AREA));
+															new SpellHelper.ImpactContext(1.0F, 1.0F, null, SpellPower.getSpellPower(SpellSchools.FROST, player), TargetHelper.TargetingMode.AREA));
 											newGlacier.setPosition(air.get().getX() + 0.5, air.get().getY() + 1, air.get().getZ() + 0.5);
 											player.getWorld().spawnEntity(newGlacier);
 										}
@@ -486,7 +484,8 @@ public class InvokeMod implements ModInitializer {
 							list2.add(newGlacier);
 							data1.caster().getWorld().spawnEntity(newGlacier);
 							target.timeUntilRegen = 0;
-						SpellHelper.performImpacts(data1.caster().getWorld(), data1.caster(), target, data1.caster(), SpellRegistry.getSpell(new Identifier(MODID,"heo")),data1.impactContext());
+							SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"heo")),new Identifier(MODID,"heo"));
+						SpellHelper.performImpacts(data1.caster().getWorld(), data1.caster(), target, data1.caster(), info,data1.impactContext());
 
 					}
 					return true;
@@ -505,7 +504,9 @@ public class InvokeMod implements ModInitializer {
 							ParticleHelper.sendBatches(small,SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")).impact[0].particles);
 							List<LivingEntity> list = small.getWorld().getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class),small.getBoundingBox().stretch(1.5,1.5,1.5).expand(4),Objects::nonNull);
 							for(LivingEntity living : list){
-								SpellHelper.performImpacts(living.getWorld(),data1.caster(),living,data1.caster(),SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),data1.impactContext());
+								SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),new Identifier(MODID,"glacialhammer"));
+
+								SpellHelper.performImpacts(living.getWorld(),data1.caster(),living,data1.caster(),info,data1.impactContext());
 							}
 							small.playSound(SoundEvents.BLOCK_GLASS_BREAK,1,1);
 							small.discard();
@@ -519,8 +520,9 @@ public class InvokeMod implements ModInitializer {
 							}
 
 							target.timeUntilRegen = 0;
+							SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),new Identifier(MODID,"glacialhammer"));
 
-							SpellHelper.performImpacts(target.getWorld(),data1.caster(),target,data1.caster(),SpellRegistry.getSpell(new Identifier(MODID,"glacialhammer")),data1.impactContext());
+							SpellHelper.performImpacts(target.getWorld(),data1.caster(),target,data1.caster(),info,data1.impactContext());
 
 						}
 					}
@@ -542,7 +544,9 @@ public class InvokeMod implements ModInitializer {
 							living.damage(living.getDamageSources().freeze(), 1.0f);
 
 						}
-						SpellHelper.performImpacts(data1.caster().getWorld(), (LivingEntity) data1.caster(), target,data1.caster(), SpellRegistry.getSpell(new Identifier(MODID, "sharedsuffering")), data1.impactContext());
+						SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"sharedsuffering")),new Identifier(MODID,"sharedsuffering"));
+
+						SpellHelper.performImpacts(data1.caster().getWorld(), (LivingEntity) data1.caster(), target,data1.caster(), info, data1.impactContext());
 					}
 				}
 
@@ -572,17 +576,23 @@ public class InvokeMod implements ModInitializer {
 			if (!data1.caster().getWorld().isClient) {
 				List<Entity> list = data1.caster().getWorld().getOtherEntities(data1.caster(),data1.caster().getBoundingBox().stretch(1.5,1.5,1.5).expand(4,0,4));
 				ParticleHelper.sendBatches( data1.caster(), SpellRegistry.getSpell(new Identifier(MODID,"resonance")).release.particles);
+				SpellHelper.ImpactContext impactContext = new SpellHelper.ImpactContext(1.0F, 1.0F, null, data1.impactContext().power(), data1.impactContext().targetingMode());
+				SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"resonance")),new Identifier(MODID,"resonance"));
+
 				for(Entity entity : list){
-					SpellHelper.performImpacts(entity.getWorld(), data1.caster(), entity,data1.caster(),SpellRegistry.getSpell(new Identifier(MODID,"resonance")),data1.impactContext());
+					SpellHelper.performImpacts(entity.getWorld(), data1.caster(), entity,data1.caster(),info,impactContext);
 				}
-				List<GlacierSmall> small = data1.caster().getWorld().getEntitiesByType(TypeFilter.instanceOf(GlacierSmall.class),data1.caster().getBoundingBox().expand(SpellRegistry.getSpell(new Identifier(MODID,"resonance")).range), Objects::nonNull);
-				for(GlacierSmall glacierSmall : small){
-					List<Entity> list2 = glacierSmall.getWorld().getOtherEntities(glacierSmall,glacierSmall.getBoundingBox().stretch(1.5,1.5,1.5).expand(4,0,4));
-					ParticleHelper.sendBatches( glacierSmall, SpellRegistry.getSpell(new Identifier(MODID,"resonance")).release.particles);
-					SoundHelper.playSound(data1.caster().getWorld(),glacierSmall,SpellRegistry.getSpell(new Identifier(MODID,"resonance")).release.sound);
-					for(Entity entity : list2){
-						SpellHelper.performImpacts(entity.getWorld(), (LivingEntity) data1.caster(), entity,data1.caster(),SpellRegistry.getSpell(new Identifier(MODID,"resonance")),data1.impactContext());
+				List<GlacierSmall> small = data1.caster().getWorld().getEntitiesByType(TypeFilter.instanceOf(GlacierSmall.class),data1.caster().getBoundingBox().expand(SpellRegistry.getSpell(new Identifier(MODID,"resonance")).range), glacier -> glacier.lastresonance == 0);
+				if(!small.isEmpty()) {
+
+					GlacierSmall small1 = small.get(data1.caster().getRandom().nextInt(small.size()));
+					List<Entity> list2 = small1.getWorld().getOtherEntities(small1, small1.getBoundingBox().stretch(1.5, 1.5, 1.5).expand(4, 0, 4));
+					ParticleHelper.sendBatches(small1, SpellRegistry.getSpell(new Identifier(MODID, "resonance")).release.particles);
+					SoundHelper.playSound(data1.caster().getWorld(), small1, SpellRegistry.getSpell(new Identifier(MODID, "resonance")).release.sound);
+					for (Entity entity : list2) {
+						SpellHelper.performImpacts(entity.getWorld(), (LivingEntity) data1.caster(), entity, data1.caster(), info, impactContext);
 					}
+					small1.lastresonance = 12;
 				}
 				if(small.isEmpty()){
 					for(int ii = 0; ii < 4; ii++) {

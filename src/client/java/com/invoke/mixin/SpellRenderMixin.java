@@ -9,8 +9,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.spell_engine.client.util.SpellRender;
 import net.spell_engine.internals.SpellContainerHelper;
-import net.spell_power.api.MagicSchool;
-import net.spell_power.api.attributes.SpellAttributes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -143,7 +141,7 @@ public class SpellRenderMixin {
         if(MinecraftClient.getInstance() != null) {
 
             PlayerEntity player = MinecraftClient.getInstance().player;
-            if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.containerWithProxy(player.getMainHandStack(), player) != null && SpellContainerHelper.containerWithProxy(player.getMainHandStack(), player).spell_ids != null && SpellContainerHelper.containerWithProxy(player.getMainHandStack(), player).spell_ids.contains("invoke:runicinvocation")) {
+            if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getEquipped(player.getMainHandStack(), player) != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids.contains("invoke:runicinvocation")) {
                 int x = 0;
                 int y = 0;
                 int z = 0;

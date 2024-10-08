@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.SpellInfo;
 import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.SpellRegistry;
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import static com.invoke.InvokeMod.MODID;
 import static net.spell_engine.internals.SpellHelper.ammoForSpell;
 import static net.spell_engine.internals.SpellHelper.impactTargetingMode;
 
@@ -41,23 +43,24 @@ public class EntityMixin {
 
         if (player.getAttacker() instanceof PlayerEntity player1 ) {
             ItemStack stack = player1.getMainHandStack();
-            if (SpellContainerHelper.containerWithProxy(stack, player1) != null && SpellContainerHelper.containerWithProxy(stack, player1).spell_ids.contains("invoke:arcaneoverdrive")) {
+            if (SpellContainerHelper.getEquipped(stack, player1) != null && SpellContainerHelper.getEquipped(stack, player1).spell_ids.contains("invoke:arcaneoverdrive")) {
                 Predicate<Entity> selectionPredicate = (target2) -> {
                     return (TargetHelper.actionAllowed(TargetHelper.TargetingMode.AREA, TargetHelper.Intent.HARMFUL, player1, target2)
                     );
                 };
-                Spell spell = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "arcaneoverdrive"));
+                Spell spell = SpellRegistry.getSpell(new Identifier(MODID, "arcaneoverdrive"));
 
-                if(player1 instanceof SpellCasterEntity entity && ammoForSpell(player1,spell,stack).satisfied()&& !entity.getCooldownManager().isCoolingDown(new Identifier(InvokeMod.MODID, "arcaneoverdrive"))) {
-                    entity.getCooldownManager().set(new Identifier(InvokeMod.MODID, "arcaneoverdrive"), (int) (20*SpellHelper.getCooldownDuration(player1,spell)));
+                if(player1 instanceof SpellCasterEntity entity && ammoForSpell(player1,spell,stack).satisfied()&& !entity.getCooldownManager().isCoolingDown(new Identifier(MODID, "arcaneoverdrive"))) {
+                    entity.getCooldownManager().set(new Identifier(MODID, "arcaneoverdrive"), (int) (20*SpellHelper.getCooldownDuration(player1,spell)));
 
                     int i = 0;
                     List<Entity> targets = player1.getWorld().getOtherEntities(player1, player1.getBoundingBox().expand(spell.range), selectionPredicate);
 
                     SpellHelper.ImpactContext context = new SpellHelper.ImpactContext(1.0F, 1.0F, (Vec3d) null, SpellPower.getSpellPower(spell.school, player1), impactTargetingMode(spell));
+                    SpellInfo info1 = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"arcaneoverdrive")),new Identifier(MODID,"arcaneoverdrive"));
 
                     for (Entity target1 : targets) {
-                        SpellHelper.performImpacts(player1.getWorld(), player1, target1,player1, SpellRegistry.getSpell(new Identifier(InvokeMod.MODID, "arcaneoverdrive")), new SpellHelper.ImpactContext());
+                        SpellHelper.performImpacts(player1.getWorld(), player1, target1,player1, info1, new SpellHelper.ImpactContext());
                     }
                     ParticleHelper.sendBatches(player1, spell.release.particles);
                     SpellHelper.AmmoResult ammoResult = ammoForSpell(player1, spell, stack);

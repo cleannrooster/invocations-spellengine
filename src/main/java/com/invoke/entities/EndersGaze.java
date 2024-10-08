@@ -15,17 +15,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.ParticleBatch;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.SpellInfo;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellHelper;
+import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.particle.ParticleHelper;
 import net.spell_engine.utils.TargetHelper;
-import net.spell_power.api.MagicSchool;
 import net.spell_power.api.SpellPower;
+import net.spell_power.api.SpellSchools;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
@@ -34,6 +37,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
+import static com.invoke.InvokeMod.MODID;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
@@ -102,7 +106,7 @@ public class EndersGaze extends SpellProjectile implements FlyingItemEntity {
                     SpellPower.Vulnerability vulnerability = SpellPower.Vulnerability.none;
                     vulnerability = SpellPower.Vulnerability.none;
                     if(target instanceof LivingEntity living)
-                    vulnerability = SpellPower.getVulnerability(living, MagicSchool.ARCANE);
+                    vulnerability = SpellPower.getVulnerability(living, SpellSchools.ARCANE);
 
                     //SpellPower.Result power = SpellPower.getSpellPower(MagicSchool.ARCANE, (LivingEntity) this.getOwner());
                     double amount = this.power.randomValue(vulnerability);
@@ -114,7 +118,9 @@ public class EndersGaze extends SpellProjectile implements FlyingItemEntity {
                         living.getAttributes().addTemporaryModifiers(builder.build());
 
                     target.timeUntilRegen = 0;
-                    SpellHelper.performImpacts(this.getWorld(),living2,this.target,living2,this.spell,this.context);
+                    SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"enders_gaze")),new Identifier(MODID,"enders_gaze"));
+
+                    SpellHelper.performImpacts(this.getWorld(),living2,this.target,living2,info,this.context);
                     if(target instanceof LivingEntity living)
                         living.getAttributes().removeModifiers(builder.build());
 
