@@ -25,7 +25,9 @@
   "release": {
     "target": {
       "type": "CURSOR",
-      "cursor": { }
+      "cursor": {
+        "use_caster_as_fallback": true
+      }
     },
     "animation": "spell_engine:one_handed_projectile_release",
     "sound": {

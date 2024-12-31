@@ -1,18 +1,25 @@
 package com.invoke.mixin;
 
+import com.invoke.InvokeClient;
 import com.invoke.InvokeMod;
 import com.invoke.interfaces.InvokerEntity;
 import net.fabricmc.fabric.mixin.networking.client.accessor.MinecraftClientAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.spell_engine.client.util.SpellRender;
 import net.spell_engine.internals.SpellContainerHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
 
 import static com.invoke.InvokeClient.TOTAL_LIST;
 import static com.invoke.InvokeMod.MODID;
@@ -113,7 +120,7 @@ public class SpellRenderMixin {
             {PUREFROST,FIRE3ARCANE3, FROST3ARCANE2, PUREFROST},
             {PUREFIRE, FIRE3ARCANE2, FIRE3ARCANE2, FIRE3ARCANE1}};
     static {
-        TOTAL_LIST[0][0][0] = "runicinvocation";
+        TOTAL_LIST[0][0][0] = "runic_invocation";
         TOTAL_LIST[0][1][0] = "magic_missile";
         TOTAL_LIST[0][2][0] = "enders_gaze";
         TOTAL_LIST[0][3][0] = "agonizing_blast";
@@ -136,12 +143,13 @@ public class SpellRenderMixin {
 
 
     }*/
-    @Inject(at = @At("HEAD"), method = "iconTexture", cancellable = true)
+
+      @Inject(at = @At("HEAD"), method = "iconTexture", cancellable = true)
     private static void iconTextureReplaceInvoke(Identifier spellId, CallbackInfoReturnable<Identifier> identifier) {
         if(MinecraftClient.getInstance() != null) {
 
             PlayerEntity player = MinecraftClient.getInstance().player;
-            if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getEquipped(player.getMainHandStack(), player) != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids.contains("invoke:runicinvocation")) {
+            if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getEquipped(player.getMainHandStack(), player) != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids() != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids().contains("invoke:runic_invocation")) {
                 int x = 0;
                 int y = 0;
                 int z = 0;
@@ -167,8 +175,8 @@ public class SpellRenderMixin {
                     combination[2] = 3;
                 }
 
-                if (spellId.getPath().equals("runicinvocation")) {
-                    identifier.setReturnValue(new Identifier(InvokeMod.MODID, "textures/spell/" + TOTAL_LIST[combination[0]][combination[1]][combination[2]] + ".png"));
+                if (spellId.getPath().equals("runic_invocation")) {
+                    identifier.setReturnValue(Identifier.of(InvokeMod.MODID, "textures/spell/" + InvokeClient.getString(entity,combination[0],combination[1],combination[2]) + ".png"));
                 }
 
             }

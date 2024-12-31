@@ -16,7 +16,9 @@
     "custom_impact": true,
     "target": {
       "type": "CURSOR",
-
+      "cursor": {
+        "use_caster_as_fallback": true
+      },
       "projectile": {
         "launch_properties": {
           "velocity": 3.0,

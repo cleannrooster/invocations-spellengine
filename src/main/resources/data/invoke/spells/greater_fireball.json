@@ -2,10 +2,10 @@
   "school": "FIRE",
   "range": 64,
   "learn": {
-    "tier": 2
+    "tier": 1
   },
   "cast": {
-    "duration": 0.2,
+    "duration": 1,
     "animation": "spell_engine:one_handed_projectile_charge",
     "sound": {
       "id": "spell_engine:generic_fire_casting",
@@ -57,7 +57,7 @@
           "model": {
             "model_id": "wizards:projectile/fire_blast",
             "render": "DEEP",
-            "scale": 1
+            "scale": 3
           }
         }
       }
@@ -73,7 +73,7 @@
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.75
+          "spell_power_coefficient": 1.8
         }
       },
       "particles": [
@@ -81,28 +81,76 @@
           "particle_id": "lava",
           "shape": "CIRCLE",
           "origin": "CENTER",
-          "count": 40.0,
+          "count": 100.0,
           "min_speed": 3.0,
           "max_speed": 18.0
         }
       ]
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "apply_mode": "ADD",
-          "effect_id": "spell_power:fire",
-          "duration": 6,
-          "amplifier": 2,
-          "show_particles": false
-        },
-        "apply_to_caster": true
-      }
     }
   ],
+  "area_impact": {
+    "radius": 8.0,
+    "area": {
+      "distance_dropoff": "SQUARED"
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:fire_explosion",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 2.0,
+        "min_speed": 0.3,
+        "max_speed": 0.5
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 450,
+        "min_speed": 0.7,
+        "max_speed": 0.8
+      },
+      {
+        "particle_id": "spell_engine:flame_medium_a",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 450,
+        "min_speed": 0.7,
+        "max_speed": 0.8
+      }
+    ,
+      {
+        "particle_id": "spell_engine:flame_medium_b",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 450,
+        "min_speed": 0.7,
+        "max_speed": 0.8
+      },
+      {
+        "particle_id": "spell_engine:flame_medium_a",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 150,
+        "min_speed": 0.4,
+        "max_speed": 0.4
+      }
+    ,
+      {
+        "particle_id": "spell_engine:flame_medium_b",
+        "shape": "SPHERE",
+        "origin": "CENTER",
+        "count": 150,
+        "min_speed": 0.4,
+        "max_speed": 0.4
+      }
+    ],
+    "sound": {
+      "id": "entity.generic.explode"
+    }
+  },
   "cost": {
-    "item_id": "runes:fire_stone",
-    "cooldown_duration": 0.6
+    "effect_id": "spell_power:fire",
+    "cooldown_duration": 1
   }
 }

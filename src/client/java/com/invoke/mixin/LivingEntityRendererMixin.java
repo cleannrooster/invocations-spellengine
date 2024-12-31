@@ -30,8 +30,8 @@ public class LivingEntityRendererMixin<T extends LivingEntity> {
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     public void render(T entity, float f, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
         if(entity instanceof SpellCasterClient caster){
-            if(caster.getCurrentSpell() != null && caster.getCurrentSpell().equals(SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"meteorrush")))){
-                /*Spell spell = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"greaterfireball"));
+            if(caster.getCurrentSpell() != null && caster.getCurrentSpell().equals(SpellRegistry.getSpell(Identifier.of(InvokeMod.MODID,"meteorrush")))){
+                /*Spell spell = SpellRegistry.getSpell(Identifier.of(InvokeMod.MODID,"greaterfireball"));
                 SpellProjectile projectile = new SpellProjectile(entity.getWorld(),entity,entity.getX(),entity.getY(),entity.getZ(), SpellProjectile.Behaviour.FLY,
                         spell,null,new SpellHelper.ImpactContext(), new Spell.ProjectileData().perks);
                 EntityRenderer<? super SpellProjectile> renderer = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(projectile);
@@ -67,7 +67,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity> {
                             matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(absoluteTime * renderData.rotate_degrees_per_tick));
                             matrices.scale(renderData.scale, renderData.scale, renderData.scale);
                             if (renderData.model_id != null && !renderData.model_id.isEmpty()) {
-                                Identifier modelId = new Identifier(renderData.model_id);
+                                Identifier modelId = Identifier.of(renderData.model_id);
                                 CustomModels.render(LightEmission.GLOW,  , modelId, matrices, vertexConsumers, light, entity.getId());
                             }
                         }

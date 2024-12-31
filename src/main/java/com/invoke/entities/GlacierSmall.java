@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -35,7 +36,7 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
 
     private  Vec3d direction = new Vec3d(0,1,0);
     private int chain = -1;
-    public Spell spell = SpellRegistry.getSpell(new Identifier(MODID,"glacier"));
+    public Spell spell = SpellRegistry.getSpell(Identifier.of(MODID,"glacier"));
     public SpellHelper.ImpactContext context;
     public boolean nodamage = false;
     public int lastresonance = 0;
@@ -97,13 +98,13 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
         }
         if( !nodamage && firstUpdate && this.getOwner() != null && this.spell != null && this.context != null){
             List<Entity> list = this.getWorld().getOtherEntities(this,this.getBoundingBox().stretch(1.5,1.5,1.5), entity -> entity != this.getOwner());
-            spell.impact[0].action.damage.spell_power_coefficient *= this.getBoundingBox().getXLength()/3.0F;
+            spell.impact[0].action.damage.spell_power_coefficient *= this.getBoundingBox().getLengthX()/3.0F;
             for(Entity target : list) {
-                SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"glacier")),new Identifier(MODID,"glacier"));
+                SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID,"glacier")),Identifier.of(MODID,"glacier"));
 
-                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(),info,this.context);
+                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(),info,info.spell().impact, this.context);
             }
-            spell.impact[0].action.damage.spell_power_coefficient /= this.getBoundingBox().getXLength()/3.0F;
+            spell.impact[0].action.damage.spell_power_coefficient /= this.getBoundingBox().getLengthX()/3.0F;
 
         }
         if(age == 5 && this.chain == 2){
@@ -157,8 +158,8 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
     }
 
     @Override
-    public void initDataTracker() {
-        super.initDataTracker();
+    public void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
     }
 
     @Override

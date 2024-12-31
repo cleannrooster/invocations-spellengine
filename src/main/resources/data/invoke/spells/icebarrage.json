@@ -36,7 +36,7 @@
             }
           ],
           "model": {
-            "model_id": "wizards:projectile/frostbolt_projectile",
+            "model_id": "wizards:projectile/frostbolt",
             "render": "DEEP",
             "scale": 0.6
           }

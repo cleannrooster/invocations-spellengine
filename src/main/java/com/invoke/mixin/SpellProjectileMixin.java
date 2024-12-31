@@ -18,7 +18,7 @@ public class SpellProjectileMixin {
     @Inject(at = @At("HEAD"), method = "onBlockHit", cancellable = true)
     protected void onBlockHitFireball(BlockHitResult blockHitResult, CallbackInfo info) {
         SpellProjectile projectile = (SpellProjectile) (Object) this;
-        if(projectile.getSpell().equals(SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"greaterfireball"))) && projectile.getOwner() instanceof LivingEntity living){
+        if(projectile.getSpell().equals(SpellRegistry.getSpell(Identifier.of(InvokeMod.MODID,"greater_fireball"))) && projectile.getOwner() instanceof LivingEntity living){
             boolean performed = SpellHelper.projectileImpact(living, projectile, null, projectile.getSpellInfo(), projectile.getImpactContext().position(projectile.getPos()));
 
         }

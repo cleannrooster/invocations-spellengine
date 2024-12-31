@@ -1,32 +1,45 @@
 {
   "school": "FROST",
-  "range": 128.0,
+  "range": 128,
   "learn": {
-    "tier": 1
+    "tier": 0
   },
   "cast": {
     "duration": 1,
-    "animation": "spell_engine:two_handed_channeling",
+    "animation": "spell_engine:one_handed_projectile_charge",
     "sound": {
       "id": "spell_engine:generic_frost_casting",
       "randomness": 0
     },
-    "channel_ticks": 3
+    "particles": [
+      {
+        "particle_id": "spell_engine:snowflake",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 1.0,
+        "min_speed": 0.05,
+        "max_speed": 0.1
+      }
+    ]
   },
   "release": {
     "target": {
       "type": "PROJECTILE",
 
       "projectile": {
-        "launch_properties": {
-          "velocity": 4.0,
-          "extra_launch_count": 2,
-          "extra_launch_delay": 1
 
+        "launch_properties": {
+          "velocity": 0.9
         },
         "projectile": {
-          "homing_angle": 1.5,
-          "divergence": 15,
+          "homing_angle": 180,
+          "perks": {
+            "ricochet": 8,
+            "ricochet_range": 16,
+            "chain_reaction_size": 4,
+            "chain_reaction_triggers": 16,
+            "chain_reaction_increment": -1
+          },
           "client_data": {
             "travel_particles": [
               {
@@ -42,14 +55,10 @@
             "model": {
               "model_id": "wizards:projectile/frostbolt",
               "render": "DEEP",
-              "scale": 0.6
+              "scale": 0.50
             }
           }
         }
-      },
-      "area": {
-        "distance_dropoff": "SQUARED",
-        "angle_degrees": 90
       }
     },
     "animation": "spell_engine:one_handed_projectile_release",
@@ -62,24 +71,8 @@
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.8
-        }
-      },
-      "sound": {
-        "id": "spell_engine:generic_frost_impact"
-      }
-    },
-    {
-      "action": {
-        "type": "STATUS_EFFECT",
-        "status_effect": {
-          "effect_id": "slowness",
-          "duration": 5,
-          "amplifier": 0,
-          "apply_limit": {
-            "health_base": 100,
-            "spell_power_multiplier": 2
-          }
+          "knockback": 0.6,
+          "spell_power_coefficient": 1.2
         }
       },
       "particles": [
@@ -87,11 +80,14 @@
           "particle_id": "spell_engine:frost_hit",
           "shape": "SPHERE",
           "origin": "CENTER",
-          "count": 50.0,
+          "count": 40,
           "min_speed": 0.2,
           "max_speed": 0.7
         }
-      ]
+      ],
+      "sound": {
+        "id": "spell_engine:generic_healing_impact_1"
+      }
     }
   ],
   "cost": {

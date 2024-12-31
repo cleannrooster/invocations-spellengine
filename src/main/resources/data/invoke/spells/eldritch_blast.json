@@ -1,0 +1,65 @@
+{
+  "school": "ARCANE",
+  "range": 64,
+  "learn": {
+    "tier": 0
+  },
+  "cast": {
+    "duration": 1,
+    "animation": "spell_engine:one_handed_projectile_charge",
+
+    "sound": {
+      "id": "entity.warden.sonic_charge",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:arcane_spell",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 1.0,
+        "min_speed": 0.05,
+        "max_speed": 0.1
+      }
+    ]
+  },
+  "release": {
+
+    "custom_impact": true,
+    "target": {
+      "type": "AREA",
+      "area": {
+        "angle_degrees": 135,
+        "vertical_range_multiplier": 1
+      }
+    },
+    "animation": "spell_engine:one_handed_projectile_release",
+    "sound": {
+      "id": "entity.warden.sonic_boom"
+    }
+  },
+  "impact": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 2.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:arcane_hit",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 40,
+          "min_speed": 0.2,
+          "max_speed": 0.7
+        }
+      ]
+    }
+  ],
+  "cost": {
+    "effect_id": "spell_power:arcane",
+    "cooldown_duration": 1
+  }
+}

@@ -14,8 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.spell_engine.client.render.SpellProjectileRenderer;
 
 public class GlacierRenderer<T extends GlacierSmall> extends EntityRenderer<T> {
-    public static final Identifier TEXTURE  = new Identifier("spellbladenext", "textures/entity/sword1.png");
-    public static final Identifier TEXTURE2  = new Identifier("spellbladenext", "textures/entity/sword2.png");
+    public static final Identifier TEXTURE  = Identifier.of("spellbladenext", "textures/entity/sword1.png");
+    public static final Identifier TEXTURE2  = Identifier.of("spellbladenext", "textures/entity/sword2.png");
     private final ItemRenderer itemRenderer;
     private final float scale;
     private final boolean lit;
@@ -40,12 +40,12 @@ public class GlacierRenderer<T extends GlacierSmall> extends EntityRenderer<T> {
         poseStack.scale(this.scale,this.scale,this.scale);
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.model.getLayer(getTexture(entity)));
 
-        this.model.render(poseStack,vertexConsumer,i, OverlayTexture.DEFAULT_UV,1.0F,1.0F,1.0F,1.0F);
+        this.model.render(poseStack,vertexConsumer,i, OverlayTexture.DEFAULT_UV);
         poseStack.pop();
         super.render(entity, f, g, poseStack, multiBufferSource, i);
     }
     @Override
     public Identifier getTexture(T entity) {
-        return new Identifier("invoke", "textures/entity/ice.png");
+        return Identifier.of("invoke", "textures/entity/ice.png");
     }
 }

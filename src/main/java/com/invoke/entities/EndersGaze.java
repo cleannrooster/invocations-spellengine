@@ -77,7 +77,7 @@ public class EndersGaze extends SpellProjectile implements FlyingItemEntity {
             float g = (float) (-sin(tridentEntity * ((float) Math.PI / 180)) * cos(f * ((float) Math.PI / 180)));
             float h = (float) -sin(f * ((float) Math.PI / 180));
             float r = (float) (cos(tridentEntity * ((float) Math.PI / 180)) * cos(f * ((float) Math.PI / 180)));
-            this.setPosition(this.target.getX() + (1D + target.getBoundingBox().getXLength()) * 0.5 * (1-0.25*Math.pow((((double) (this.age % 8) / 8D)-1),2)) * cos((((double) (this.age % 40) / 40D)) * (2D * (double) Math.PI) + (2 * Math.PI * (double) (number % 5) / 5D)), (double) this.target.getBoundingBox().getCenter().getY(), this.target.getZ()  + (1D + target.getBoundingBox().getXLength()) * 0.5 * (1-0.25*Math.pow((((double) (this.age % 8) / 8D)-1),2)) * sin((((double) (this.age % 40) / 40D)) * (2 * Math.PI) + (2 * Math.PI * (double) (number % 5) / 5D)));
+            this.setPosition(this.target.getX() + (1D + target.getBoundingBox().getLengthX()) * 0.5 * (1-0.25*Math.pow((((double) (this.age % 8) / 8D)-1),2)) * cos((((double) (this.age % 40) / 40D)) * (2D * (double) Math.PI) + (2 * Math.PI * (double) (number % 5) / 5D)), (double) this.target.getBoundingBox().getCenter().getY(), this.target.getZ()  + (1D + target.getBoundingBox().getLengthX()) * 0.5 * (1-0.25*Math.pow((((double) (this.age % 8) / 8D)-1),2)) * sin((((double) (this.age % 40) / 40D)) * (2 * Math.PI) + (2 * Math.PI * (double) (number % 5) / 5D)));
 
         }
         if(this.age % 8 == 0){
@@ -103,26 +103,10 @@ public class EndersGaze extends SpellProjectile implements FlyingItemEntity {
             }
             if(!this.getWorld().isClient() && this.power != null && this.context != null && this.getOwner() instanceof LivingEntity living2 && this.spell != null) {
                 if (this.power != null && this.target != null && this.spell != null && this.context != null) {
-                    SpellPower.Vulnerability vulnerability = SpellPower.Vulnerability.none;
-                    vulnerability = SpellPower.Vulnerability.none;
-                    if(target instanceof LivingEntity living)
-                    vulnerability = SpellPower.getVulnerability(living, SpellSchools.ARCANE);
 
-                    //SpellPower.Result power = SpellPower.getSpellPower(MagicSchool.ARCANE, (LivingEntity) this.getOwner());
-                    double amount = this.power.randomValue(vulnerability);
-                    amount *= (double) 0.1;
-                    EntityAttributeModifier modifier = new EntityAttributeModifier(UUID.randomUUID(),"knockbackresist",1, EntityAttributeModifier.Operation.ADDITION);
-                    ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-                    builder.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, modifier);
-                    if(target instanceof LivingEntity living)
-                        living.getAttributes().addTemporaryModifiers(builder.build());
+                    SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID,"enders_gaze")),Identifier.of(MODID,"enders_gaze"));
 
-                    target.timeUntilRegen = 0;
-                    SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"enders_gaze")),new Identifier(MODID,"enders_gaze"));
-
-                    SpellHelper.performImpacts(this.getWorld(),living2,this.target,living2,info,this.context);
-                    if(target instanceof LivingEntity living)
-                        living.getAttributes().removeModifiers(builder.build());
+                    SpellHelper.performImpacts(this.getWorld(),living2,this.target,living2,info,info.spell().impact,this.context);
 
                     //this.playSound(SoundEvents.ILLUSIONER_CAST_SPELL);
 

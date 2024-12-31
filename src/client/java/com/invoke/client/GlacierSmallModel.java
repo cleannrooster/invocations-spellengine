@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 public class GlacierSmallModel<T extends GlacierSmall> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(new Identifier("invoke", "glacier_small"), "main");
+    public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(Identifier.of("invoke", "glacier_small"), "main");
     private final ModelPart bb_main;
 
     public GlacierSmallModel(ModelPart root) {
@@ -31,12 +31,14 @@ public class GlacierSmallModel<T extends GlacierSmall> extends EntityModel<T> {
 
 
     @Override
-    public void render(MatrixStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
+        bb_main.render(matrices, vertices, light, overlay);
     }
 
     @Override
     public void setAngles(T entity, float f, float g, float h, float i, float j) {
 
     }
+
+
 }

@@ -74,11 +74,11 @@ public class PlayerEntityMixin implements InvokerEntity {
 				if(orb.getSchool().equals(MagicSchool.ARCANE)) {
 				}
 				if(orb.getSchool().equals(MagicSchool.FIRE)) {
-					SpellContainerHelper.addSpell(new Identifier(InvokeMod.MODID,FIRE_INVOKER_LIST[getInvokeValue()]),player.getStackInHand(hand));
+					SpellContainerHelper.addSpell(Identifier.of(InvokeMod.MODID,FIRE_INVOKER_LIST[getInvokeValue()]),player.getStackInHand(hand));
 
 				}
 				if(orb.getSchool().equals(MagicSchool.FROST)) {
-					SpellContainerHelper.addSpell(new Identifier(InvokeMod.MODID,FROST_INVOKER_LIST[getInvokeValue()]),player.getStackInHand(hand));
+					SpellContainerHelper.addSpell(Identifier.of(InvokeMod.MODID,FROST_INVOKER_LIST[getInvokeValue()]),player.getStackInHand(hand));
 
 				}
 			}

@@ -5,12 +5,18 @@ import com.invoke.client.GlacierSmallModel;
 import com.invoke.client.HudOverlay;
 import com.invoke.entities.GlacierSmall;
 import com.invoke.interfaces.InvokerEntity;
+import com.invoke.networking.InvokePacket;
+import com.invoke.networking.InvokePacketFire;
+import com.invoke.networking.InvokePacketFrost;
+import com.invoke.networking.ResetPacket;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -28,6 +34,9 @@ import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.internals.casting.SpellCasterClient;
 import net.spell_engine.internals.casting.SpellCasterEntity;
 import net.spell_power.api.SpellPowerMechanics;
+import net.spell_power.api.SpellSchool;
+import net.spell_power.api.SpellSchools;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.Array;
 import java.util.Arrays;
@@ -54,7 +63,7 @@ public class InvokeClient implements ClientModInitializer {
 			"sonicboom"
 	};
 	private static final String[] PUREARCANE1 = {
-			"runicinvocation",
+			"runic_invocation",
 			"magic_missile",
 			"enders_gaze",
 			"agonizingblast",
@@ -158,28 +167,91 @@ public class InvokeClient implements ClientModInitializer {
 			"supernova"
 	};
 	 public static String[][][] TOTAL_LIST = new String[4][4][4];
-	static {
-		TOTAL_LIST[0][0][0] = "runicinvocation";
-		TOTAL_LIST[0][0][1] = "magic_missile";
-		TOTAL_LIST[0][0][2] = "enders_gaze";
-		TOTAL_LIST[0][0][3] = "agonizingblast";
-		TOTAL_LIST[0][1][1] = "sonicboom";
-		TOTAL_LIST[0][2][1] = "amethystburst";
-		TOTAL_LIST[1][1][1] = "buckshot";
-		TOTAL_LIST[1][0][1] = "blink";
-		TOTAL_LIST[2][0][1] = "supernova";
-		TOTAL_LIST[0][1][2] = "bouncing";
-		TOTAL_LIST[1][0][2] = "combustion";
-		TOTAL_LIST[0][1][0] = "icebarrage";
-		TOTAL_LIST[0][2][0] = "glacier";
-		TOTAL_LIST[0][3][0] = "resonance";
-		TOTAL_LIST[1][1][0] = "sharedsuffering";
-		TOTAL_LIST[2][1][0] = "combustion";
-		TOTAL_LIST[1][2][0] = "upheaval";
-		TOTAL_LIST[3][0][0] = "armageddon";
-		TOTAL_LIST[1][0][0] = "scorchingwind";
-		TOTAL_LIST[2][0][0] = "greaterfireball";
+	 public static String getString(InvokerEntity entity, int x, int y, int z){
+		 int first = 0;
+		 int second = 0;
+		 int third = 0;
+		 if (entity.getInvokeValue()[0] == 3) {
+			 first = 1;
+		 }
+		 if (entity.getInvokeValue()[1] == 3) {
+			 second = 1;
+		 }
+		 if (entity.getInvokeValue()[2] == 3) {
+			 third = 1;
+		 }
+		 if(entity.getInvokeValue()[0] == 2){
+			 first = 2;
+		 }
+		 if(entity.getInvokeValue()[1] == 2){
+			 second = 2;
+		 }
+		 if(entity.getInvokeValue()[2] == 2){
+			 third = 2;
+		 }
+		 if(entity.getInvokeValue()[0] == 1){
+			 first =3;
+		 }
+		 if(entity.getInvokeValue()[1] == 1){
+			 second = 3;
+		 }
+		 if(entity.getInvokeValue()[2] == 1){
+			 third = 3;
+		 }
 
+		 return TOTAL_LIST[first][second][third];
+	 }
+	static {
+		TOTAL_LIST[0][0][0] = "runic_invocation";
+
+		TOTAL_LIST[0][0][1] = "blink";
+		TOTAL_LIST[0][0][2] = "icebarrage";
+		TOTAL_LIST[0][0][3] = "scorchingwind";
+
+		TOTAL_LIST[0][1][1] = "arcane_launch";
+		TOTAL_LIST[0][1][2] = "chill";
+		TOTAL_LIST[0][1][3] = "combust";
+
+
+		TOTAL_LIST[0][2][1] = "magic_missile";
+		TOTAL_LIST[0][2][2] = "upheaval";
+		TOTAL_LIST[0][2][3] = "greater_fireball";
+
+
+		TOTAL_LIST[0][3][1] = "arcane_nova";
+		TOTAL_LIST[0][3][2] = "glacier";
+		TOTAL_LIST[0][3][3] = "supernova";
+
+		TOTAL_LIST[1][3][3] = "greater_combust";
+		TOTAL_LIST[1][3][2] = "shatter";
+		TOTAL_LIST[1][3][1] = "power_word_kill";
+		TOTAL_LIST[1][2][3] = "scorching_agony";
+		TOTAL_LIST[1][2][2] = "deep_chill";
+		TOTAL_LIST[1][2][1] = "snare";
+		TOTAL_LIST[1][1][3] = "scorching_ray";
+		TOTAL_LIST[1][1][2] = "sharedsuffering";
+		TOTAL_LIST[1][1][1] = "sonicboom";
+
+		TOTAL_LIST[3][3][3] = "inferno";
+		TOTAL_LIST[3][3][2] = "frozen_resonance";
+		TOTAL_LIST[3][3][1] = "time_dilate";
+		TOTAL_LIST[3][2][3] = "homing";
+		TOTAL_LIST[3][2][2] = "ice_nova";
+		TOTAL_LIST[3][2][1] = "agonizingblast";
+		TOTAL_LIST[3][1][3] = "flame_geyser";
+		TOTAL_LIST[3][1][2] = "mass_hypothermia";
+		TOTAL_LIST[3][1][1] = "overload";
+
+		TOTAL_LIST[2][3][3] = "armageddon";
+		TOTAL_LIST[2][3][2] = "icestorm";
+		TOTAL_LIST[2][3][1] = "eldritch_blast";
+		TOTAL_LIST[2][2][3] = "buckshot";
+		TOTAL_LIST[2][2][2] = "essence_drain";
+		TOTAL_LIST[2][2][1] = "amethystburst";
+		TOTAL_LIST[2][1][3] = "flameray";
+		TOTAL_LIST[2][1][2] = "glacialhammer";
+
+		TOTAL_LIST[2][1][1] = "enders_gaze";
 
 	}
 	@Override
@@ -192,8 +264,8 @@ public class InvokeClient implements ClientModInitializer {
 		EntityRendererRegistry.register(InvokeMod.ICECRASH4, context -> new GlacierRenderer<GlacierSmall>(context,8,true));
 
 		EntityModelLayerRegistry.registerModelLayer(GlacierSmallModel.LAYER_LOCATION, GlacierSmallModel::createBodyLayer);
-		ClientPlayNetworking.registerGlobalReceiver(new Identifier(MODID,"fire"), (client, handler, buf, responseSender) -> {
-					if(client.player instanceof InvokerEntity entity){
+		ClientPlayNetworking.registerGlobalReceiver(InvokePacketFire.FIRE, (payload,context) -> {
+					if(MinecraftClient.getInstance().player instanceof InvokerEntity entity){
 
 						entity.InvokeSet(entity.getInvokeValue()[1],0);
 						entity.InvokeSet(entity.getInvokeValue()[2],1);
@@ -203,8 +275,8 @@ public class InvokeClient implements ClientModInitializer {
 
 				}
 		);
-		ClientPlayNetworking.registerGlobalReceiver(new Identifier(MODID,"reset"), (client, handler, buf, responseSender) -> {
-					if (client.player instanceof InvokerEntity entity) {
+		ClientPlayNetworking.registerGlobalReceiver(ResetPacket.RESET, (packetFire,handler) -> {
+					if (handler.player() instanceof InvokerEntity entity) {
 
 						entity.InvokeSet(0, 0);
 						entity.InvokeSet(0, 1);
@@ -213,8 +285,8 @@ public class InvokeClient implements ClientModInitializer {
 				}
 		);
 		HudRenderCallback.EVENT.register(new HudOverlay());
-		ClientPlayNetworking.registerGlobalReceiver(new Identifier(MODID,"frost"), (client, handler, buf, responseSender) -> {
-					if(client.player instanceof InvokerEntity entity){
+		ClientPlayNetworking.registerGlobalReceiver(InvokePacketFrost.FROST, (packet,handler) -> {
+					if(handler.player() instanceof InvokerEntity entity){
 
 						entity.InvokeSet(entity.getInvokeValue()[1],0);
 						entity.InvokeSet(entity.getInvokeValue()[2],1);
@@ -223,8 +295,8 @@ public class InvokeClient implements ClientModInitializer {
 
 				}
 		);
-		ClientPlayNetworking.registerGlobalReceiver(new Identifier(MODID,"arcane"), (client, handler, buf, responseSender) -> {
-					if(client.player instanceof InvokerEntity entity){
+		ClientPlayNetworking.registerGlobalReceiver(InvokePacket.ARCANE, (packet,handler) -> {
+					if(handler.player() instanceof InvokerEntity entity){
 
 						entity.InvokeSet(entity.getInvokeValue()[1],0);
 						entity.InvokeSet(entity.getInvokeValue()[2],1);
@@ -239,29 +311,8 @@ public class InvokeClient implements ClientModInitializer {
 
 			if (player != null && level != null) {
 
-				double speed = player.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * player.getAttributeValue(SpellPowerMechanics.HASTE.attribute) * 0.01 * 4;
-				BlockHitResult result = level.raycast(new RaycastContext(player.getPos(), player.getPos().add(0, -2, 0), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.ANY, player));
-				if (player.isSneaking()) {
-					speed *= 0;
-				}
-				double modifier = 0;
-				if (result.getType() == HitResult.Type.BLOCK) {
-					modifier = 1;
-				}
-				speed *= 1.5;
-
-				if (SpellRegistry.getSpell(new Identifier(MODID, "meteorrush")) != null) {
-					Spell spell = SpellRegistry.getSpell(new Identifier(MODID, "meteorrush"));
-
-					if (player instanceof SpellCasterClient caster) {
-						if (caster.getSpellCastProgress() != null && Objects.equals(caster.getCurrentSpell(), SpellRegistry.getSpell(new Identifier(MODID, "meteorrush")))) {
-							speed *= 0.1*(2/caster.getSpellCastProgress().ratio()-2);
-							player.setVelocity(player.getRotationVec(1).subtract(0, player.getRotationVec(1).y, 0).normalize().multiply(speed, speed * modifier, speed).add(0, player.getVelocity().y, 0));
-						}
-					}
-				}
 				if(player instanceof SpellCasterClient client && player instanceof InvokerEntity entity){
-					if(client.getCurrentSpell() != null && client.getCurrentSpell().equals(SpellRegistry.getSpell(new Identifier(MODID,"runicinvocation")))){
+					if(client.getCurrentSpell() != null && client.getCurrentSpell().equals(SpellRegistry.getSpell(Identifier.of(MODID,"runic_invocation")))){
 
 						int[] combination = {0,0,0};
 						for(int i = 0; i < combination.length; i++){
@@ -285,10 +336,10 @@ public class InvokeClient implements ClientModInitializer {
 							combination[2] = 3;
 						}
 
-						if( SpellRegistry.getSpell(new Identifier(MODID,TOTAL_LIST[combination[0]][combination[1]][combination[2]])) != null) {
-							Spell spell = SpellRegistry.getSpell(new Identifier(MODID,"runicinvocation"));
-							client.startSpellCast(player.getStackInHand(Hand.MAIN_HAND), new Identifier(MODID, TOTAL_LIST[combination[0]][combination[1]][combination[2]]));
-							client.getCooldownManager().set(new Identifier(MODID,"runicinvocation"),(int) (spell.cost.cooldown_duration*20));
+						if( SpellRegistry.getSpell(Identifier.of(MODID,InvokeClient.getString(entity,combination[0],combination[1],combination[2]))) != null) {
+							Spell spell = SpellRegistry.getSpell(Identifier.of(MODID,"runic_invocation"));
+							client.startSpellCast(player.getStackInHand(Hand.MAIN_HAND), Identifier.of(MODID, InvokeClient.getString(entity,combination[0],combination[1],combination[2])));
+							client.getCooldownManager().set(Identifier.of(MODID,"runic_invocation"),(int) (spell.cost.cooldown_duration*20));
 						}
 					}
 				}
