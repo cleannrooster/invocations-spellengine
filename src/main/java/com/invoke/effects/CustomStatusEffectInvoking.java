@@ -27,7 +27,6 @@ import net.spell_power.api.SpellPower;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static com.invoke.InvokeMod.FLAMERUSH;
 import static com.invoke.InvokeMod.MODID;
 import static net.spell_engine.internals.SpellContainerHelper.containerFromItemStack;
 import static net.spell_engine.internals.SpellHelper.impactTargetingMode;
@@ -39,32 +38,7 @@ public class CustomStatusEffectInvoking extends StatusEffect {
 
     @Override
     public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-        if(entity instanceof PlayerEntity player1 && player1.hasStatusEffect(FLAMERUSH)){
-            player1.removeStatusEffect(FLAMERUSH);
-            ItemStack stack = player1.getMainHandStack();
-            Predicate<Entity> selectionPredicate = (target2) -> {
-                return (TargetHelper.actionAllowed(TargetHelper.TargetingMode.AREA, TargetHelper.Intent.HARMFUL, player1, target2)
-                );
-            };
-            Spell spell = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"greaterfireball"));
-            Spell spell1 = SpellRegistry.getSpell(new Identifier(InvokeMod.MODID,"meteorrush"));
 
-            if(player1 instanceof SpellCasterEntity entity1) {
-
-                int i = 0;
-                List<Entity> targets = player1.getWorld().getOtherEntities(player1, player1.getBoundingBox().expand(spell1.range), selectionPredicate);
-
-                SpellHelper.ImpactContext context = new SpellHelper.ImpactContext(1.0F, 1.0F, (Vec3d) null, SpellPower.getSpellPower(spell1.school, player1), impactTargetingMode(spell1));
-                SpellInfo info = new SpellInfo(SpellRegistry.getSpell(new Identifier(MODID,"greaterfireball")),new Identifier(MODID,"greaterfireball"));
-
-                for (Entity target1 : targets) {
-                    SpellHelper.performImpacts(player1.getWorld(), player1, target1,player1, info, new SpellHelper.ImpactContext());
-                }
-                ParticleHelper.sendBatches(player1, spell1.release.particles);
-
-
-            }
-        }
         if(entity instanceof InvokerEntity invokerEntity){
             invokerEntity.resetInvoke();
 

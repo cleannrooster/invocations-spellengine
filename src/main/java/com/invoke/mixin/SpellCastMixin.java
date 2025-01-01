@@ -30,11 +30,13 @@ import java.util.List;
 public class SpellCastMixin {
     @Inject(at = @At("HEAD"), method = "performSpell", cancellable = true)
     private static void invocationSpell(World world, PlayerEntity player, Identifier spellId, List<Entity> targets, SpellCast.Action action, float progress, CallbackInfo callbackInfo) {
-        if (player != null  && SpellContainerHelper.getEquipped(player.getMainHandStack(), player) != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids.contains("invoke:runicinvocation")) {
+
+        if (player != null  && SpellContainerHelper.getEquipped(player.getMainHandStack(), player) != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids.contains("invoke:runic_invocation")) {
 
             if (targets.isEmpty() && (SpellRegistry.getSpell(spellId).release.target.type.equals(Spell.Release.Target.Type.CURSOR) || SpellRegistry.getSpell(spellId).release.target.type.equals(Spell.Release.Target.Type.METEOR))) {
                 return;
             }
+
             if (player instanceof InvokerEntity invokerEntity && action.equals(SpellCast.Action.RELEASE) &&
                     !spellId.toString().contains("invoke")) {
 
@@ -68,7 +70,6 @@ public class SpellCastMixin {
 
             }
             if (player instanceof InvokerEntity invokerEntity && (spellId.getPath().equals("rah") || spellId.getPath().equals("gon") || spellId.getPath().equals("heo"))) {
-
                 if (SpellRegistry.getSpell(spellId).school == SpellSchools.FIRE) {
                     if (player instanceof ServerPlayerEntity entity)
                         ServerPlayNetworking.send((ServerPlayerEntity) entity, new Identifier(InvokeMod.MODID, "fire"), PacketByteBufs.empty());

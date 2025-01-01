@@ -27,7 +27,7 @@
     "custom_impact": true,
 
     "target": {
-      "type": "CURSOR",
+      "type": "PROJECTILE",
 
 
       "projectile": {

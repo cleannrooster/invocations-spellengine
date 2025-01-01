@@ -5,7 +5,7 @@
     "tier": 2
   },
   "cast": {
-    "duration": 0.2,
+    "duration": 0.5,
     "animation": "spell_engine:two_handed_channeling",
     "sound": {
       "id": "spell_engine:generic_arcane_casting",
@@ -25,7 +25,9 @@
   "release": {
     "target": {
       "type": "CURSOR",
-      "cursor": { }
+      "cursor": {
+        "use_caster_as_fallback": true
+      }
     },
     "animation": "spell_engine:one_handed_projectile_release",
     "sound": {
@@ -38,7 +40,7 @@
         "type": "DAMAGE",
         "damage": {
           "knockback": 0.5,
-          "spell_power_coefficient": 0.6
+          "spell_power_coefficient": 0.3
         }
       },
       "particles": [

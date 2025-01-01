@@ -24,45 +24,45 @@ public class HudOverlay implements HudRenderCallback {
             x = width / 2;
             y = height;
         }
-        if (client.player != null && client.player instanceof InvokerEntity entity && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player) != null && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player).spell_ids != null && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player).spell_ids.contains("invoke:runicinvocation")) {
+        if (client.player != null && client.player instanceof InvokerEntity entity && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player) != null && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player).spell_ids != null && SpellContainerHelper.getEquipped(client.player.getMainHandStack(), client.player).spell_ids.contains("invoke:runic_invocation")) {
 
 
             if (entity.getInvokeValue()[2] == 1) {
 
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/rah2.png"), x - 8 - 8 - 8 - 16, y / 2 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/rah.png"), x - 8 - 8 - 8 - 16, y / 2 - 8, 0, 0, 16, 16,
                         16, 16);
             }
             if (entity.getInvokeValue()[2] == 2) {
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/heo2.png"), x - 8 - 8 - 8 - 16, y / 2 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/heo.png"), x - 8 - 8 - 8 - 16, y / 2 - 8, 0, 0, 16, 16,
                         16, 16);
             }
             if (entity.getInvokeValue()[2] == 3) {
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/gon2.png"), x - 8 - 8 - 8 - 16, y / 2 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/gon.png"), x - 8 - 8 - 8 - 16, y / 2 - 8, 0, 0, 16, 16,
                         16, 16);
             }
             if (entity.getInvokeValue()[0] == 1) {
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/rah2.png"), x + 8 + 16, y / 2 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/rah.png"), x + 8 + 16, y / 2 - 8, 0, 0, 16, 16,
                         16, 16);
             }
             if (entity.getInvokeValue()[0] == 2) {
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/heo2.png"), x + 8 + 16, y / 2 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/heo.png"), x + 8 + 16, y / 2 - 8, 0, 0, 16, 16,
                         16, 16);
             }
             if (entity.getInvokeValue()[0] == 3) {
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/gon2.png"), x + 8 + 16, y / 2 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/gon.png"), x + 8 + 16, y / 2 - 8, 0, 0, 16, 16,
                         16, 16);
             }
 
             if (entity.getInvokeValue()[1] == 1) {
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/rah2.png"), x - 8, y / 2 - 8 - 8 - 16 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/rah.png"), x - 8, y / 2 - 8 - 8 - 16 - 8, 0, 0, 16, 16,
                         16, 16);
             }
             if (entity.getInvokeValue()[1] == 2) {
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/heo2.png"), x - 8, y / 2 - 8 - 8 - 16 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/heo.png"), x - 8, y / 2 - 8 - 8 - 16 - 8, 0, 0, 16, 16,
                         16, 16);
             }
             if (entity.getInvokeValue()[1] == 3) {
-                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/spell/gon2.png"), x - 8, y / 2 - 8 - 8 - 16 - 8, 0, 0, 16, 16,
+                drawContext.drawTexture(new Identifier(InvokeMod.MODID, "textures/gui/gon.png"), x - 8, y / 2 - 8 - 8 - 16 - 8, 0, 0, 16, 16,
                         16, 16);
             }
         }

@@ -2,14 +2,13 @@
   "school": "ARCANE",
   "range": 64,
   "learn": {
-    "tier": 1
+    "tier": 0
   },
   "cast": {
-    "duration": 2,
-    "channel_ticks": 2,
+    "duration": 1,
     "animation": "spell_engine:one_handed_projectile_charge",
     "sound": {
-      "id": "spell_engine:generic_arcane_casting",
+      "id": "entity.warden.sonic_charge",
       "randomness": 0
     },
     "particles": [
@@ -24,34 +23,30 @@
     ]
   },
   "release": {
-    "custom_impact": true,
-
     "target": {
-      "type": "CURSOR",
-
+      "type": "PROJECTILE",
 
       "projectile": {
         "launch_properties": {
-          "velocity": 1.2
+          "velocity": 2.5
         },
         "projectile": {
-          "homing_angle": 30,
+          "homing_angle": 180.0,
           "client_data": {
             "travel_particles": [
               {
-                "particle_id": "spell_engine:arcane_spell",
-                "shape": "CIRCLE",
-                "rotation": "LOOK",
+                "particle_id": "sonic_boom",
+                "angle": "20",
+                "shape": "CONE",
                 "origin": "CENTER",
-                "count": 2.0,
-                "min_speed": 0.05,
-                "max_speed": 0.1
+                "count": 1,
+                "min_speed": 0,
+                "max_speed": 0
               }
             ],
             "model": {
-              "model_id": "wizards:projectile/arcane_missile",
-              "render": "DEEP",
-              "scale": 0.5
+              "model_id": "magma_block",
+              "scale": 0.01
             }
           }
         }
@@ -59,7 +54,7 @@
     },
     "animation": "spell_engine:one_handed_projectile_release",
     "sound": {
-      "id": "minecraft:entity.illusioner.cast_spell"
+      "id": "entity.warden.sonic_boom"
     }
   },
   "impact": [
@@ -67,8 +62,7 @@
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "knockback": 0,
-          "spell_power_coefficient": 1.6
+          "spell_power_coefficient": 2.0
         }
       },
       "particles": [
@@ -84,7 +78,6 @@
     }
   ],
   "cost": {
-    "effect_id": "spell_power:arcane",
-    "cooldown_duration": 2
+    "cooldown_duration": 0
   }
 }

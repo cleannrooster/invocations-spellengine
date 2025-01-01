@@ -28,15 +28,16 @@
 
       "projectile": {
         "launch_properties": {
-          "velocity": 1.5
+          "velocity": 1.5,
+          "extra_launch_count": 3,
+          "extra_launch_delay": 4
+
         },
         "projectile": {
           "homing_angle": 15.0,
           "perks": {
             "ricochet": 2,
-            "bounce": 2,
-            "extra_launch_count": 3,
-            "extra_launch_delay": 4
+            "bounce": 2
           },
           "client_data": {
             "travel_particles": [

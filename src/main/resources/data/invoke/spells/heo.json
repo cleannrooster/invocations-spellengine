@@ -5,7 +5,7 @@
     "tier": 2
   },
   "cast": {
-    "duration": 0.2,
+    "duration": 0.5,
     "animation": "spell_engine:two_handed_channeling",
     "sound": {
       "id": "spell_engine:generic_frost_casting",
@@ -16,7 +16,9 @@
     "custom_impact": true,
     "target": {
       "type": "CURSOR",
-
+      "cursor": {
+        "use_caster_as_fallback": true
+      },
       "projectile": {
         "launch_properties": {
           "velocity": 3.0,
@@ -40,7 +42,7 @@
               }
             ],
             "model": {
-              "model_id": "wizards:projectile/frostbolt_projectile",
+              "model_id": "wizards:projectile/frostbolt_projectile_projectile",
               "render": "DEEP",
               "scale": 0.6
             }
@@ -62,7 +64,7 @@
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.5
+          "spell_power_coefficient": 0.25
         }
       },
       "sound": {
@@ -81,6 +83,18 @@
         },
         "apply_to_caster": true
 
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "duration": 8,
+          "amplifier": 1,
+          "apply_mode": "ADD",
+
+          "effect_id": "slowness"
+        }
       }
     }
   ],

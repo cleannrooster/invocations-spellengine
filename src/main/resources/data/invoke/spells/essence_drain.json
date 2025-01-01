@@ -1,5 +1,5 @@
 {
-  "school": "ARCANE",
+  "school": "FROST",
   "range": 128,
   "learn": {
     "tier": 0
@@ -8,12 +8,12 @@
     "duration": 1,
     "animation": "spell_engine:one_handed_projectile_charge",
     "sound": {
-      "id": "spell_engine:generic_arcane_casting",
+      "id": "spell_engine:generic_frost_casting",
       "randomness": 0
     },
     "particles": [
       {
-        "particle_id": "spell_engine:arcane_spell",
+        "particle_id": "spell_engine:snowflake",
         "shape": "PIPE",
         "origin": "FEET",
         "count": 1.0,
@@ -43,7 +43,7 @@
           "client_data": {
             "travel_particles": [
               {
-                "particle_id": "spell_engine:arcane_spell",
+                "particle_id": "spell_engine:snowflake",
                 "shape": "CIRCLE",
                 "rotation": "LOOK",
                 "origin": "CENTER",
@@ -53,7 +53,7 @@
               }
             ],
             "model": {
-              "model_id": "wizards:projectile/arcane_missile",
+              "model_id": "wizards:projectile/frostbolt_projectile",
               "render": "DEEP",
               "scale": 0.50
             }
@@ -63,7 +63,7 @@
     },
     "animation": "spell_engine:one_handed_projectile_release",
     "sound": {
-      "id": "spell_engine:generic_arcane_release"
+      "id": "spell_engine:generic_frost_release"
     }
   },
   "impact": [
@@ -77,7 +77,7 @@
       },
       "particles": [
         {
-          "particle_id": "spell_engine:arcane_hit",
+          "particle_id": "spell_engine:frost_hit",
           "shape": "SPHERE",
           "origin": "CENTER",
           "count": 40,
@@ -91,7 +91,7 @@
     }
   ],
   "cost": {
-    "effect_id": "spell_power:arcane",
+    "effect_id": "spell_power:frost",
     "cooldown_duration": 1
   }
 }
