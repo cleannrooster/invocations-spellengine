@@ -4,6 +4,9 @@
   "learn": {
     "tier": 1
   },
+  "scroll":{
+    "generate": false
+  },
   "cast": {
     "channel_ticks" : 20,
     "duration": 10,

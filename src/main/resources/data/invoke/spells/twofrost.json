@@ -4,6 +4,9 @@
   "learn": {
     "tier": 2
   },
+  "scroll":{
+    "generate": false
+  },
   "cast": {
     "duration": 1,
     "animation": "spell_engine:one_handed_area_charge",

@@ -29,7 +29,6 @@ public class GlacierSmallModel<T extends GlacierSmall> extends EntityModel<T> {
     }
 
 
-
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
         bb_main.render(matrices, vertices, light, overlay);

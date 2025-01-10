@@ -4,8 +4,11 @@
   "learn": {
     "tier": 1
   },
+  "scroll":{
+    "generate": false
+  },
   "cast": {
-    "duration": 1,
+    "duration": 2,
     "channel_ticks": 2,
     "animation": "spell_engine:one_handed_projectile_charge",
     "sound": {
@@ -68,7 +71,7 @@
         "type": "DAMAGE",
         "damage": {
           "knockback": 0,
-          "spell_power_coefficient": 1.2
+          "spell_power_coefficient": 1.6
         }
       },
       "particles": [

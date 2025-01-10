@@ -142,6 +142,7 @@
 
   "itemGroup.invoke.general": "Invocation Items",
   "item.invoke.invoker_spell_book": "Runic Invocations",
+  "item.invoke.invoker.spell_scroll": "Runic Invocation",
 
   "item.invoke.fireinvoker_spell_book": "Fire Invocations",
   "item.invoke.frostinvoker_spell_book": "Frost Invocations",

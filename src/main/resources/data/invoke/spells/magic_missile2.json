@@ -1,6 +1,6 @@
 {
-  "school": "FIRE",
-  "range": 12,
+  "school": "ARCANE",
+  "range": 64,
   "learn": {
     "tier": 1
   },
@@ -9,14 +9,15 @@
   },
   "cast": {
     "duration": 1,
+    "channel_ticks": 2,
     "animation": "spell_engine:one_handed_projectile_charge",
     "sound": {
-      "id": "spell_engine:generic_fire_casting",
+      "id": "spell_engine:generic_arcane_casting",
       "randomness": 0
     },
     "particles": [
       {
-        "particle_id": "spell_engine:flame",
+        "particle_id": "spell_engine:arcane_spell",
         "shape": "PIPE",
         "origin": "FEET",
         "count": 1.0,
@@ -26,42 +27,33 @@
     ]
   },
   "release": {
+    "custom_impact": true,
+
     "target": {
       "type": "PROJECTILE",
 
-      "projectile": {
 
+      "projectile": {
         "launch_properties": {
-          "velocity": 5.0,
-          "extra_launch_count": 12,
-          "extra_launch_delay": 1
+          "velocity": 1.2
         },
         "projectile": {
-          "homing_angle": 0,
-          "divergence": 20,
+          "homing_angle": 30,
           "client_data": {
             "travel_particles": [
               {
-                "particle_id": "electric_spark",
-                "shape": "CIRCLE",
-                "rotation": "LOOK",
-                "origin": "CENTER",
-                "count": 4.0,
-                "min_speed": 0.0,
-                "max_speed": 0.1
-              },
-              {
-                "particle_id": "smoke",
+                "particle_id": "spell_engine:arcane_spell",
                 "shape": "CIRCLE",
                 "rotation": "LOOK",
                 "origin": "CENTER",
                 "count": 2.0,
-                "min_speed": 0.0,
+                "min_speed": 0.05,
                 "max_speed": 0.1
               }
             ],
             "model": {
-              "model_id": "wizards:projectile/fire_blast",
+              "model_id": "wizards:projectile/arcane_missile",
+              "render": "DEEP",
               "scale": 0.5
             }
           }
@@ -70,7 +62,7 @@
     },
     "animation": "spell_engine:one_handed_projectile_release",
     "sound": {
-      "id": "entity.generic.explode"
+      "id": "minecraft:entity.illusioner.cast_spell"
     }
   },
   "impact": [
@@ -78,23 +70,24 @@
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.2
+          "knockback": 0,
+          "spell_power_coefficient": 1.6
         }
       },
       "particles": [
         {
-          "particle_id": "lava",
-          "shape": "CIRCLE",
+          "particle_id": "spell_engine:arcane_hit",
+          "shape": "SPHERE",
           "origin": "CENTER",
-          "count": 15.0,
-          "min_speed": 3.0,
-          "max_speed": 18.0
+          "count": 40,
+          "min_speed": 0.2,
+          "max_speed": 0.7
         }
-        ]
+      ]
     }
   ],
   "cost": {
-    "effect_id": "spell_power:fire",
-    "cooldown_duration": 1
+    "effect_id": "spell_power:arcane",
+    "cooldown_duration": 2
   }
 }

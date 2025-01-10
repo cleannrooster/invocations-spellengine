@@ -333,13 +333,13 @@ public class InvokeMod implements ModInitializer {
 							if( !playerDamageInterface.getMissiles().isEmpty()) {
 								SpellProjectile missile = playerDamageInterface.getMissiles().get(0);
 								Vec3d launchPoint = launchPoint(player);
-								Spell.ProjectileData projectileData = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile")).release.target.projectile.projectile;
-								float velocity = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile")).release.target.projectile.launch_properties.velocity;
+								Spell.ProjectileData projectileData = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile2")).release.target.projectile.projectile;
+								float velocity = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile2")).release.target.projectile.launch_properties.velocity;
 								float divergence = 20F;
 								missile.setVelocity(player, (float) (player.getPitch() - player.getRandom().nextFloat() * 60), (float) (player.getYaw() + player.getRandom().nextFloat() * 120D - 60), 0, velocity, divergence);
 
 								missile.setPosition(launchPoint);
-								missile.range = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile")).range;
+								missile.range = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile2")).range;
 								missile.getPitch(player.getPitch());
 								missile.setYaw(player.getYaw());
 								player.getWorld().spawnEntity(missile);
@@ -382,7 +382,7 @@ public class InvokeMod implements ModInitializer {
 
 						data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
 
-						SpellProjectile projectile = new SpellProjectile(data1.caster().getWorld(), data1.caster(), 0, 0, 0, SpellProjectile.Behaviour.FLY, Identifier.of(MODID,"magic_missile"), entity, data1.impactContext(), new Spell.ProjectileData().perks);
+						SpellProjectile projectile = new SpellProjectile(data1.caster().getWorld(), data1.caster(), 0, 0, 0, SpellProjectile.Behaviour.FLY, Identifier.of(MODID,"magic_missile2"), entity, data1.impactContext(), new Spell.ProjectileData().perks);
 
 						playerDamageInterface.missilesAdd(projectile);
 					}

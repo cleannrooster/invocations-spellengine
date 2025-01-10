@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.spell_engine.api.spell.Spell;
 import net.spell_engine.client.util.SpellRender;
 import net.spell_engine.internals.SpellContainerHelper;
 import org.spongepowered.asm.mixin.Mixin;
