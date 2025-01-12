@@ -15,6 +15,7 @@
     }
   },
   "release": {
+    "animation": "spell_engine:one_handed_projectile_release",
     "target": {
       "type": "AREA",
       "area": {

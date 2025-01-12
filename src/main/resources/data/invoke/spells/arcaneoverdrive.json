@@ -23,7 +23,9 @@
     ]
   },
   "release": {
-    "target": {
+    "animation": "spell_engine:one_handed_projectile_release"},
+
+  "target": {
       "type": "AREA",
       "area": {
         "vertical_range_multiplier": 0.5

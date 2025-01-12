@@ -76,7 +76,7 @@ dependencies {
 
 	// Dependencies
 	modImplementation("software.bernie.geckolib:geckolib-fabric-${project.gecko_mc_prefix}${project.gecko_lib_version_fabric}")
-	//modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-fabric")
+	modImplementation("maven.modrinth:spell-engine:${project.spell_engine_version}-fabric")
 	modImplementation("maven.modrinth:spell-power:${project.spell_power_version}-fabric")
 	modImplementation("maven.modrinth:runes:${project.runes_version}-fabric")
 	// Uncomment the following line to enable the deprecated Fabric API modules.

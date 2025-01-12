@@ -56,7 +56,8 @@
     "sound": {
       "id": "spell_engine:generic_arcane_release"
     },
-    "animation": "spell_engine:one_handed_projectile_release"},
+    "animation": "spell_engine:one_handed_projectile_release"
+  },
   "impact": [
     {
       "action": {

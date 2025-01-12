@@ -6,7 +6,7 @@
   },
   "cast": {
     "duration": 1,
-    "animation": "spell_engine:two_handed_channeling",
+    "animation": "spell_engine:one_handed_area_charge",
 
     "sound": {
       "id": "spell_engine:generic_frost_casting",
@@ -43,7 +43,7 @@
         "max_speed": 0.9
       }
     ],
-    "animation": "spell_engine:one_handed_projectile_release"},
+    "animation": "spell_engine:one_handed_area_release"},
   "impact": [
     {
       "action": {

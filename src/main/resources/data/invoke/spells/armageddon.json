@@ -7,7 +7,7 @@
   "cast": {
     "duration": 1,
     "channel_ticks": 5,
-    "animation": "spell_engine:one_handed_projectile_charge",
+    "animation": "spell_engine:one_handed_area_charge",
     "sound": {
       "id": "spell_engine:generic_fire_casting",
       "randomness": 0
