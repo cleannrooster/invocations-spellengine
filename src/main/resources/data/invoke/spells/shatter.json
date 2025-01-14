@@ -9,13 +9,15 @@
   },
   "cast": {
     "duration": 1,
-    "animation": "spell_engine:two_handed_channeling",
+    "animation": "spell_engine:one_handed_area_charge",
     "sound": {
       "id": "spell_engine:generic_frost_casting",
       "randomness": 0
     }
   },
   "release": {
+    "animation": "spell_engine:one_handed_area_release",
+
     "target": {
       "type": "CURSOR",
       "area": {

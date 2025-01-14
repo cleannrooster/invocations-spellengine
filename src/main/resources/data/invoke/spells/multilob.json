@@ -9,7 +9,7 @@
   },
   "cast": {
     "duration": 0,
-    "animation": "spell_engine:two_handed_channeling"
+    "animation": "spell_engine:one_handed_projectile_charge"
   },
   "release": {
     "custom_impact": true,

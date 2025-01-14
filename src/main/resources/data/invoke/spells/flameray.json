@@ -40,7 +40,9 @@
     "channel_ticks": 1
   },
   "release": {
-    "target": {
+    "animation": "spell_engine:one_handed_projectile_release",
+
+  "target": {
       "type": "BEAM",
       "beam": {
         "color_rgba": 4284889343,

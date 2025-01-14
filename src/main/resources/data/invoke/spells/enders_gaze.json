@@ -9,7 +9,7 @@
   },
   "cast": {
     "duration": 1,
-    "animation": "spell_engine:one_handed_projectile_charge",
+    "animation": "spell_engine:one_handed_area_charge",
     "sound": {
       "id": "spell_engine:generic_arcane_casting",
       "randomness": 0
@@ -57,7 +57,7 @@
         }
       }
     },
-    "animation": "spell_engine:one_handed_projectile_release",
+    "animation": "spell_engine:one_handed_area_release",
     "sound": {
       "id": "minecraft:entity.illusioner.cast_spell"
     }
