@@ -3,7 +3,6 @@
   "package": "com.invoke.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "LivingEntityRendererMixin",
     "SpellRenderMixin",
     "SpellTooltipMixin"
   ],

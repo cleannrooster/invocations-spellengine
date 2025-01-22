@@ -1,0 +1,158 @@
+{
+  "school": "FROST",
+  "range": 3,
+  "learn": {
+    "tier": 2
+  },
+  "scroll":{
+    "generate": false
+  },
+  "cast": {
+    "duration": 1,
+    "animation": "spell_engine:one_handed_area_charge",
+    "sound": {
+      "id": "spell_engine:generic_frost_casting",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:snowflake",
+        "shape": "PIPE",
+        "origin": "CENTER",
+        "count": 0.5,
+        "min_speed": 0.1,
+        "max_speed": 0.2
+      }
+    ]
+  },
+  "release": {
+    "animation": "spell_engine:one_handed_area_release",
+    "target": {
+      "type": "CLOUD",
+      "cloud": {
+        "volume": {
+          "radius": 8,
+          "area": {
+            "vertical_range_multiplier": 0.5
+          }
+        },
+        "impact_tick_interval": 10,
+        "time_to_live_seconds": 8,
+        "client_data": {
+          "particles": [
+            {
+              "particle_id": "spell_engine:snowflake",
+              "shape": "PILLAR",
+              "origin": "FEET",
+              "count": 8.0,
+              "min_speed": 0.05,
+              "max_speed": 0.1
+            },
+            {
+              "particle_id": "spell_engine:frost_shard",
+              "shape": "PILLAR",
+              "origin": "FEET",
+              "count": 8.0,
+              "min_speed": 0.05,
+              "max_speed": 0.1
+            },
+            {
+              "particle_id": "spell_engine:frost_hit",
+              "shape": "PILLAR",
+              "origin": "FEET",
+              "count": 8.0,
+              "min_speed": 0.05,
+              "max_speed": 0.1
+            },
+            {
+              "particle_id": "spell_engine:snowflake",
+              "shape": "PILLAR",
+              "origin": "FEET",
+              "count": 8.0,
+              "min_speed": 0.05,
+              "max_speed": 0.1
+            }
+          ]
+        }
+      }
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:frost_shard",
+        "shape": "SPHERE",
+        "origin": "FEET",
+        "count": 30,
+        "min_speed": 0.2,
+        "max_speed": 0.3
+      },
+      {
+        "particle_id": "spell_engine:snowflake",
+        "shape": "CIRCLE",
+        "origin": "FEET",
+        "count": 40.0,
+        "min_speed": 0.4,
+        "max_speed": 0.4
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "impact": [
+    {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:freeze_hurts_extra_types",
+          "modifier": {
+            "power_multiplier": 0.3
+          }
+        },
+        {
+          "entity_type": "#minecraft:freeze_immune_entity_types",
+          "modifier": {
+            "power_multiplier": -0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0,
+          "spell_power_coefficient": 0.5
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:frost_hit",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 20,
+          "min_speed": 0.2,
+          "max_speed": 0.3
+        },
+        {
+          "particle_id": "spell_engine:snowflake",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 30,
+          "min_speed": 0.2,
+          "max_speed": 0.3
+        }
+      ]
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "duration": 2,
+          "amplifier": 2,
+          "effect_id": "slowness"
+        }
+      }
+    }
+  ],
+  "cost": {
+    "effect_id": "spell_power:frost",
+    "cooldown_duration": 6
+  }
+}

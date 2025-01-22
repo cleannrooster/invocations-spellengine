@@ -6,7 +6,7 @@
 		"PlayerEntityMixin",
 		"EntityMixin",
 		"SpellCastMixin",
-		"SpellProjectileMixin"
+		"SpellContainerHelperMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

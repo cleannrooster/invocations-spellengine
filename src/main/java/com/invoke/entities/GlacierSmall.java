@@ -11,6 +11,7 @@ import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
@@ -20,10 +21,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
-import net.spell_engine.api.spell.SpellInfo;
+import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellHelper;
-import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.particle.ParticleHelper;
 import net.spell_engine.utils.SoundHelper;
 
@@ -36,7 +36,7 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
 
     private  Vec3d direction = new Vec3d(0,1,0);
     private int chain = -1;
-    public Spell spell = SpellRegistry.getSpell(Identifier.of(MODID,"glacier"));
+    public Spell spell;
     public SpellHelper.ImpactContext context;
     public boolean nodamage = false;
     public int lastresonance = 0;
@@ -52,6 +52,7 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
         this.direction = direction;
         this.setOwner(owner);
         this.context = context;
+        this.spell= SpellRegistry.from(owner.getWorld()).get(Identifier.of(MODID,"glacier"));
         this.setPosition(this.getX(),(int)((this.getY()*2)/2),this.getZ());
     }
 
@@ -87,7 +88,7 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
 
     @Override
     public void tick() {
-        if(firstUpdate ){
+        if(this.spell != null && firstUpdate ){
             SoundHelper.playSound(this.getWorld(),this,this.spell.release.sound);
             if(!this.getWorld().isClient())
             ParticleHelper.sendBatches( this, this.spell.release.particles);
@@ -96,13 +97,12 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
         if(firstUpdate && this.getOwner()!= null){
             this.setRotation(this.getOwner().getYaw(),this.getOwner().getPitch());
         }
-        if( !nodamage && firstUpdate && this.getOwner() != null && this.spell != null && this.context != null){
+        if(this.spell != null &&  !nodamage && firstUpdate && this.getOwner() != null && this.spell != null && this.context != null){
             List<Entity> list = this.getWorld().getOtherEntities(this,this.getBoundingBox().stretch(1.5,1.5,1.5), entity -> entity != this.getOwner());
             spell.impact[0].action.damage.spell_power_coefficient *= this.getBoundingBox().getLengthX()/3.0F;
             for(Entity target : list) {
-                SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID,"glacier")),Identifier.of(MODID,"glacier"));
 
-                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(),info,info.spell().impact, this.context);
+                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(), RegistryEntry.of(spell),spell.impact, this.context);
             }
             spell.impact[0].action.damage.spell_power_coefficient /= this.getBoundingBox().getLengthX()/3.0F;
 

@@ -19,8 +19,8 @@ import static com.invoke.InvokeClient.TOTAL_LIST;
 
 @Mixin(SpellTooltip.class)
 public class SpellTooltipMixin {
-    @ModifyVariable(at = @At("HEAD"), method = "spellInfo", argsOnly = true, remap = false)
-    private static Identifier spellInfoInvocation(Identifier spellId,Identifier originalSpellId, PlayerEntity player, ItemStack itemStack, boolean details) {
+    @ModifyVariable(at = @At("HEAD"), method = "spellEntry", argsOnly = true, remap = false)
+    private static Identifier spellInfoInvocation(Identifier spellId,Identifier originalSpellId, PlayerEntity player, ItemStack itemStack, boolean details,boolean indented) {
         Identifier id = originalSpellId;
 
                 if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getAvailable( player) != null && SpellContainerHelper.getAvailable( player).spell_ids() != null && SpellContainerHelper.getAvailable( player).spell_ids().contains("invoke:runic_invocation")) {
@@ -64,7 +64,7 @@ public class SpellTooltipMixin {
         if (MinecraftClient.getInstance() != null) {
 
             PlayerEntity player = MinecraftClient.getInstance().player;
-            if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getEquipped(player.getMainHandStack(), player) != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids() != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids().contains("invoke:runic_invocation")) {
+            if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getAvailable( player) != null && SpellContainerHelper.getAvailable( player).spell_ids() != null && SpellContainerHelper.getAvailable( player).spell_ids().contains("invoke:runic_invocation")) {
                 int x = 0;
                 int y = 0;
                 int z = 0;

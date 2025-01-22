@@ -21,6 +21,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -29,8 +30,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.SpellContainerHelper;
-import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.internals.casting.SpellCasterClient;
 import net.spell_engine.internals.casting.SpellCasterEntity;
 import net.spell_power.api.SpellPowerMechanics;
@@ -249,7 +250,7 @@ public class InvokeClient implements ClientModInitializer {
 		TOTAL_LIST[2][2][2] = "essence_drain";
 		TOTAL_LIST[2][2][1] = "amethystburst";
 		TOTAL_LIST[2][1][3] = "flameray";
-		TOTAL_LIST[2][1][2] = "glacialhammer";
+		TOTAL_LIST[2][1][2] = "frozenmiasma";
 
 		TOTAL_LIST[2][1][1] = "enders_gaze";
 
@@ -305,6 +306,7 @@ public class InvokeClient implements ClientModInitializer {
 
 				}
 		);
+
 		ClientTickEvents.START_CLIENT_TICK.register(server -> {
 			PlayerEntity player = server.player;
 			World level = server.world;
@@ -312,7 +314,7 @@ public class InvokeClient implements ClientModInitializer {
 			if (player != null && level != null) {
 
 				if(player instanceof SpellCasterClient client && player instanceof InvokerEntity entity){
-					if(client.getCurrentSpell() != null && client.getCurrentSpell().equals(SpellRegistry.getSpell(Identifier.of(MODID,"runic_invocation")))){
+					if(client.getCurrentSpell() != null && client.getCurrentSpell().equals(SpellRegistry.from(player.getWorld()).get(Identifier.of(MODID,"runic_invocation")))){
 
 						int[] combination = {0,0,0};
 						for(int i = 0; i < combination.length; i++){
@@ -336,9 +338,12 @@ public class InvokeClient implements ClientModInitializer {
 							combination[2] = 3;
 						}
 
-						if( SpellRegistry.getSpell(Identifier.of(MODID,InvokeClient.getString(entity,combination[0],combination[1],combination[2]))) != null) {
-							Spell spell = SpellRegistry.getSpell(Identifier.of(MODID,"runic_invocation"));
-							client.startSpellCast(player.getStackInHand(Hand.MAIN_HAND), Identifier.of(MODID, InvokeClient.getString(entity,combination[0],combination[1],combination[2])));
+						if( SpellRegistry.from(player.getWorld()).get(Identifier.of(MODID,InvokeClient.getString(entity,combination[0],combination[1],combination[2]))) != null) {
+							Spell spell = SpellRegistry.from(player.getWorld()).get(Identifier.of(MODID,"runic_invocation"));
+							RegistryEntry<Spell> toCast = SpellRegistry.from(player.getWorld()).getEntry(Identifier.of(MODID, InvokeClient.getString(entity,combination[0],combination[1],combination[2]))).get();
+							if(toCast != spell && toCast != null) {
+								client.startSpellCast(player.getStackInHand(Hand.MAIN_HAND), toCast);
+							}
 							client.getCooldownManager().set(Identifier.of(MODID,"runic_invocation"),(int) (spell.cost.cooldown_duration*20));
 						}
 					}

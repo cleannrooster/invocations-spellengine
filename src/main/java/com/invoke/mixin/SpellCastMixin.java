@@ -16,9 +16,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_engine.internals.SpellHelper;
-import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.internals.casting.SpellCast;
 import net.spell_engine.internals.casting.SpellCasterClient;
 import net.spell_engine.internals.casting.SpellCasterEntity;
@@ -37,21 +37,17 @@ import java.util.UUID;
 public class SpellCastMixin {
     @Inject(at = @At("HEAD"), method = "performSpell", cancellable = true)
     private static void invocationSpell(World world, PlayerEntity player, Identifier spellId, TargetHelper.SpellTargetResult targets, SpellCast.Action action, float progress, CallbackInfo callbackInfo) {
-        if (player != null  && SpellContainerHelper.getEquipped(player.getMainHandStack(), player) != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids() != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids().contains("invoke:runic_invocation")) {
-
-            if (targets.entities().isEmpty() && (SpellRegistry.getSpell(spellId).release.target.type.equals(Spell.Release.Target.Type.CURSOR) || SpellRegistry.getSpell(spellId).release.target.type.equals(Spell.Release.Target.Type.METEOR))) {
-                return;
-            }
+        if (player != null  && SpellContainerHelper.getAvailable( player) != null && SpellContainerHelper.getAvailable( player).spell_ids() != null && SpellContainerHelper.getAvailable( player).spell_ids().contains("invoke:runic_invocation")) {
             if (player instanceof InvokerEntity invokerEntity && action.equals(SpellCast.Action.RELEASE) &&
                     !spellId.toString().contains("invoke")) {
-                if (SpellRegistry.getSpell(spellId).school == SpellSchools.FIRE) {
+                if (SpellRegistry.from(player.getWorld()).get(spellId).school == SpellSchools.FIRE) {
                     if (player instanceof ServerPlayerEntity entity)
                         ServerPlayNetworking.send((ServerPlayerEntity) entity, new InvokePacketFire(UUID.randomUUID()));
                     invokerEntity.InvokeSet(invokerEntity.getInvokeValue()[1], 0);
                     invokerEntity.InvokeSet(invokerEntity.getInvokeValue()[2], 1);
                     invokerEntity.InvokeSet(1, 2);
                 }
-                if (SpellRegistry.getSpell(spellId).school == SpellSchools.FROST) {
+                if (SpellRegistry.from(player.getWorld()).get(spellId).school == SpellSchools.FROST) {
                     if (player instanceof ServerPlayerEntity entity)
                         ServerPlayNetworking.send((ServerPlayerEntity) entity, new InvokePacketFrost(UUID.randomUUID()));
                     invokerEntity.InvokeSet(invokerEntity.getInvokeValue()[1], 0);
@@ -60,7 +56,7 @@ public class SpellCastMixin {
                     invokerEntity.InvokeSet(2, 2);
 
                 }
-                if (SpellRegistry.getSpell(spellId).school == SpellSchools.ARCANE) {
+                if (SpellRegistry.from(player.getWorld()).get(spellId).school == SpellSchools.ARCANE) {
 
                     if (player instanceof ServerPlayerEntity entity)
                         ServerPlayNetworking.send((ServerPlayerEntity) entity, new InvokePacket(UUID.randomUUID()));
@@ -75,14 +71,14 @@ public class SpellCastMixin {
             }
             if (player instanceof InvokerEntity invokerEntity && (spellId.getPath().equals("rah") || spellId.getPath().equals("gon") || spellId.getPath().equals("heo"))) {
 
-                if (SpellRegistry.getSpell(spellId).school == SpellSchools.FIRE) {
+                if (SpellRegistry.from(player.getWorld()).get(spellId).school == SpellSchools.FIRE) {
                     if (player instanceof ServerPlayerEntity entity)
                         ServerPlayNetworking.send((ServerPlayerEntity) entity, new InvokePacketFire(UUID.randomUUID()));
                     invokerEntity.InvokeSet(invokerEntity.getInvokeValue()[1], 0);
                     invokerEntity.InvokeSet(invokerEntity.getInvokeValue()[2], 1);
                     invokerEntity.InvokeSet(1, 2);
                 }
-                if (SpellRegistry.getSpell(spellId).school == SpellSchools.FROST) {
+                if (SpellRegistry.from(player.getWorld()).get(spellId).school == SpellSchools.FROST) {
                     if (player instanceof ServerPlayerEntity entity)
                         ServerPlayNetworking.send((ServerPlayerEntity) entity, new InvokePacketFrost(UUID.randomUUID()));
                     invokerEntity.InvokeSet(invokerEntity.getInvokeValue()[1], 0);
@@ -91,7 +87,7 @@ public class SpellCastMixin {
                     invokerEntity.InvokeSet(2, 2);
 
                 }
-                if (SpellRegistry.getSpell(spellId).school == SpellSchools.ARCANE) {
+                if (SpellRegistry.from(player.getWorld()).get(spellId).school == SpellSchools.ARCANE) {
                     if (player instanceof ServerPlayerEntity entity)
                         ServerPlayNetworking.send((ServerPlayerEntity) entity, new InvokePacket(UUID.randomUUID()));
 
@@ -104,17 +100,18 @@ public class SpellCastMixin {
                 }
 
             }
-            if (player instanceof InvokerEntity invokerEntity && spellId.toString().contains("invoke") && action.equals(SpellCast.Action.RELEASE)) {
-                if (!spellId.getPath().equals("rah") && !spellId.getPath().equals("gon") && !spellId.getPath().equals("heo")) {
-                    if (player instanceof ServerPlayerEntity entity)
-                        ServerPlayNetworking.send((ServerPlayerEntity) entity, new ResetPacket(UUID.randomUUID()));
 
-                    invokerEntity.InvokeSet(0, 0);
-                    invokerEntity.InvokeSet(0, 1);
-                    invokerEntity.InvokeSet(0, 2);
-                }
+        }
+        if (player instanceof InvokerEntity invokerEntity && spellId.toString().contains("invoke") ) {
+            if (!spellId.getPath().equals("rah") && !spellId.getPath().equals("gon") && !spellId.getPath().equals("heo")) {
+                if (player instanceof ServerPlayerEntity entity)
+                    ServerPlayNetworking.send((ServerPlayerEntity) entity, new ResetPacket(UUID.randomUUID()));
 
+                invokerEntity.InvokeSet(0, 0);
+                invokerEntity.InvokeSet(0, 1);
+                invokerEntity.InvokeSet(0, 2);
             }
+
         }
     }
 }

@@ -23,6 +23,9 @@
   "spell.invoke.scorchingwind.description": "Scorch the area around you with a burning wind, launching enemies, setting them on fire, and dealing {damage} fire spell damage.",
   "spell.invoke.essence_drain.name": "Essence Drail",
   "spell.invoke.essence_drain.description": "Unleash a deadly contagion projectile, which ricochets off of enemies. When it ricochets, it deals {damage} frost spell damage, spawns 4 non-ricocheting projectiles, and applies to you Regeneration X for 1 tick.",
+  "spell.invoke.frozenmiasma.name": "Freezing Miasma",
+  "spell.invoke.frozenmiasma.description": "Place a cloud of freezing miasma centered a short distance in front of you, dealing {damage} frost damage every half second in an area and slowing up to Slowness 3.",
+
   "spell.invoke.agonizingblast.name": "Agonizing Blast",
   "spell.invoke.agonizingblast.description": "Blast enemies three times in a straight line. Each blast deals {damage} arcane spell damage and triggers eight more blasts shooting in a circle around the first enemy it hits, which each in turn trigger eight more blasts should they find a target, and so on. Cannot infinitely repeat.",
   "spell.invoke.rah.name": "Fire Invocation: Rah",

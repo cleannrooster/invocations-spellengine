@@ -14,17 +14,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
-import net.spell_engine.api.spell.ParticleBatch;
 import net.spell_engine.api.spell.Spell;
-import net.spell_engine.api.spell.SpellInfo;
+import net.spell_engine.api.spell.fx.ParticleBatch;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellHelper;
-import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.particle.ParticleHelper;
 import net.spell_engine.utils.TargetHelper;
 import net.spell_power.api.SpellPower;
@@ -104,9 +103,8 @@ public class EndersGaze extends SpellProjectile implements FlyingItemEntity {
             if(!this.getWorld().isClient() && this.power != null && this.context != null && this.getOwner() instanceof LivingEntity living2 && this.spell != null) {
                 if (this.power != null && this.target != null && this.spell != null && this.context != null) {
 
-                    SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID,"enders_gaze")),Identifier.of(MODID,"enders_gaze"));
 
-                    SpellHelper.performImpacts(this.getWorld(),living2,this.target,living2,info,info.spell().impact,this.context);
+                    SpellHelper.performImpacts(this.getWorld(),living2,this.target,living2, RegistryEntry.of(spell),spell.impact,this.context);
 
                     //this.playSound(SoundEvents.ILLUSIONER_CAST_SPELL);
 

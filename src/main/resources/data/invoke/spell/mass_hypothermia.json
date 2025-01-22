@@ -1,0 +1,96 @@
+{
+  "school": "FROST",
+  "range": 16,
+  "learn": {
+    "tier": 0
+  },
+  "scroll":{
+    "generate": false
+  },
+  "cast": {
+    "duration": 1,
+    "channel_ticks": 2,
+
+    "animation": "spell_engine:one_handed_area_charge",
+    "sound": {
+      "id": "spell_engine:generic_frost_casting",
+      "randomness": 0
+    }
+  },
+  "release": {
+    "animation": "spell_engine:one_handed_area_release",
+
+    "target": {
+      "type": "AREA",
+      "area": {
+        "distance_dropoff": "SQUARED",
+        "angle_degrees": 360
+      }
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:snowflake",
+        "angle": 360,
+        "shape": "CONE",
+        "rotation": "LOOK",
+        "origin": "LAUNCH_POINT",
+        "count": 36.0,
+        "min_speed": 0.5,
+        "max_speed": 1
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "impact": [
+    {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:freeze_hurts_extra_types",
+          "modifier": {
+            "power_multiplier": 0.3
+          }
+        },
+        {
+          "entity_type": "#minecraft:freeze_immune_entity_types",
+          "modifier": {
+            "power_multiplier": -0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 1,
+          "knockback": 1.2
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:snowflake",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 3.0,
+          "min_speed": 0.5,
+          "max_speed": 3.0
+        }
+      ]
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "duration": 8,
+          "amplifier": 2,
+          "apply_mode": "ADD",
+
+          "effect_id": "slowness"
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown_duration": 1
+  }
+}

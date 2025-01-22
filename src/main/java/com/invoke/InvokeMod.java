@@ -22,22 +22,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.spell_engine.api.event.CombatEvents;
+import net.spell_engine.api.item.trinket.ISpellBookItem;
 import net.spell_engine.api.item.trinket.SpellBookItem;
 import net.spell_engine.api.item.trinket.SpellBooks;
-import net.spell_engine.api.spell.CustomSpellHandler;
 import net.spell_engine.api.spell.Spell;
-import net.spell_engine.api.spell.SpellInfo;
+import net.spell_engine.api.spell.event.CustomSpellHandler;
+import net.spell_engine.api.spell.registry.SpellRegistry;
+import net.spell_engine.client.input.SpellHotbar;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellHelper;
-import net.spell_engine.internals.SpellRegistry;
 import net.spell_engine.internals.casting.SpellCast;
 import net.spell_engine.internals.casting.SpellCasterEntity;
 import net.spell_engine.particle.ParticleHelper;
@@ -179,35 +183,93 @@ public class InvokeMod implements ModInitializer {
 			{ARCANE3FIRE1,FROST3ARCANE1,FROST3ARCANE3,PUREARCANE},
 			{ARCANE3FIRE2,FIRE3ARCANE3, FROST3ARCANE2, ARCANE3FIRE2},
 			{PUREFIRE, FIRE3ARCANE2, FIRE3ARCANE2, FIRE3ARCANE1}};
-	private static final String[] FULL_LIST = {
-			"risingflame",
-			"flameray",
-			"scorchingwind",
-			"meteorrush",
-			"greaterfireball",
-			"supernova",
-			"buckshot",
-			"combustion",
-			"armageddon",
-			"arcaneoverdrive",
-			"blink",
-			"amethystburst",
-			"enders_gaze",
-			"magic_missile",
-			"sonicboom",
-			"hijack",
-			"bouncing",
-			"agonizingblast",
-			"glacialhammer",
-			"icebarrage",
-			"sharedsuffering",
-			"upheaval",
-			"glacier",
-			"resonance",
-			"icestorm",
-			"freezeaura",
-			"deathchill"
-	};
+	public static String getString(InvokerEntity entity, int x, int y, int z){
+		int first = 0;
+		int second = 0;
+		int third = 0;
+		if (entity.getInvokeValue()[0] == 3) {
+			first = 1;
+		}
+		if (entity.getInvokeValue()[1] == 3) {
+			second = 1;
+		}
+		if (entity.getInvokeValue()[2] == 3) {
+			third = 1;
+		}
+		if(entity.getInvokeValue()[0] == 2){
+			first = 2;
+		}
+		if(entity.getInvokeValue()[1] == 2){
+			second = 2;
+		}
+		if(entity.getInvokeValue()[2] == 2){
+			third = 2;
+		}
+		if(entity.getInvokeValue()[0] == 1){
+			first =3;
+		}
+		if(entity.getInvokeValue()[1] == 1){
+			second = 3;
+		}
+		if(entity.getInvokeValue()[2] == 1){
+			third = 3;
+		}
+
+		return TOTAL_LIST[first][second][third];
+	}
+	static {
+		TOTAL_LIST[0][0][0] = "runic_invocation";
+
+		TOTAL_LIST[0][0][1] = "blink";
+		TOTAL_LIST[0][0][2] = "icebarrage";
+		TOTAL_LIST[0][0][3] = "scorchingwind";
+
+		TOTAL_LIST[0][1][1] = "arcane_launch";
+		TOTAL_LIST[0][1][2] = "chill";
+		TOTAL_LIST[0][1][3] = "combust";
+
+
+		TOTAL_LIST[0][2][1] = "magic_missile";
+		TOTAL_LIST[0][2][2] = "upheaval";
+		TOTAL_LIST[0][2][3] = "greater_fireball";
+
+
+		TOTAL_LIST[0][3][1] = "arcane_nova";
+		TOTAL_LIST[0][3][2] = "glacier";
+		TOTAL_LIST[0][3][3] = "supernova";
+
+		TOTAL_LIST[1][3][3] = "greater_combust";
+		TOTAL_LIST[1][3][2] = "shatter";
+		TOTAL_LIST[1][3][1] = "power_word_kill";
+		TOTAL_LIST[1][2][3] = "scorching_agony";
+		TOTAL_LIST[1][2][2] = "deep_chill";
+		TOTAL_LIST[1][2][1] = "snare";
+		TOTAL_LIST[1][1][3] = "scorching_ray";
+		TOTAL_LIST[1][1][2] = "sharedsuffering";
+		TOTAL_LIST[1][1][1] = "sonicboom";
+
+		TOTAL_LIST[3][3][3] = "inferno";
+		TOTAL_LIST[3][3][2] = "frozen_resonance";
+		TOTAL_LIST[3][3][1] = "time_dilate";
+		TOTAL_LIST[3][2][3] = "homing";
+		TOTAL_LIST[3][2][2] = "ice_nova";
+		TOTAL_LIST[3][2][1] = "agonizingblast";
+		TOTAL_LIST[3][1][3] = "flame_geyser";
+		TOTAL_LIST[3][1][2] = "mass_hypothermia";
+		TOTAL_LIST[3][1][1] = "overload";
+
+		TOTAL_LIST[2][3][3] = "armageddon";
+		TOTAL_LIST[2][3][2] = "icestorm";
+		TOTAL_LIST[2][3][1] = "eldritch_blast";
+		TOTAL_LIST[2][2][3] = "buckshot";
+		TOTAL_LIST[2][2][2] = "essence_drain";
+		TOTAL_LIST[2][2][1] = "amethystburst";
+		TOTAL_LIST[2][1][3] = "flameray";
+		TOTAL_LIST[2][1][2] = "glacialhammer";
+
+		TOTAL_LIST[2][1][1] = "enders_gaze";
+
+	}
 /*	public static ConfigManager<ItemConfig> itemConfig = new ConfigManager<ItemConfig>
 			("items_v2", Default.itemConfig)
 			.builder()
@@ -236,7 +298,7 @@ public class InvokeMod implements ModInitializer {
 
 	public void onInitialize() {
 		int rawId = 1646123;
-		SpellBookItem book = SpellBooks.create(Identifier.of(MODID,"invoker"));
+		ISpellBookItem book = SpellBooks.create(Identifier.of(MODID,"invoker"));
 		ItemGroupEvents.modifyEntriesEvent(KEY).register((content) -> {
 		});
 		PayloadTypeRegistry.playS2C().register(InvokePacket.ARCANE, InvokePacket.PACKET_CODEC);
@@ -301,13 +363,7 @@ public class InvokeMod implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
 
 		CustomSpellHandler.register(Identifier.of(MODID,"runic_invocation"), (data) ->{
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
 
-			if(data1.caster() instanceof InvokerEntity entity && data1.caster() instanceof SpellCasterEntity caster) {
-
-				//SpellHelper.startCasting(data1.caster(),Identifier.of(MODID,TOTAL_LIST[combination[0]][combination[1]][combination[2]]),1.0F,(int)Math.ceil(spell.cast.duration*20));
-				return false;
-			}
 			return false;
 
 		});
@@ -328,21 +384,11 @@ public class InvokeMod implements ModInitializer {
 
 						if (caster.getCurrentSpell() == null) {
 
-							float duration = SpellHelper.getCooldownDuration(player,SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile")))*20;
+							float duration = SpellHelper.getCooldownDuration(player,SpellRegistry.from(player.getWorld()).get(Identifier.of(MODID, "magic_missile")))*20;
 
 							if( !playerDamageInterface.getMissiles().isEmpty()) {
 								SpellProjectile missile = playerDamageInterface.getMissiles().get(0);
-								Vec3d launchPoint = launchPoint(player);
-								Spell.ProjectileData projectileData = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile2")).release.target.projectile.projectile;
-								float velocity = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile2")).release.target.projectile.launch_properties.velocity;
-								float divergence = 20F;
-								missile.setVelocity(player, (float) (player.getPitch() - player.getRandom().nextFloat() * 60), (float) (player.getYaw() + player.getRandom().nextFloat() * 120D - 60), 0, velocity, divergence);
-
-								missile.setPosition(launchPoint);
-								missile.range = SpellRegistry.getSpell(Identifier.of(MODID, "magic_missile2")).range;
-								missile.getPitch(player.getPitch());
-								missile.setYaw(player.getYaw());
-								player.getWorld().spawnEntity(missile);
+								SpellHelper.shootProjectile(player.getWorld(),player,missile.getFollowedTarget(),missile.getSpellEntry(),new SpellHelper.ImpactContext().position(player.getPos()));
 								playerDamageInterface.getMissiles().remove(playerDamageInterface.getMissiles().get(0));
 							}
 						}
@@ -359,7 +405,7 @@ public class InvokeMod implements ModInitializer {
 										if (air.isPresent()) {
 											GlacierSmall newGlacier =
 													new GlacierSmall(ICECRASH3, player.getWorld(), -1, player.getRotationVector(), player,
-															new SpellHelper.ImpactContext(1.0F, 1.0F, null, SpellPower.getSpellPower(SpellSchools.FROST, player), TargetHelper.TargetingMode.AREA));
+															new SpellHelper.ImpactContext(1.0F, 1.0F, null, SpellPower.getSpellPower(SpellSchools.FROST, player), TargetHelper.TargetingMode.AREA,0));
 											newGlacier.setPosition(air.get().getX() + 0.5, air.get().getY() + 1, air.get().getZ() + 0.5);
 											player.getWorld().spawnEntity(newGlacier);
 										}
@@ -375,25 +421,7 @@ public class InvokeMod implements ModInitializer {
 		);
 		CustomSpellHandler.register(Identifier.of(MODID,"magic_missile"),(data) -> {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity playerDamageInterface){
-				if (!data1.caster().getWorld().isClient) {
-					for(Entity entity : data1.targets()) {
-
-						data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
-
-						SpellProjectile projectile = new SpellProjectile(data1.caster().getWorld(), data1.caster(), 0, 0, 0, SpellProjectile.Behaviour.FLY, Identifier.of(MODID,"magic_missile2"), entity, data1.impactContext(), new Spell.ProjectileData().perks);
-
-						playerDamageInterface.missilesAdd(projectile);
-					}
-				}
-				if(data1.caster() instanceof InvokerEntity invokerEntity){
-
-
-
-				}
-			}
-
+			SpellHelper.performSpell(data1.caster().getWorld(),data1.caster(),Identifier.of(MODID,"magic_missile2"), TargetHelper.SpellTargetResult.of(List.of(data1.targets().get(0))), SpellCast.Action.RELEASE,1.0F);
 			return false;
 		});
 		CustomSpellHandler.register(Identifier.of(MODID,"deathchill"),(data) -> {
@@ -429,6 +457,7 @@ public class InvokeMod implements ModInitializer {
 
 		CustomSpellHandler.register(Identifier.of(MODID,"heo"),(data) -> {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
+			Spell spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"heo"));
 			if (!data1.caster().getWorld().isClient) {
 				if(!data1.targets().isEmpty()) {
 					List<GlacierSmall> list2 = new ArrayList<>();
@@ -436,14 +465,13 @@ public class InvokeMod implements ModInitializer {
 						if(target != data1.caster()) {
 							GlacierSmall newGlacier = new GlacierSmall(ICECRASH2, data1.caster().getWorld(), -1, data1.caster().getRotationVector(), data1.caster(), data1.impactContext());
 							newGlacier.setPosition(target.getX(), target.getY(), target.getZ());
-							newGlacier.spell = SpellRegistry.getSpell(Identifier.of(MODID, "heo"));
+							newGlacier.spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID, "heo"));
 							newGlacier.nodamage = true;
 							list2.add(newGlacier);
 							data1.caster().getWorld().spawnEntity(newGlacier);
 							target.timeUntilRegen = 0;
 						}
-						SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID, "heo")), Identifier.of(MODID, "heo"));
-						SpellHelper.performImpacts(data1.caster().getWorld(), data1.caster(), target, data1.caster(), info,info.spell().impact,data1.impactContext());
+						SpellHelper.performImpacts(data1.caster().getWorld(), data1.caster(), target, data1.caster(), RegistryEntry.of(spell),spell.impact,data1.impactContext());
 
 					}
 					return true;
@@ -484,17 +512,18 @@ public class InvokeMod implements ModInitializer {
 				);
 					CustomSpellHandler.register(Identifier.of(MODID,"glacialhammer"),(data) -> {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-			if (!data1.caster().getWorld().isClient) {
+						Spell spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"glacialhammer"));
+
+						if (!data1.caster().getWorld().isClient) {
 				if(!data1.targets().isEmpty()) {
 					List<GlacierSmall> list2 = new ArrayList<>();
 					for (Entity target : data1.targets()) {
 						if (target instanceof GlacierSmall small) {
-							ParticleHelper.sendBatches(small,SpellRegistry.getSpell(Identifier.of(MODID,"glacialhammer")).impact[0].particles);
+							ParticleHelper.sendBatches(small,SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"glacialhammer")).impact[0].particles);
 							List<LivingEntity> list = small.getWorld().getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class),small.getBoundingBox().stretch(1.5,1.5,1.5).expand(4),Objects::nonNull);
 							for(LivingEntity living : list){
-								SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID,"glacialhammer")),Identifier.of(MODID,"glacialhammer"));
 
-								SpellHelper.performImpacts(living.getWorld(),data1.caster(),living,data1.caster(),info,info.spell().impact, data1.impactContext());
+								SpellHelper.performImpacts(living.getWorld(),data1.caster(),living,data1.caster(),RegistryEntry.of(spell),spell.impact, data1.impactContext());
 							}
 							small.playSound(SoundEvents.BLOCK_GLASS_BREAK,1,1);
 							small.discard();
@@ -508,9 +537,8 @@ public class InvokeMod implements ModInitializer {
 							}
 
 							target.timeUntilRegen = 0;
-							SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID,"glacialhammer")),Identifier.of(MODID,"glacialhammer"));
 
-							SpellHelper.performImpacts(target.getWorld(),data1.caster(),target,data1.caster(),info,info.spell().impact, data1.impactContext());
+							SpellHelper.performImpacts(target.getWorld(),data1.caster(),target,data1.caster(),RegistryEntry.of(spell),spell.impact, data1.impactContext());
 
 						}
 					}
@@ -521,6 +549,8 @@ public class InvokeMod implements ModInitializer {
 		});
 		CustomSpellHandler.register(Identifier.of(MODID,"sharedsuffering"),(data) -> {
 			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
+			Spell spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"sharedsuffering"));
+
 			if (!data1.caster().getWorld().isClient) {
 				if(!data1.targets().isEmpty()) {
 					data1.caster().damage(data1.caster().getDamageSources().freeze(), 1.0f);
@@ -532,9 +562,8 @@ public class InvokeMod implements ModInitializer {
 							living.damage(living.getDamageSources().freeze(), 1.0f);
 
 						}
-						SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID,"sharedsuffering")),Identifier.of(MODID,"sharedsuffering"));
 
-						SpellHelper.performImpacts(data1.caster().getWorld(), (LivingEntity) data1.caster(), target,data1.caster(), info,info.spell().impact, data1.impactContext());
+						SpellHelper.performImpacts(data1.caster().getWorld(), (LivingEntity) data1.caster(), target,data1.caster(), RegistryEntry.of(spell),spell.impact, data1.impactContext());
 					}
 				}
 
@@ -563,22 +592,22 @@ public class InvokeMod implements ModInitializer {
 
 			if (!data1.caster().getWorld().isClient) {
 				List<Entity> list = data1.caster().getWorld().getOtherEntities(data1.caster(),data1.caster().getBoundingBox().stretch(1.5,1.5,1.5).expand(4,0,4));
-				ParticleHelper.sendBatches( data1.caster(), SpellRegistry.getSpell(Identifier.of(MODID,"frozen_resonance")).release.particles);
-				SpellHelper.ImpactContext impactContext = new SpellHelper.ImpactContext(1.0F, 1.0F, null, data1.impactContext().power(), data1.impactContext().targetingMode());
-				SpellInfo info = new SpellInfo(SpellRegistry.getSpell(Identifier.of(MODID,"frozen_resonance")),Identifier.of(MODID,"frozen_resonance"));
+				ParticleHelper.sendBatches( data1.caster(), SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"frozen_resonance")).release.particles);
+				SpellHelper.ImpactContext impactContext = new SpellHelper.ImpactContext(1.0F, 1.0F, null, data1.impactContext().power(), data1.impactContext().targetingMode(),0);
+				Spell spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"frozen_resonance"));
 
 				for(Entity entity : list){
-					SpellHelper.performImpacts(entity.getWorld(), data1.caster(), entity,data1.caster(),info,info.spell().impact, impactContext);
+					SpellHelper.performImpacts(entity.getWorld(), data1.caster(), entity,data1.caster(),RegistryEntry.of(spell),spell.impact, impactContext);
 				}
-				List<GlacierSmall> small = data1.caster().getWorld().getEntitiesByType(TypeFilter.instanceOf(GlacierSmall.class),data1.caster().getBoundingBox().expand(SpellRegistry.getSpell(Identifier.of(MODID,"frozen_resonance")).range), glacier -> glacier.lastresonance == 0);
+				List<GlacierSmall> small = data1.caster().getWorld().getEntitiesByType(TypeFilter.instanceOf(GlacierSmall.class),data1.caster().getBoundingBox().expand(SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"frozen_resonance")).range), glacier -> glacier.lastresonance == 0);
 				if(!small.isEmpty()) {
 
 					GlacierSmall small1 = small.get(data1.caster().getRandom().nextInt(small.size()));
 					List<Entity> list2 = small1.getWorld().getOtherEntities(small1, small1.getBoundingBox().stretch(1.5, 1.5, 1.5).expand(4, 0, 4));
-					ParticleHelper.sendBatches(small1, SpellRegistry.getSpell(Identifier.of(MODID, "frozen_resonance")).release.particles);
-					SoundHelper.playSound(data1.caster().getWorld(), small1, SpellRegistry.getSpell(Identifier.of(MODID, "frozen_resonance")).release.sound);
+					ParticleHelper.sendBatches(small1, SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID, "frozen_resonance")).release.particles);
+					SoundHelper.playSound(data1.caster().getWorld(), small1, SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID, "frozen_resonance")).release.sound);
 					for (Entity entity : list2) {
-						SpellHelper.performImpacts(entity.getWorld(), (LivingEntity) data1.caster(), entity, data1.caster(), info,info.spell().impact, impactContext);
+						SpellHelper.performImpacts(entity.getWorld(), (LivingEntity) data1.caster(), entity, data1.caster(), RegistryEntry.of(spell),spell.impact, impactContext);
 					}
 					small1.lastresonance = 12;
 				}
@@ -612,7 +641,7 @@ public class InvokeMod implements ModInitializer {
 								EndersGaze endersGaze = new EndersGaze(GAZEHITTER, data1.caster().getWorld(), data1.caster(), living, i);
 								endersGaze.setPosition(living.getEyePos());
 								endersGaze.power = data1.impactContext().power();
-								endersGaze.spell = SpellRegistry.getSpell(Identifier.of(MODID,"enders_gaze"));
+								endersGaze.spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"enders_gaze"));
 								endersGaze.context = data1.impactContext();
 								if (!data1.caster().getWorld().isClient()) {
 									data1.caster().getWorld().spawnEntity(endersGaze);
@@ -624,6 +653,9 @@ public class InvokeMod implements ModInitializer {
 					}
 				}
 			return true;
+		});
+		CombatEvents.SPELL_CAST.register(args -> {
+
 		});
 		CustomSpellHandler.register(Identifier.of(MODID,"blink"),(data) -> {
 					CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
