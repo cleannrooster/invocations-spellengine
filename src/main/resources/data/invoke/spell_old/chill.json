@@ -1,0 +1,105 @@
+{
+  "school": "FROST",
+  "range": 16,
+  "learn": {
+    "tier": 0
+  },
+  "scroll":{
+    "generate": false
+  },
+  "cast": {
+    "duration": 1,
+
+    "animation": "invoke:one_handed_area_charge",
+    "sound": {
+      "id": "spell_engine:generic_frost_casting",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "minecraft:snowflake",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 2,
+        "min_speed": 0.0025,
+        "max_speed": 0.03
+      },
+      {
+        "particle_id": "spell_engine:frost_shard",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 4,
+        "min_speed": 0.005,
+        "max_speed": 0.05
+      }
+    ]
+  },
+  "release": {
+    "target": {
+      "type": "CURSOR"
+    },
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    },
+    "animation": "invoke:one_handed_area_release"
+
+  },
+  "impact": [
+    {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:freeze_hurts_extra_types",
+          "modifier": {
+            "power_multiplier": 0.3
+          }
+        },
+        {
+          "entity_type": "#minecraft:freeze_immune_entity_types",
+          "modifier": {
+            "power_multiplier": -0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0,
+          "spell_power_coefficient": 0.6
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "minecraft:snowflake",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 10,
+          "min_speed": 0.025,
+          "max_speed": 0.3
+        },
+        {
+          "particle_id": "spell_engine:frost_shard",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 15.0,
+          "min_speed": 0.05,
+          "max_speed": 0.4
+        }
+      ]
+
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "duration": 8,
+          "amplifier": 2,
+          "effect_id": "slowness"
+        }
+      }
+    }
+  ],
+  "cost": {
+    "effect_id": "spell_power:frost",
+    "cooldown_duration": 1
+  }
+}

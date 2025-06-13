@@ -1,0 +1,219 @@
+{
+  "school": "spell_power:fire",
+  "range": 24.0,
+  "tier": 3,
+  "learn": {},
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 1.0,
+      "animation": "invoke:one_handed_area_charge",
+      "sound": {
+        "id": "spell_engine:generic_fire_casting"
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:flame",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.2,
+          "max_speed": 0.2,
+          "pre_spawn_travel": 10.0,
+          "color_rgba": 4284889343,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:flame_medium_a",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 50.0,
+          "color_rgba": 4284889343,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:flame_spark",
+          "origin": "FEET",
+          "shape": "CIRCLE",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 75.0,
+          "color_rgba": 4284889343,
+          "scale": 2.0
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": "invoke:one_handed_area_release",
+    "particles": [
+      {
+        "particle_id": "spell_engine:flame",
+        "origin": "FEET",
+        "shape": "CIRCLE",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.2,
+        "max_speed": 0.2,
+        "pre_spawn_travel": 10.0,
+        "color_rgba": 4284889343,
+        "scale": 2.0
+      },
+      {
+        "particle_id": "spell_engine:flame_medium_a",
+        "origin": "FEET",
+        "shape": "CIRCLE",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.02,
+        "max_speed": 0.02,
+        "pre_spawn_travel": 50.0,
+        "color_rgba": 4284889343,
+        "scale": 2.0
+      },
+      {
+        "particle_id": "spell_engine:flame_spark",
+        "origin": "FEET",
+        "shape": "CIRCLE",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.02,
+        "max_speed": 0.02,
+        "pre_spawn_travel": 75.0,
+        "color_rgba": 4284889343,
+        "scale": 2.0
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "deliver": {
+    "type": "METEOR",
+    "meteor": {
+      "launch_radius": 3.0,
+      "launch_properties": {
+        "velocity": 2.0,
+        "extra_launch_count": 120
+      },
+      "projectile": {
+        "divergence": 15.0,
+        "client_data": {
+          "model": {
+            "model_id": "wizards:projectile/fire_blast"
+          }
+        }
+      }
+    }
+  },
+  "impacts": [
+    {
+      "school": "spell_power:fire",
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_immune_entity_types"
+            }
+          ],
+          "modifier": {
+            "critical_chance_bonus": 0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.4,
+          "knockback": 0.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:flame_spark",
+          "origin": "CENTER",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "count": 20.0,
+          "min_speed": 0.2,
+          "max_speed": 0.7,
+          "angle": 360.0
+        },
+        {
+          "particle_id": "minecraft:smoke",
+          "origin": "CENTER",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "count": 20.0,
+          "min_speed": 0.2,
+          "max_speed": 0.7,
+          "angle": 360.0
+        }
+      ],
+      "sound": {
+        "id": "minecraft:entity.player.hurt_on_fire"
+      }
+    }
+  ],
+  "area_impact": {
+    "radius": 4.0,
+    "area": {
+      "angle_degrees": 360.0
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:fire_explosion",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 2.0,
+        "min_speed": 0.1,
+        "max_speed": 0.2
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 15.0,
+        "min_speed": 0.1,
+        "max_speed": 0.2
+      },
+      {
+        "particle_id": "spell_engine:flame_medium_b",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 15.0,
+        "min_speed": 0.1,
+        "max_speed": 0.2
+      },
+      {
+        "particle_id": "spell_engine:flame_medium_a",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 15.0,
+        "min_speed": 0.1,
+        "max_speed": 0.2
+      }
+    ],
+    "sound": {
+      "id": "wizards:fireball_impact"
+    }
+  },
+  "cost": {
+    "cooldown": {
+      "duration": 1.0
+    }
+  }
+}

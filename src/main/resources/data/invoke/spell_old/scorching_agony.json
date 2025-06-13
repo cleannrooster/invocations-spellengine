@@ -1,0 +1,90 @@
+{
+  "school": "FIRE",
+  "range": 8,
+  "learn": {
+    "tier": 0
+  },
+  "scroll":{
+    "generate": false
+  },
+  "cast": {
+    "duration": 1,
+    "channel_ticks" : 2,
+    "animation": "invoke:one_handed_area_charge",
+    "sound": {
+      "id": "spell_engine:generic_fire_casting",
+      "randomness": 0
+    },
+    "particles": [
+      {
+        "particle_id": "minecraft:smoke",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 2,
+        "min_speed": 0.0025,
+        "max_speed": 0.03
+      },
+      {
+        "particle_id": "spell_engine:flame",
+        "shape": "PIPE",
+        "origin": "FEET",
+        "count": 4,
+        "min_speed": 0.005,
+        "max_speed": 0.05
+      }
+    ]
+  },
+  "release": {
+    "target": {
+      "type": "CURSOR"
+    },
+    "sound": {
+      "id": "spell_engine:generic_fire_release"
+    },
+    "animation": "invoke:one_handed_area_release"
+
+  },
+  "impact": [
+    {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:freeze_immune_entity_types",
+          "modifier": {
+            "critical_chance_bonus": 0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0,
+          "spell_power_coefficient": 0.9
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "minecraft:smoke",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 10,
+          "min_speed": 0.025,
+          "max_speed": 0.3
+        },
+        {
+          "particle_id": "spell_engine:flame",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 15.0,
+          "min_speed": 0.05,
+          "max_speed": 0.4
+        }
+      ]
+
+    }
+
+  ],
+  "cost": {
+    "effect_id": "spell_power:fire",
+    "cooldown_duration": 1
+  }
+}

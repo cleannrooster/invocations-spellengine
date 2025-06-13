@@ -1,0 +1,114 @@
+{
+  "school": "FROST",
+  "range": 128.0,
+  "learn": {
+    "tier": 1
+  },
+  "scroll":{
+    "generate": false
+  },
+  "cast": {
+    "duration": 1,
+    "animation": "spell_engine:two_handed_channeling",
+    "sound": {
+      "id": "spell_engine:generic_frost_casting",
+      "randomness": 0
+    },
+    "channel_ticks": 2
+  },
+  "release": {
+    "target": {
+      "type": "PROJECTILE",
+
+      "projectile": {
+        "launch_properties": {
+          "velocity": 1.5
+        },
+      "projectile": {
+        "homing_angle": 1.5,
+        "client_data": {
+          "travel_particles": [
+            {
+              "particle_id": "spell_engine:snowflake",
+              "shape": "CIRCLE",
+              "rotation": "LOOK",
+              "origin": "CENTER",
+              "count": 2.0,
+              "min_speed": 0.05,
+              "max_speed": 0.1
+            }
+          ],
+          "model": {
+            "model_id": "wizards:projectile/frostbolt",
+            "render": "DEEP",
+            "scale": 0.6
+          }
+        }
+      }
+      },
+      "area": {
+        "distance_dropoff": "SQUARED",
+        "angle_degrees": 90
+      }
+    },
+    "animation": "invoke:one_handed_projectile_release",
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "impact": [
+    {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:freeze_hurts_extra_types",
+          "modifier": {
+            "power_multiplier": 0.3
+          }
+        },
+        {
+          "entity_type": "#minecraft:freeze_immune_entity_types",
+          "modifier": {
+            "power_multiplier": -0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 1
+        }
+      },
+      "sound": {
+        "id": "spell_engine:generic_frost_impact"
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "effect_id": "slowness",
+          "duration": 5,
+          "amplifier": 0,
+          "apply_limit": {
+            "health_base": 100,
+            "spell_power_multiplier": 1.2
+          }
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:frost_hit",
+          "shape": "SPHERE",
+          "origin": "CENTER",
+          "count": 50.0,
+          "min_speed": 0.2,
+          "max_speed": 0.7
+        }
+      ]
+    }
+  ],
+  "cost": {
+    "effect_id": "spell_power:frost",
+    "cooldown_duration": 1
+  }
+}

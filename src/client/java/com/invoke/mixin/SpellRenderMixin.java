@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.client.util.SpellRender;
-import net.spell_engine.internals.SpellContainerHelper;
+import net.spell_engine.internals.container.SpellContainerSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -149,37 +149,9 @@ public class SpellRenderMixin {
     private static void iconTextureReplaceInvoke(Identifier spellId, CallbackInfoReturnable<Identifier> identifier) {
         if(MinecraftClient.getInstance() != null) {
 
-            PlayerEntity player = MinecraftClient.getInstance().player;
-            if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getEquipped(player.getMainHandStack(), player) != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids() != null && SpellContainerHelper.getEquipped(player.getMainHandStack(), player).spell_ids().contains("invoke:runic_invocation")) {
-                int x = 0;
-                int y = 0;
-                int z = 0;
-                int[] combination = {z,y,x};
-                for(int i = 0; i < combination.length; i++){
-                    if (entity.getInvokeValue()[i] == 1) {
-                            combination[0]++;
-                    }
-                    if (entity.getInvokeValue()[i] == 2) {
-                        combination[1]++;
-                    }
-                    if (entity.getInvokeValue()[i] == 3) {
-                        combination[2]++;
-                    }
-                }
-                if(combination[0] > 3){
-                    combination[0] = 3;
-                }
-                if(combination[1] > 3){
-                    combination[1] = 3;
-                }
-                if(combination[2] > 3){
-                    combination[2] = 3;
-                }
 
-                if (spellId.getPath().equals("runic_invocation")) {
-                    identifier.setReturnValue(Identifier.of(InvokeMod.MODID, "textures/spell/" + InvokeClient.getString(entity,combination[0],combination[1],combination[2]) + ".png"));
-                }
-
+            if (spellId.getNamespace().equals("invoke") && !(spellId.getPath().equals("rah") || spellId.getPath().equals("gon") || spellId.getPath().equals("heo"))) {
+                identifier.setReturnValue(Identifier.of(InvokeMod.MODID, "textures/spell/" + "runic_invocation" + ".png"));
             }
         }
     }

@@ -20,6 +20,9 @@
 		],
 		"client": [
 			"com.invoke.InvokeClient"
+		],
+		"fabric-datagen": [
+			"com.invoke.data.InvokeDataGen"
 		]
 	},
 	"mixins": [

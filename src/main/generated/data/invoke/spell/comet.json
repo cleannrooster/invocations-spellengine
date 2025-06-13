@@ -1,0 +1,234 @@
+{
+  "school": "spell_power:frost",
+  "range": 24.0,
+  "tier": 3,
+  "learn": {},
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 1.0,
+      "animation": "invoke:one_handed_area_charge",
+      "sound": {
+        "id": "spell_engine:generic_frost_casting"
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_frost_spell_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.2,
+          "max_speed": 0.2,
+          "pre_spawn_travel": 10.0,
+          "color_rgba": 13434879,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:magic_frost_stripe_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 50.0,
+          "color_rgba": 13434879,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:magic_frost_spark_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 75.0,
+          "color_rgba": 13434879,
+          "scale": 2.0
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": "invoke:one_handed_area_release",
+    "particles": [
+      {
+        "particle_id": "spell_engine:magic_frost_spell_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CIRCLE",
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.2,
+        "max_speed": 0.2,
+        "pre_spawn_travel": 10.0,
+        "color_rgba": 13434879,
+        "scale": 2.0
+      },
+      {
+        "particle_id": "spell_engine:magic_frost_stripe_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CIRCLE",
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.02,
+        "max_speed": 0.02,
+        "pre_spawn_travel": 50.0,
+        "color_rgba": 13434879,
+        "scale": 2.0
+      },
+      {
+        "particle_id": "spell_engine:magic_frost_spark_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CIRCLE",
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.02,
+        "max_speed": 0.02,
+        "pre_spawn_travel": 75.0,
+        "color_rgba": 13434879,
+        "scale": 2.0
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "sticky": true
+    }
+  },
+  "deliver": {
+    "type": "METEOR",
+    "meteor": {
+      "launch_properties": {
+        "velocity": 2.0
+      },
+      "projectile": {
+        "divergence": 15.0,
+        "hitbox": {
+          "width": 3.0,
+          "height": 3.0
+        },
+        "client_data": {
+          "model": {
+            "model_id": "wizards:projectile/frost_shard",
+            "scale": 3.0
+          }
+        }
+      }
+    }
+  },
+  "impacts": [
+    {
+      "school": "spell_power:frost",
+      "target_modifiers": [
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_hurts_extra_types"
+            }
+          ],
+          "modifier": {
+            "power_multiplier": -0.3
+          }
+        },
+        {
+          "conditions": [
+            {
+              "entity_type": "#minecraft:freeze_hurts_extra_types"
+            }
+          ],
+          "modifier": {
+            "power_multiplier": 0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.4,
+          "knockback": 0.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_frost_impact_burst",
+          "origin": "CENTER",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "count": 20.0,
+          "min_speed": 0.2,
+          "max_speed": 0.7,
+          "angle": 360.0
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_frost_impact"
+      }
+    }
+  ],
+  "area_impact": {
+    "radius": 8.0,
+    "area": {
+      "angle_degrees": 360.0
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:frost_shard",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 450.0,
+        "min_speed": 0.7,
+        "max_speed": 0.8
+      },
+      {
+        "particle_id": "spell_engine:magic_frost_spell_float",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 450.0,
+        "min_speed": 0.7,
+        "max_speed": 0.8
+      },
+      {
+        "particle_id": "spell_engine:magic_frost_stripe_float",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 450.0,
+        "min_speed": 0.4,
+        "max_speed": 0.4
+      },
+      {
+        "particle_id": "spell_engine:magic_frost_spark_float",
+        "origin": "CENTER",
+        "shape": "SPHERE",
+        "count": 450.0,
+        "min_speed": 0.4,
+        "max_speed": 0.4
+      }
+    ],
+    "sound": {
+      "id": "wizards:frost_shard_impact"
+    }
+  },
+  "cost": {
+    "cooldown": {
+      "duration": 1.0
+    }
+  }
+}

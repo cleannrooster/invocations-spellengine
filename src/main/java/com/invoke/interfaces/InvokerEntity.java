@@ -2,7 +2,6 @@ package com.invoke.interfaces;
 
 import net.minecraft.entity.Entity;
 import net.spell_engine.entity.SpellProjectile;
-import net.spell_engine.particle.ParticleHelper;
 
 import java.util.List;
 

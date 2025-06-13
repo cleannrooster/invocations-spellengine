@@ -1,0 +1,108 @@
+{
+  "school": "FROST",
+  "range": 32.0,
+  "learn": {
+    "tier": 2
+  },
+  "cast": {
+    "duration": 0.5,
+    "animation": "invoke:one_handed_area_charge",
+    "sound": {
+      "id": "spell_engine:generic_frost_casting",
+      "randomness": 0
+    }
+  },
+  "release": {
+    "custom_impact": true,
+    "target": {
+      "type": "CURSOR",
+      "cursor": {
+        "use_caster_as_fallback": true
+      },
+      "projectile": {
+        "launch_properties": {
+          "velocity": 3.0,
+          "extra_launch_count": 2,
+          "extra_launch_delay": 1
+
+        },
+        "projectile": {
+          "homing_angle": 15,
+          "divergence": 10,
+          "client_data": {
+            "travel_particles": [
+              {
+                "particle_id": "spell_engine:snowflake",
+                "shape": "CIRCLE",
+                "rotation": "LOOK",
+                "origin": "CENTER",
+                "count": 2.0,
+                "min_speed": 0.05,
+                "max_speed": 0.1
+              }
+            ],
+            "model": {
+              "model_id": "wizards:projectile/frostbolt_projectile",
+              "render": "DEEP",
+              "scale": 0.6
+            }
+          }
+        }
+      },
+      "area": {
+        "distance_dropoff": "SQUARED",
+        "angle_degrees": 90
+      }
+    },
+    "animation": "invoke:one_handed_area_release",
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "impact": [
+    {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:freeze_hurts_extra_types",
+          "modifier": {
+            "power_multiplier": 0.3
+          }
+        },
+        {
+          "entity_type": "#minecraft:freeze_immune_entity_types",
+          "modifier": {
+            "power_multiplier": -0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.3
+        }
+      },
+      "sound": {
+        "id": "spell_engine:generic_frost_impact"
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "apply_mode": "ADD",
+          "effect_id": "spell_power:frost",
+          "duration": 6,
+          "amplifier": 2,
+          "show_particles": false
+        },
+        "apply_to_caster": true
+
+      }
+    }
+  ],
+  "cost": {
+    "item_id": "runes:frost_stone",
+    "cooldown_duration": 0.6
+
+  }
+}

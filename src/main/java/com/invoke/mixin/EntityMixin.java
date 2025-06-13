@@ -11,12 +11,13 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.spell_engine.api.spell.Spell;
+import net.spell_engine.api.spell.container.SpellContainerHelper;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.casting.SpellCasterEntity;
-import net.spell_engine.particle.ParticleHelper;
-import net.spell_engine.particle.Particles;
+import net.spell_engine.internals.container.SpellContainerSource;
+import net.spell_engine.internals.target.EntityRelation;
+import net.spell_engine.internals.target.EntityRelations;
 import net.spell_engine.utils.TargetHelper;
 import net.spell_power.api.SpellDamageSource;
 import net.spell_power.api.SpellPower;
@@ -31,55 +32,10 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import static com.invoke.InvokeMod.MODID;
-import static net.spell_engine.internals.SpellHelper.ammoForSpell;
-import static net.spell_engine.internals.SpellHelper.impactTargetingMode;
+import static net.spell_engine.internals.Ammo.ammoForSpell;
 
 @Mixin(LivingEntity.class)
 public class EntityMixin {
 
-    @Inject(at = @At("HEAD"), method = "applyDamage", cancellable = true)
-    private void actual(final DamageSource player, float g, final CallbackInfo info) {
-        LivingEntity player2 = ((LivingEntity) (Object) this);
 
-
-        if (player.getAttacker() instanceof PlayerEntity player1 ) {
-            ItemStack stack = player1.getMainHandStack();
-            Spell spell = SpellRegistry.from(player1.getWorld()).get(Identifier.of(MODID,"arcaneoverdrive"));
-
-            if (SpellContainerHelper.getAvailable( player1) != null && SpellContainerHelper.getAvailable( player1).spell_ids().contains("invoke:arcaneoverdrive")) {
-                Predicate<Entity> selectionPredicate = (target2) -> {
-                    return (TargetHelper.actionAllowed(TargetHelper.TargetingMode.AREA, TargetHelper.Intent.HARMFUL, player1, target2)
-                    );
-                };
-
-                if(player1 instanceof SpellCasterEntity entity && ammoForSpell(player1,spell,stack).satisfied()&& !entity.getCooldownManager().isCoolingDown(Identifier.of(MODID, "arcaneoverdrive"))) {
-                    entity.getCooldownManager().set(Identifier.of(MODID, "arcaneoverdrive"), (int) (20*SpellHelper.getCooldownDuration(player1,spell)));
-
-                    int i = 0;
-                    List<Entity> targets = player1.getWorld().getOtherEntities(player1, player1.getBoundingBox().expand(spell.range), selectionPredicate);
-
-                    SpellHelper.ImpactContext context = new SpellHelper.ImpactContext(1.0F, 1.0F, (Vec3d) null, SpellPower.getSpellPower(spell.school, player1), impactTargetingMode(spell),0);
-
-                    for (Entity target1 : targets) {
-                        SpellHelper.performImpacts(player1.getWorld(), player1, target1,player1, RegistryEntry.of(spell),spell.impact, new SpellHelper.ImpactContext());
-                    }
-                    ParticleHelper.sendBatches(player1, spell.release.particles);
-                    SpellHelper.AmmoResult ammoResult = ammoForSpell(player1, spell, stack);
-                    if (ammoResult.ammo() != null) {
-                        for(int ii = 0; ii < player1.getInventory().size(); ++ii) {
-                            ItemStack stack1 = player1.getInventory().getStack(ii);
-                            if (stack1.isOf(ammoResult.ammo().getItem())) {
-                                stack1.decrement(1);
-                                if (stack1.isEmpty()) {
-                                    player1.getInventory().removeOne(stack1);
-                                }
-                                break;
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-    }
 }

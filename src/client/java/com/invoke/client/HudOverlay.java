@@ -10,7 +10,7 @@ import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 import net.spell_engine.config.HudConfig;
-import net.spell_engine.internals.SpellContainerHelper;
+import net.spell_engine.internals.container.SpellContainerSource;
 
 public class HudOverlay implements HudRenderCallback {
     @Override
@@ -26,7 +26,7 @@ public class HudOverlay implements HudRenderCallback {
             x = width / 2;
             y = height;
         }
-        if (client.player != null && client.player instanceof InvokerEntity entity && SpellContainerHelper.getAvailable( client.player) != null && SpellContainerHelper.getAvailable( client.player).spell_ids() != null && SpellContainerHelper.getAvailable( client.player).spell_ids().contains("invoke:runic_invocation")) {
+        if (client.player != null && client.player instanceof InvokerEntity entity && SpellContainerSource.getSpellsOf( client.player) != null && SpellContainerSource.getSpellsOf( client.player).activeContainer().spell_ids() != null && SpellContainerSource.getSpellsOf( client.player).activeContainer().spell_ids().contains("invoke:runic_invocation")) {
 
 
             if (entity.getInvokeValue()[0] == 1) {

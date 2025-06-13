@@ -23,8 +23,8 @@ import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
 import net.spell_engine.entity.SpellProjectile;
+import net.spell_engine.fx.ParticleHelper;
 import net.spell_engine.internals.SpellHelper;
-import net.spell_engine.particle.ParticleHelper;
 import net.spell_engine.utils.SoundHelper;
 
 import java.util.List;
@@ -99,12 +99,12 @@ public class GlacierSmall extends ExplosiveProjectileEntity {
         }
         if(this.spell != null &&  !nodamage && firstUpdate && this.getOwner() != null && this.spell != null && this.context != null){
             List<Entity> list = this.getWorld().getOtherEntities(this,this.getBoundingBox().stretch(1.5,1.5,1.5), entity -> entity != this.getOwner());
-            spell.impact[0].action.damage.spell_power_coefficient *= this.getBoundingBox().getLengthX()/3.0F;
+            spell.impacts.get(0).action.damage.spell_power_coefficient *= this.getBoundingBox().getLengthX()/3.0F;
             for(Entity target : list) {
 
-                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(), RegistryEntry.of(spell),spell.impact, this.context);
+                SpellHelper.performImpacts(this.getWorld(), (LivingEntity) this.getOwner(), target,this.getOwner(), RegistryEntry.of(spell),spell.impacts, this.context);
             }
-            spell.impact[0].action.damage.spell_power_coefficient /= this.getBoundingBox().getLengthX()/3.0F;
+            spell.impacts.get(0).action.damage.spell_power_coefficient /= this.getBoundingBox().getLengthX()/3.0F;
 
         }
         if(age == 5 && this.chain == 2){

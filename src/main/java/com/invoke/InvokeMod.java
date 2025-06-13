@@ -1,12 +1,12 @@
 package com.invoke;
 
-import com.invoke.entities.EndersGaze;
 import com.invoke.entities.GlacierSmall;
 import com.invoke.interfaces.InvokerEntity;
 import com.invoke.networking.InvokePacket;
 import com.invoke.networking.InvokePacketFire;
 import com.invoke.networking.InvokePacketFrost;
 import com.invoke.networking.ResetPacket;
+import com.invoke.spells.SpellCustomImpact;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -15,7 +15,6 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.*;
-import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -27,27 +26,21 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.spell_engine.api.event.CombatEvents;
+import net.spell_engine.api.item.SpellBooks;
 import net.spell_engine.api.item.trinket.ISpellBookItem;
-import net.spell_engine.api.item.trinket.SpellBookItem;
-import net.spell_engine.api.item.trinket.SpellBooks;
 import net.spell_engine.api.spell.Spell;
-import net.spell_engine.api.spell.event.CustomSpellHandler;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.client.input.SpellHotbar;
 import net.spell_engine.entity.SpellProjectile;
 import net.spell_engine.internals.SpellHelper;
 import net.spell_engine.internals.casting.SpellCast;
 import net.spell_engine.internals.casting.SpellCasterEntity;
-import net.spell_engine.particle.ParticleHelper;
 import net.spell_engine.utils.SoundHelper;
 import net.spell_engine.utils.TargetHelper;
-import net.spell_power.api.SpellDamageSource;
 import net.spell_power.api.SpellPower;
 import net.spell_power.api.SpellSchools;
 import org.slf4j.Logger;
@@ -289,7 +282,6 @@ public class InvokeMod implements ModInitializer {
 
 	}
 
-	public static EntityType<EndersGaze> GAZEHITTER;
 
 	public static EntityType<GlacierSmall> ICECRASH;
 	public static EntityType<GlacierSmall> ICECRASH2;
@@ -298,14 +290,14 @@ public class InvokeMod implements ModInitializer {
 
 	public void onInitialize() {
 		int rawId = 1646123;
-		ISpellBookItem book = SpellBooks.create(Identifier.of(MODID,"invoker"));
+		ISpellBookItem book = SpellBooks.create(Identifier.of(MODID, "invoker"));
 		ItemGroupEvents.modifyEntriesEvent(KEY).register((content) -> {
 		});
 		PayloadTypeRegistry.playS2C().register(InvokePacket.ARCANE, InvokePacket.PACKET_CODEC);
 		PayloadTypeRegistry.playS2C().register(InvokePacketFire.FIRE, InvokePacketFire.PACKET_CODEC);
 		PayloadTypeRegistry.playS2C().register(InvokePacketFrost.FROST, InvokePacketFrost.PACKET_CODEC);
 		PayloadTypeRegistry.playS2C().register(ResetPacket.RESET, ResetPacket.PACKET_CODEC);
-
+		SpellCustomImpact.registerImpacts();
 		INVOCATIONS = FabricItemGroup.builder()
 				.icon(() -> new ItemStack(book))
 				.displayName(Text.translatable("itemGroup.invoke.general"))
@@ -322,7 +314,7 @@ public class InvokeMod implements ModInitializer {
 		ItemGroupEvents.modifyEntriesEvent(KEY).register((content) -> {
 			content.add(book);
 		});
-		Registry.register(Registries.ITEM,Identifier.of(MODID,"invoker_spell_book"),book.asItem());
+		Registry.register(Registries.ITEM, Identifier.of(MODID, "invoker_spell_book"), book.asItem());
 		//SpellBooks.createAndRegister(Identifier.of(MODID,"wildinvoker"),KEY);
 		ICECRASH = Registry.register(
 				ENTITY_TYPE,
@@ -362,337 +354,7 @@ public class InvokeMod implements ModInitializer {
 		);
 		LOGGER.info("Hello Fabric world!");
 
-		CustomSpellHandler.register(Identifier.of(MODID,"runic_invocation"), (data) ->{
 
-			return false;
-
-		});
-		GAZEHITTER = Registry.register(
-				ENTITY_TYPE,
-				Identifier.of(MODID, "gazehitter"),
-				FabricEntityTypeBuilder.<EndersGaze>create(SpawnGroup.MISC, EndersGaze::new)
-						.dimensions(EntityDimensions.fixed(0.5F, 0.5F)) // dimensions in Minecraft units of the render
-						.trackRangeBlocks(128)
-						.trackedUpdateRate(1)
-						.build()
-		);
-
-		ServerTickEvents.START_SERVER_TICK.register(server -> {
-			for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-
-				if (player instanceof InvokerEntity playerDamageInterface && player instanceof SpellCasterEntity caster ) {
-
-						if (caster.getCurrentSpell() == null) {
-
-							float duration = SpellHelper.getCooldownDuration(player,SpellRegistry.from(player.getWorld()).get(Identifier.of(MODID, "magic_missile")))*20;
-
-							if( !playerDamageInterface.getMissiles().isEmpty()) {
-								SpellProjectile missile = playerDamageInterface.getMissiles().get(0);
-								SpellHelper.shootProjectile(player.getWorld(),player,missile.getFollowedTarget(),missile.getSpellEntry(),new SpellHelper.ImpactContext().position(player.getPos()));
-								playerDamageInterface.getMissiles().remove(playerDamageInterface.getMissiles().get(0));
-							}
-						}
-
-						if (caster.getCurrentSpell() == null) {
-							if (!player.getWorld().isClient) {
-									if (!playerDamageInterface.getTargets().isEmpty()) {
-
-										Entity missile = playerDamageInterface.getTargets().get(0);
-
-										Optional<BlockPos> air = BlockPos.findClosest(BlockPos.ofFloored(missile.getPos()), 2, 2, pos ->
-												player.getWorld().getBlockState(pos).isSolidBlock(player.getWorld(), pos)
-														&& !player.getWorld().getBlockState(pos.add(0, 1, 0)).isSolidBlock(player.getWorld(), pos));
-										if (air.isPresent()) {
-											GlacierSmall newGlacier =
-													new GlacierSmall(ICECRASH3, player.getWorld(), -1, player.getRotationVector(), player,
-															new SpellHelper.ImpactContext(1.0F, 1.0F, null, SpellPower.getSpellPower(SpellSchools.FROST, player), TargetHelper.TargetingMode.AREA,0));
-											newGlacier.setPosition(air.get().getX() + 0.5, air.get().getY() + 1, air.get().getZ() + 0.5);
-											player.getWorld().spawnEntity(newGlacier);
-										}
-										playerDamageInterface.getTargets().remove(missile);
-									}
-
-								}
-
-						}
-				}
-			}
-		}
-		);
-		CustomSpellHandler.register(Identifier.of(MODID,"magic_missile"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-			SpellHelper.performSpell(data1.caster().getWorld(),data1.caster(),Identifier.of(MODID,"magic_missile2"), TargetHelper.SpellTargetResult.of(List.of(data1.targets().get(0))), SpellCast.Action.RELEASE,1.0F);
-			return false;
-		});
-		CustomSpellHandler.register(Identifier.of(MODID,"deathchill"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity playerDamageInterface){
-				if (!data1.caster().getWorld().isClient) {
-					for(Entity entity : data1.targets()) {
-						entity.setFrozenTicks(999);
-					}
-				}
-			}
-			return false;
-		});
-		CustomSpellHandler.register(Identifier.of(MODID,"upheaval"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if(data1.caster() instanceof InvokerEntity playerDamageInterface){
-				if (!data1.caster().getWorld().isClient) {
-					for(Entity entity : data1.targets()) {
-
-						if(!playerDamageInterface.getTargets().contains(entity) && entity instanceof LivingEntity) {
-
-								data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.NEUTRAL, 1.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
-							playerDamageInterface.glaciersAdd(entity);
-						}
-					}
-				}
-
-			}
-			return false;
-		});
-
-		CustomSpellHandler.register(Identifier.of(MODID,"heo"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-			Spell spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"heo"));
-			if (!data1.caster().getWorld().isClient) {
-				if(!data1.targets().isEmpty()) {
-					List<GlacierSmall> list2 = new ArrayList<>();
-					for (Entity target : data1.targets()) {
-						if(target != data1.caster()) {
-							GlacierSmall newGlacier = new GlacierSmall(ICECRASH2, data1.caster().getWorld(), -1, data1.caster().getRotationVector(), data1.caster(), data1.impactContext());
-							newGlacier.setPosition(target.getX(), target.getY(), target.getZ());
-							newGlacier.spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID, "heo"));
-							newGlacier.nodamage = true;
-							list2.add(newGlacier);
-							data1.caster().getWorld().spawnEntity(newGlacier);
-							target.timeUntilRegen = 0;
-						}
-						SpellHelper.performImpacts(data1.caster().getWorld(), data1.caster(), target, data1.caster(), RegistryEntry.of(spell),spell.impact,data1.impactContext());
-
-					}
-					return true;
-				}
-
-			}
-			return false;
-		});
-		CustomSpellHandler.register(Identifier.of(MODID,"eldritch_blast"),(data) -> {
-					CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-					if (!data1.caster().getWorld().isClient) {
-						if (!data1.targets().isEmpty()) {
-							for (Entity target : data1.targets()) {
-								SpellHelper.performSpell(data1.caster().getWorld(), data1.caster(), Identifier.of(MODID,"eldritch_blasts"), TargetHelper.SpellTargetResult.of(List.of(target)), SpellCast.Action.RELEASE,1.0F);
-							}
-						}
-					}
-					return false;
-
-				}
-		);
-		CustomSpellHandler.register(Identifier.of(MODID,"power_word_kill"),(data) -> {
-					CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-					if (!data1.caster().getWorld().isClient) {
-						if (!data1.targets().isEmpty()) {
-							for (Entity target : data1.targets()) {
-								if(target instanceof LivingEntity living){
-									if(living.getHealth() <= data1.impactContext().power().randomValue()){
-										living.damage(living.getDamageSources().genericKill(),9999999);
-									}
-								}
-							}
-						}
-					}
-					return false;
-
-				}
-				);
-					CustomSpellHandler.register(Identifier.of(MODID,"glacialhammer"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-						Spell spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"glacialhammer"));
-
-						if (!data1.caster().getWorld().isClient) {
-				if(!data1.targets().isEmpty()) {
-					List<GlacierSmall> list2 = new ArrayList<>();
-					for (Entity target : data1.targets()) {
-						if (target instanceof GlacierSmall small) {
-							ParticleHelper.sendBatches(small,SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"glacialhammer")).impact[0].particles);
-							List<LivingEntity> list = small.getWorld().getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class),small.getBoundingBox().stretch(1.5,1.5,1.5).expand(4),Objects::nonNull);
-							for(LivingEntity living : list){
-
-								SpellHelper.performImpacts(living.getWorld(),data1.caster(),living,data1.caster(),RegistryEntry.of(spell),spell.impact, data1.impactContext());
-							}
-							small.playSound(SoundEvents.BLOCK_GLASS_BREAK,1,1);
-							small.discard();
-						}
-						else{
-							if(list2.isEmpty()) {
-								GlacierSmall newGlacier = new GlacierSmall(ICECRASH2, data1.caster().getWorld(), -1, data1.caster().getRotationVector(), data1.caster(), data1.impactContext());
-								newGlacier.setPosition(target.getX(), target.getY(), target.getZ());
-								list2.add(newGlacier);
-								data1.caster().getWorld().spawnEntity(newGlacier);
-							}
-
-							target.timeUntilRegen = 0;
-
-							SpellHelper.performImpacts(target.getWorld(),data1.caster(),target,data1.caster(),RegistryEntry.of(spell),spell.impact, data1.impactContext());
-
-						}
-					}
-				}
-
-			}
-			return true;
-		});
-		CustomSpellHandler.register(Identifier.of(MODID,"sharedsuffering"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-			Spell spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"sharedsuffering"));
-
-			if (!data1.caster().getWorld().isClient) {
-				if(!data1.targets().isEmpty()) {
-					data1.caster().damage(data1.caster().getDamageSources().freeze(), 1.0f);
-
-					for (Entity target : data1.targets()) {
-						if (target instanceof LivingEntity living) {
-							living.timeUntilRegen = 0;
-
-							living.damage(living.getDamageSources().freeze(), 1.0f);
-
-						}
-
-						SpellHelper.performImpacts(data1.caster().getWorld(), (LivingEntity) data1.caster(), target,data1.caster(), RegistryEntry.of(spell),spell.impact, data1.impactContext());
-					}
-				}
-
-			}
-			return false;
-		});
-		CustomSpellHandler.register(Identifier.of(MODID,"glacier"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if (!data1.caster().getWorld().isClient) {
-				Vec3d direction = data1.caster().getPos().add(data1.caster().getRotationVector().getX(),0,data1.caster().getRotationVector().getZ());
-				Optional<BlockPos> air = BlockPos.findClosest(BlockPos.ofFloored(direction),2,2, pos ->
-						data1.caster().getWorld().getBlockState(pos).isSolidBlock(data1.caster().getWorld(),pos)
-				&& !data1.caster().getWorld().getBlockState(pos.add(0,1,0)).isSolidBlock(data1.caster().getWorld(),pos));
-				if(air.isPresent()) {
-					GlacierSmall newGlacier = new GlacierSmall(ICECRASH, data1.caster().getWorld(), 2, data1.caster().getRotationVector(), data1.caster(), data1.impactContext());
-					newGlacier.setPosition(air.get().getX()+0.5,air.get().getY()+1,air.get().getZ()+0.5);
-					data1.caster().getWorld().spawnEntity(newGlacier);
-				}
-
-			}
-			return true;
-		});
-		CustomSpellHandler.register(Identifier.of(MODID,"frozen_resonance"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if (!data1.caster().getWorld().isClient) {
-				List<Entity> list = data1.caster().getWorld().getOtherEntities(data1.caster(),data1.caster().getBoundingBox().stretch(1.5,1.5,1.5).expand(4,0,4));
-				ParticleHelper.sendBatches( data1.caster(), SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"frozen_resonance")).release.particles);
-				SpellHelper.ImpactContext impactContext = new SpellHelper.ImpactContext(1.0F, 1.0F, null, data1.impactContext().power(), data1.impactContext().targetingMode(),0);
-				Spell spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"frozen_resonance"));
-
-				for(Entity entity : list){
-					SpellHelper.performImpacts(entity.getWorld(), data1.caster(), entity,data1.caster(),RegistryEntry.of(spell),spell.impact, impactContext);
-				}
-				List<GlacierSmall> small = data1.caster().getWorld().getEntitiesByType(TypeFilter.instanceOf(GlacierSmall.class),data1.caster().getBoundingBox().expand(SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"frozen_resonance")).range), glacier -> glacier.lastresonance == 0);
-				if(!small.isEmpty()) {
-
-					GlacierSmall small1 = small.get(data1.caster().getRandom().nextInt(small.size()));
-					List<Entity> list2 = small1.getWorld().getOtherEntities(small1, small1.getBoundingBox().stretch(1.5, 1.5, 1.5).expand(4, 0, 4));
-					ParticleHelper.sendBatches(small1, SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID, "frozen_resonance")).release.particles);
-					SoundHelper.playSound(data1.caster().getWorld(), small1, SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID, "frozen_resonance")).release.sound);
-					for (Entity entity : list2) {
-						SpellHelper.performImpacts(entity.getWorld(), (LivingEntity) data1.caster(), entity, data1.caster(), RegistryEntry.of(spell),spell.impact, impactContext);
-					}
-					small1.lastresonance = 12;
-				}
-				if(small.isEmpty()){
-					for(int ii = 0; ii < 4; ii++) {
-						int[] sign1 = {1,-1,1,-1};
-						int[] sign2 = {1,-1,-1,1};
-						Vec3d direction = data1.caster().getPos().add(sign1[ii]*2+ data1.caster().getRandom().nextDouble() * 4*sign1[ii], 0, sign2[ii]*2+data1.caster().getRandom().nextDouble() * 4*sign2[ii]);
-						Optional<BlockPos> air = BlockPos.findClosest(BlockPos.ofFloored(direction), 4, 4, pos ->
-								data1.caster().getWorld().getBlockState(pos).isSolidBlock(data1.caster().getWorld(), pos)
-										&& !data1.caster().getWorld().getBlockState(pos.add(0, 1, 0)).isSolidBlock(data1.caster().getWorld(), pos));
-						if (air.isPresent()) {
-							GlacierSmall newGlacier = new GlacierSmall(ICECRASH2, data1.caster().getWorld(), -1, data1.caster().getRotationVector(), data1.caster(), data1.impactContext());
-							newGlacier.setPosition(air.get().getX() + 0.5, air.get().getY() + 1, air.get().getZ() + 0.5);
-							newGlacier.age = 160;
-							data1.caster().getWorld().spawnEntity(newGlacier);
-						}
-					}
-				}
-			}
-			return false;
-		});
-		CustomSpellHandler.register(Identifier.of(MODID,"enders_gaze"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-				if (!data1.caster().getWorld().isClient) {
-					for(Entity entity : data1.targets()) {
-						if(entity instanceof LivingEntity living) {
-
-							for (int i = 1; i < 6; i++) {
-								EndersGaze endersGaze = new EndersGaze(GAZEHITTER, data1.caster().getWorld(), data1.caster(), living, i);
-								endersGaze.setPosition(living.getEyePos());
-								endersGaze.power = data1.impactContext().power();
-								endersGaze.spell = SpellRegistry.from(data1.caster().getWorld()).get(Identifier.of(MODID,"enders_gaze"));
-								endersGaze.context = data1.impactContext();
-								if (!data1.caster().getWorld().isClient()) {
-									data1.caster().getWorld().spawnEntity(endersGaze);
-								}
-							}
-							return true;
-
-						}
-					}
-				}
-			return true;
-		});
-		CombatEvents.SPELL_CAST.register(args -> {
-
-		});
-		CustomSpellHandler.register(Identifier.of(MODID,"blink"),(data) -> {
-					CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-					if (!data1.caster().getWorld().isClient) {
-
-						data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.ENTITY_ILLUSIONER_CAST_SPELL, SoundCategory.NEUTRAL, 0.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
-
-						EnderPearlEntity pearl = new EnderPearlEntity(data1.caster().getWorld(), data1.caster());
-						pearl.setPos(data1.caster().getX(), data1.caster().getEyeY() - 0.1f, data1.caster().getZ());
-						pearl.setVelocity(data1.caster(), data1.caster().getPitch(), data1.caster().getYaw(), 0.0f, 1.5f, 1.0f);
-						data1.caster().getWorld().spawnEntity(pearl);
-
-						}
-					return true;
-
-				}
-		);
-
-		CustomSpellHandler.register(Identifier.of(MODID,"hijack"),(data) -> {
-			CustomSpellHandler.Data data1 = (CustomSpellHandler.Data) data;
-
-			if (!data1.caster().getWorld().isClient) {
-				for(Entity entity2 : data1.targets()) {
-					if (entity2 instanceof LivingEntity living) {
-						data1.caster().getWorld().playSound(null, data1.caster().getX(), data1.caster().getY(), data1.caster().getZ(), SoundEvents.ENTITY_ILLUSIONER_CAST_SPELL, SoundCategory.NEUTRAL, 0.5f, 0.4f / (data1.caster().getWorld().getRandom().nextFloat() * 0.4f + 0.8f));
-
-						EnderPearlEntity pearl = new EnderPearlEntity(data1.caster().getWorld(), living);
-						pearl.setPos(data1.caster().getX(),data1.caster().getEyeY() - 0.1f, data1.caster().getZ());
-						pearl.setVelocity(data1.caster(), data1.caster().getPitch(), data1.caster().getYaw(), 0.0f, 1.5f, 1.0f);
-						living.getWorld().spawnEntity(pearl);
-					}
-
-				}
-			}
-			return true;
-		});
 
 	}
 }

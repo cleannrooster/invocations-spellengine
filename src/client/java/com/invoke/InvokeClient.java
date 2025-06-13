@@ -31,7 +31,6 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.spell_engine.api.spell.Spell;
 import net.spell_engine.api.spell.registry.SpellRegistry;
-import net.spell_engine.internals.SpellContainerHelper;
 import net.spell_engine.internals.casting.SpellCasterClient;
 import net.spell_engine.internals.casting.SpellCasterEntity;
 import net.spell_power.api.SpellPowerMechanics;
@@ -205,60 +204,59 @@ public class InvokeClient implements ClientModInitializer {
 	static {
 		TOTAL_LIST[0][0][0] = "runic_invocation";
 
-		TOTAL_LIST[0][0][1] = "blink";
-		TOTAL_LIST[0][0][2] = "icebarrage";
-		TOTAL_LIST[0][0][3] = "scorchingwind";
+		TOTAL_LIST[0][0][1] = "";
+		TOTAL_LIST[0][0][2] = "";
+		TOTAL_LIST[0][0][3] = "";
 
-		TOTAL_LIST[0][1][1] = "arcane_launch";
-		TOTAL_LIST[0][1][2] = "chill";
-		TOTAL_LIST[0][1][3] = "combust";
-
-
-		TOTAL_LIST[0][2][1] = "magic_missile";
-		TOTAL_LIST[0][2][2] = "upheaval";
-		TOTAL_LIST[0][2][3] = "greater_fireball";
+		TOTAL_LIST[0][1][1] = "";
+		TOTAL_LIST[0][1][2] = "";
+		TOTAL_LIST[0][1][3] = "";
 
 
-		TOTAL_LIST[0][3][1] = "arcane_nova";
-		TOTAL_LIST[0][3][2] = "glacier";
-		TOTAL_LIST[0][3][3] = "supernova";
+		TOTAL_LIST[0][2][1] = "";
+		TOTAL_LIST[0][2][2] = "";
+		TOTAL_LIST[0][2][3] = "";
 
-		TOTAL_LIST[1][3][3] = "greater_combust";
-		TOTAL_LIST[1][3][2] = "shatter";
-		TOTAL_LIST[1][3][1] = "power_word_kill";
-		TOTAL_LIST[1][2][3] = "scorching_agony";
-		TOTAL_LIST[1][2][2] = "deep_chill";
+
+		TOTAL_LIST[0][3][1] = "";
+		TOTAL_LIST[0][3][2] = "";
+		TOTAL_LIST[0][3][3] = "";
+
+		TOTAL_LIST[1][3][3] = "greater_geyser";
+		TOTAL_LIST[1][3][2] = "frost_fangs";
+		TOTAL_LIST[1][3][1] = "replicating_missile";
+		TOTAL_LIST[1][2][3] = "self_immolate";
+		TOTAL_LIST[1][2][2] = "comet";
 		TOTAL_LIST[1][2][1] = "snare";
-		TOTAL_LIST[1][1][3] = "scorching_ray";
-		TOTAL_LIST[1][1][2] = "sharedsuffering";
-		TOTAL_LIST[1][1][1] = "sonicboom";
+		TOTAL_LIST[1][1][3] = "trailblaze";
+		TOTAL_LIST[1][1][2] = "frozen_miasma";
+		TOTAL_LIST[1][1][1] = "magic_missile";
 
-		TOTAL_LIST[3][3][3] = "inferno";
-		TOTAL_LIST[3][3][2] = "frozen_resonance";
-		TOTAL_LIST[3][3][1] = "time_dilate";
-		TOTAL_LIST[3][2][3] = "homing";
-		TOTAL_LIST[3][2][2] = "ice_nova";
-		TOTAL_LIST[3][2][1] = "agonizingblast";
-		TOTAL_LIST[3][1][3] = "flame_geyser";
-		TOTAL_LIST[3][1][2] = "mass_hypothermia";
-		TOTAL_LIST[3][1][1] = "overload";
+		TOTAL_LIST[3][3][3] = "greater_fireball";
+		TOTAL_LIST[3][3][2] = "rimeblaze";
+		TOTAL_LIST[3][3][1] = "plasma_blast";
+		TOTAL_LIST[3][2][3] = "rain_of_fire";
+		TOTAL_LIST[3][2][2] = "frostferno";
+		TOTAL_LIST[3][2][1] = "sea_of_lavos";
+		TOTAL_LIST[3][1][3] = "combustion";
+		TOTAL_LIST[3][1][2] = "frost_glyph";
+		TOTAL_LIST[3][1][1] = "supernova";
 
-		TOTAL_LIST[2][3][3] = "armageddon";
-		TOTAL_LIST[2][3][2] = "icestorm";
-		TOTAL_LIST[2][3][1] = "eldritch_blast";
-		TOTAL_LIST[2][2][3] = "buckshot";
-		TOTAL_LIST[2][2][2] = "essence_drain";
-		TOTAL_LIST[2][2][1] = "amethystburst";
-		TOTAL_LIST[2][1][3] = "flameray";
-		TOTAL_LIST[2][1][2] = "frozenmiasma";
+		TOTAL_LIST[2][3][3] = "dancing_ember";
+		TOTAL_LIST[2][3][2] = "frozen_expanse";
+		TOTAL_LIST[2][3][1] = "starfall";
+		TOTAL_LIST[2][2][3] = "flame_geyser";
+		TOTAL_LIST[2][2][2] = "ice_storm";
+		TOTAL_LIST[2][2][1] = "lance_of_eos";
+		TOTAL_LIST[2][1][3] = "mass_combustion";
+		TOTAL_LIST[2][1][2] = "lance_of_heorot";
 
-		TOTAL_LIST[2][1][1] = "enders_gaze";
+		TOTAL_LIST[2][1][1] = "wildshards";
 
 	}
 	@Override
 	public void onInitializeClient() {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
-		EntityRendererRegistry.register(InvokeMod.GAZEHITTER, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(InvokeMod.ICECRASH, context -> new GlacierRenderer<GlacierSmall>(context,2,true));
 		EntityRendererRegistry.register(InvokeMod.ICECRASH2, context -> new GlacierRenderer<GlacierSmall>(context,4,true));
 		EntityRendererRegistry.register(InvokeMod.ICECRASH3, context -> new GlacierRenderer<GlacierSmall>(context,6,true));
@@ -337,14 +335,16 @@ public class InvokeClient implements ClientModInitializer {
 						if(combination[2] > 3){
 							combination[2] = 3;
 						}
-
 						if( SpellRegistry.from(player.getWorld()).get(Identifier.of(MODID,InvokeClient.getString(entity,combination[0],combination[1],combination[2]))) != null) {
 							Spell spell = SpellRegistry.from(player.getWorld()).get(Identifier.of(MODID,"runic_invocation"));
 							RegistryEntry<Spell> toCast = SpellRegistry.from(player.getWorld()).getEntry(Identifier.of(MODID, InvokeClient.getString(entity,combination[0],combination[1],combination[2]))).get();
-							if(toCast != spell && toCast != null) {
-								client.startSpellCast(player.getStackInHand(Hand.MAIN_HAND), toCast);
-							}
-							client.getCooldownManager().set(Identifier.of(MODID,"runic_invocation"),(int) (spell.cost.cooldown_duration*20));
+
+							client.startSpellCast(player.getStackInHand(Hand.MAIN_HAND), toCast);
+							client.getCooldownManager().set(Identifier.of(MODID,"runic_invocation"),(int) (4*20));
+						}
+						else{
+							client.getCooldownManager().set(Identifier.of(MODID,"runic_invocation"),(int) (1*20));
+
 						}
 					}
 				}

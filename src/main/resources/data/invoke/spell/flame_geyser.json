@@ -4,67 +4,118 @@
   "learn": {
     "tier": 1
   },
-  "scroll":{
-    "generate": false
-  },
-  "cast": {
-    "duration": 1,
-    "animation": "spell_engine:one_handed_area_charge",
-    "sound": {
-      "id": "spell_engine:generic_fire_casting",
-      "randomness": 0
-    },
-    "particles": [
-      {
-        "particle_id": "spell_engine:flame",
-        "shape": "PIPE",
-        "origin": "FEET",
-        "count": 2,
-        "min_speed": 0.0025,
-        "max_speed": 0.03
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 1.0,
+      "animation": "invoke:one_handed_area_charge",
+      "sound": {
+        "id": "spell_engine:generic_fire_casting"
       },
-      {
-        "particle_id": "smoke",
-        "shape": "PIPE",
-        "origin": "FEET",
-        "count": 4,
-        "min_speed": 0.005,
-        "max_speed": 0.05
-      }
-    ]
+      "particles": [
+        {
+          "particle_id": "spell_engine:flame",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.2,
+          "max_speed": 0.2,
+          "pre_spawn_travel": 10.0,
+          "color_rgba": 4284889343,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:flame_medium_a",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 50.0,
+          "color_rgba": 4284889343,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:flame_spark",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 75.0,
+          "color_rgba": 4284889343,
+          "scale": 2.0
+        }
+      ]
+    }
   },
   "release": {
-
-    "target": {
-      "type": "AREA",
-      "area": {
-        "angle_degrees": 360,
-        "vertical_range_multiplier": 1
-      }
-    },
+    "animation": "invoke:one_handed_area_release",
     "particles": [
       {
         "particle_id": "spell_engine:flame",
+        "origin": "LAUNCH_POINT",
         "shape": "CIRCLE",
-        "origin": "CENTER",
-        "count": 130.0,
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
         "min_speed": 0.2,
-        "max_speed": 0.6
+        "max_speed": 0.2,
+        "pre_spawn_travel": 10.0,
+        "color_rgba": 4284889343,
+        "scale": 2.0
       },
       {
-        "particle_id": "minecraft:smoke",
+        "particle_id": "spell_engine:flame_medium_a",
+        "origin": "LAUNCH_POINT",
         "shape": "CIRCLE",
-        "origin": "CENTER",
-        "count": 130.0,
-        "min_speed": 0.5,
-        "max_speed": 0.9
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.02,
+        "max_speed": 0.02,
+        "pre_spawn_travel": 50.0,
+        "color_rgba": 4284889343,
+        "scale": 2.0
+      },
+      {
+        "particle_id": "spell_engine:flame_spark",
+        "origin": "LAUNCH_POINT",
+        "shape": "CIRCLE",
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.02,
+        "max_speed": 0.02,
+        "pre_spawn_travel": 75.0,
+        "color_rgba": 4284889343,
+        "scale": 2.0
       }
     ],
     "sound": {
       "id": "spell_engine:generic_fire_release"
-    },
-    "animation": "spell_engine:one_handed_area_charge"},
-  "impact": [
+    }
+  },
+  "target": {
+    "type": "AREA",
+    "area": {
+      "angle_degrees": 360,
+      "vertical_range_multiplier": 1
+    }
+  },
+  "impacts": [
     {
       "target_conditions": [
         {
@@ -146,6 +197,8 @@
   "cost": {
     "item_id": "runes:fire_stone",
 
-    "cooldown_duration": 2
+    "cooldown": {
+      "duration": 2
+    }
   }
 }

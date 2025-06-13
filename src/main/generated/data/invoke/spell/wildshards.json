@@ -1,0 +1,205 @@
+{
+  "school": "spell_power:arcane",
+  "range": 24.0,
+  "tier": 3,
+  "learn": {},
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 1.0,
+      "animation": "invoke:one_handed_area_charge",
+      "sound": {
+        "id": "spell_engine:generic_arcane_casting"
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_arcane_spell_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.2,
+          "max_speed": 0.2,
+          "pre_spawn_travel": 10.0,
+          "color_rgba": 4284940287,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:magic_arcane_stripe_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 50.0,
+          "color_rgba": 4284940287,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:magic_arcane_spark_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 75.0,
+          "color_rgba": 4284940287,
+          "scale": 2.0
+        }
+      ]
+    }
+  },
+  "release": {
+    "animation": "invoke:one_handed_area_release",
+    "particles": [
+      {
+        "particle_id": "spell_engine:magic_arcane_spell_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CONE",
+        "rotation": "LOOK",
+        "count": 200.0,
+        "min_speed": 2.0,
+        "max_speed": 4.0,
+        "angle": 20.0
+      },
+      {
+        "particle_id": "spell_engine:magic_arcane_spark_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CONE",
+        "rotation": "LOOK",
+        "count": 100.0,
+        "min_speed": 1.0,
+        "max_speed": 2.0,
+        "angle": 40.0
+      },
+      {
+        "particle_id": "spell_engine:magic_arcane_stripe_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CONE",
+        "rotation": "LOOK",
+        "count": 100.0,
+        "min_speed": 0.5,
+        "angle": 75.0
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {}
+  },
+  "deliver": {
+    "type": "PROJECTILE",
+    "projectile": {
+      "direction_offsets": [
+        {},
+        {
+          "yaw": 45.0
+        },
+        {
+          "yaw": 90.0
+        },
+        {
+          "yaw": 135.0
+        },
+        {
+          "yaw": 180.0
+        },
+        {
+          "yaw": 225.0
+        },
+        {
+          "yaw": 270.0
+        },
+        {
+          "yaw": 315.0
+        }
+      ],
+      "launch_properties": {
+        "extra_launch_count": 31
+      },
+      "projectile": {
+        "perks": {
+          "ricochet": 4,
+          "ricochet_range": 8.0,
+          "bounce": 4
+        },
+        "client_data": {
+          "travel_particles": [
+            {
+              "particle_id": "spell_engine:magic_arcane_spell_float",
+              "origin": "CENTER",
+              "shape": "SPHERE",
+              "count": 3.0,
+              "min_speed": 0.05,
+              "max_speed": 0.1,
+              "angle": 360.0
+            },
+            {
+              "particle_id": "spell_engine:magic_arcane_stripe_float",
+              "origin": "CENTER",
+              "shape": "SPHERE",
+              "count": 1.0,
+              "min_speed": 0.05,
+              "max_speed": 0.1,
+              "angle": 360.0
+            }
+          ],
+          "model": {
+            "model_id": "wizards:projectile/arcane_missile"
+          }
+        }
+      }
+    }
+  },
+  "impacts": [
+    {
+      "school": "spell_power:arcane",
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.6,
+          "knockback": 0.0
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_arcane_spark_float",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 20.0,
+          "min_speed": 0.05,
+          "max_speed": 0.1,
+          "angle": 360.0
+        },
+        {
+          "particle_id": "spell_engine:magic_arcane_spark_float",
+          "origin": "CENTER",
+          "shape": "SPHERE",
+          "count": 20.0,
+          "min_speed": 0.05,
+          "max_speed": 0.1,
+          "angle": 360.0
+        }
+      ],
+      "sound": {
+        "id": "spell_engine:generic_arcane_release"
+      }
+    }
+  ],
+  "cost": {
+    "cooldown": {
+      "duration": 1.0
+    }
+  }
+}

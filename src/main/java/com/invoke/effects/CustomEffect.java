@@ -13,7 +13,6 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-import static net.spell_engine.internals.SpellContainerHelper.containerFromItemStack;
 
 public class CustomEffect extends StatusEffect {
     public CustomEffect(StatusEffectCategory category, int color) {

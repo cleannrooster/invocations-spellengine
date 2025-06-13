@@ -1,0 +1,103 @@
+{
+  "school": "FROST",
+  "range": 16,
+  "learn": {
+    "tier": 0
+  },
+  "scroll":{
+    "generate": false
+  },
+  "cast": {
+    "duration": 1,
+    "animation": "invoke:one_handed_area_charge",
+    "sound": {
+      "id": "spell_engine:generic_frost_casting",
+      "randomness": 0
+    }
+  },
+  "release": {
+    "animation": "invoke:one_handed_area_release",
+
+    "target": {
+      "type": "CURSOR",
+      "area": {
+        "distance_dropoff": "SQUARED",
+        "angle_degrees": 360
+      }
+    },
+    "particles": [
+      {
+        "particle_id": "spell_engine:snowflake",
+        "angle": 30,
+        "shape": "CONE",
+        "rotation": "LOOK",
+        "origin": "LAUNCH_POINT",
+        "count": 360.0,
+        "min_speed": 1,
+        "max_speed": 1
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "impact": [
+    {
+      "target_conditions": [
+        {
+          "entity_type": "#minecraft:freeze_hurts_extra_types",
+          "modifier": {
+            "power_multiplier": 0.3
+          }
+        },
+        {
+          "entity_type": "#minecraft:freeze_immune_entity_types",
+          "modifier": {
+            "power_multiplier": -0.3
+          }
+        }
+      ],
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "spell_power_coefficient": 0.9,
+          "knockback": 1
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:snowflake",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 130.0,
+          "min_speed": 0.2,
+          "max_speed": 0.6
+        },
+        {
+          "particle_id": "spell_engine:frost_shard",
+          "shape": "CIRCLE",
+          "origin": "CENTER",
+          "count": 130.0,
+          "min_speed": 0.5,
+          "max_speed": 0.9
+        }
+      ]
+    }
+  ,
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "duration": 8,
+          "amplifier": 4,
+          "apply_mode": "ADD",
+
+          "effect_id": "slowness"
+        }
+      }
+    }
+  ],
+  "cost": {
+    "cooldown_duration": 1
+  }
+}

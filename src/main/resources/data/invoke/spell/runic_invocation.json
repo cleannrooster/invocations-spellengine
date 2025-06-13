@@ -1,37 +1,38 @@
 {
+  "range": 6.0,
   "school": "PHYSICAL_MELEE",
   "group": "primary",
-  "range": 3,
-  "learn": {
-    "tier": 1
+  "tier": 1,
+  "learn": { },
+  "type": "ACTIVE",
+
+  "active": {
+    "cast": {
+      "duration": 4
+    }
   },
-  "cast": {
-    "duration": 1,
-    "haste_affected": false,
-    "animation": "spell_engine:two_handed_channeling"
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "sticky": true
+    }
+  },
+  "deliver": {
+    "type": "CUSTOM",
+    "custom": {
+      "handler": "invoke:runic_invocation"
+    }
   },
   "release": {
-    "custom_impact": true,
-    "target": {
-      "type": "AREA",
-      "area": {
-        "angle_degrees": 90,
-        "vertical_range_multiplier": 1
-      }
-    }
+    "animation": "invoke:one_handed_projectile_release"
+
   },
-  "impact": [
-    {
-      "action": {
-        "type": "DAMAGE",
-        "damage": {
-          "knockback": 1,
-          "spell_power_coefficient": 0.01
-        }
-      }
-    }
+  "impacts": [
+
   ],
   "cost": {
-    "cooldown_duration": 4
+    "cooldown": {
+      "duration": 0.5
+    }
   }
 }

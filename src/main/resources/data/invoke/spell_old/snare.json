@@ -1,0 +1,177 @@
+{
+  "school": "ARCANE",
+  "range": 16,
+  "learn": {
+    "tier": 1
+  },
+  "scroll":{
+    "generate": false
+  },
+  "active": {
+    "scroll": {},
+    "cast": {
+      "duration": 1.0,
+      "animation": "invoke:one_handed_area_charge",
+      "sound": {
+        "id": "spell_engine:generic_arcane_casting"
+      },
+      "particles": [
+        {
+          "particle_id": "spell_engine:magic_arcane_spell_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.2,
+          "max_speed": 0.2,
+          "pre_spawn_travel": 10.0,
+          "color_rgba": 4284940287,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:magic_arcane_stripe_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 50.0,
+          "color_rgba": 4284940287,
+          "scale": 2.0
+        },
+        {
+          "particle_id": "spell_engine:magic_arcane_spark_float",
+          "origin": "LAUNCH_POINT",
+          "shape": "CIRCLE",
+          "rotation": "LOOK",
+          "roll": 45.0,
+          "roll_offset": 45.0,
+          "count": 10.0,
+          "min_speed": 0.02,
+          "max_speed": 0.02,
+          "pre_spawn_travel": 75.0,
+          "color_rgba": 4284940287,
+          "scale": 2.0
+        }
+      ]
+    }
+  },
+  "target": {
+    "type": "AIM",
+    "aim": {
+      "required": true,
+      "sticky": true
+    }
+  },
+  "release": {
+    "animation": "invoke:one_handed_area_release",
+    "particles": [
+      {
+        "particle_id": "spell_engine:magic_arcane_spell_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CIRCLE",
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.2,
+        "max_speed": 0.2,
+        "pre_spawn_travel": 10.0,
+        "color_rgba": 4284940287,
+        "scale": 2.0
+      },
+      {
+        "particle_id": "spell_engine:magic_arcane_stripe_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CIRCLE",
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.02,
+        "max_speed": 0.02,
+        "pre_spawn_travel": 50.0,
+        "color_rgba": 4284940287,
+        "scale": 2.0
+      },
+      {
+        "particle_id": "spell_engine:magic_arcane_spark_float",
+        "origin": "LAUNCH_POINT",
+        "shape": "CIRCLE",
+        "rotation": "LOOK",
+        "roll": 45.0,
+        "roll_offset": 45.0,
+        "count": 100.0,
+        "min_speed": 0.02,
+        "max_speed": 0.02,
+        "pre_spawn_travel": 75.0,
+        "color_rgba": 4284940287,
+        "scale": 2.0
+      }
+    ],
+    "sound": {
+      "id": "spell_engine:generic_frost_release"
+    }
+  },
+  "impacts": [
+    {
+      "action": {
+        "type": "DAMAGE",
+        "damage": {
+          "knockback": 0,
+          "spell_power_coefficient": 0.1
+        }
+      }
+    },
+    {
+      "action": {
+        "type": "STATUS_EFFECT",
+        "status_effect": {
+          "duration": 1,
+          "amplifier": 20,
+          "effect_id": "slowness"
+        }
+      },
+      "particles": [
+        {
+          "particle_id": "minecraft:firework",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 120,
+          "min_speed": 0.2,
+          "max_speed": 0.05
+        },
+        {
+          "particle_id": "spell_engine:arcane_spell",
+          "shape": "PIPE",
+          "origin": "FEET",
+          "count": 120,
+          "min_speed": 0.3,
+          "max_speed": 0.07
+        },
+          {
+            "particle_id": "spell_engine:area_effect_658",
+            "origin": "FEET",
+            "shape": "WIDE_PIPE",
+            "count": 1.0,
+            "max_speed": 0.0,
+            "pre_spawn_travel": 1.0,
+            "color_rgba": 4284940287,
+            "scale": 4.0
+          }
+      ]
+    }
+
+  ],
+  "cost": {
+    "item_id": "runes:arcane_stone",
+    "cooldown": {
+      "duration": 2
+    }
+  }
+}

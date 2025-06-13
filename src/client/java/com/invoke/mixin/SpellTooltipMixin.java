@@ -8,7 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.spell_engine.client.gui.SpellTooltip;
-import net.spell_engine.internals.SpellContainerHelper;
+import net.spell_engine.internals.container.SpellContainerSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,10 +20,10 @@ import static com.invoke.InvokeClient.TOTAL_LIST;
 @Mixin(SpellTooltip.class)
 public class SpellTooltipMixin {
     @ModifyVariable(at = @At("HEAD"), method = "spellEntry", argsOnly = true, remap = false)
-    private static Identifier spellInfoInvocation(Identifier spellId,Identifier originalSpellId, PlayerEntity player, ItemStack itemStack, boolean details,boolean indented) {
+    private static Identifier spellInfoInvocation(Identifier spellId,Identifier originalSpellId, PlayerEntity player, ItemStack itemStack, boolean details,int indentLevel) {
         Identifier id = originalSpellId;
 
-                if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getAvailable( player) != null && SpellContainerHelper.getAvailable( player).spell_ids() != null && SpellContainerHelper.getAvailable( player).spell_ids().contains("invoke:runic_invocation")) {
+                if (player != null && player instanceof InvokerEntity entity && SpellContainerSource.getSpellsOf(player).activeContainer().spell_ids() != null && SpellContainerSource.getSpellsOf(player).activeContainer().spell_ids() != null && SpellContainerSource.getSpellsOf(player).activeContainer().spell_ids().contains("invoke:runic_invocation")) {
                     int x = 0;
                     int y = 0;
                     int z = 0;
@@ -64,7 +64,7 @@ public class SpellTooltipMixin {
         if (MinecraftClient.getInstance() != null) {
 
             PlayerEntity player = MinecraftClient.getInstance().player;
-            if (player != null && player instanceof InvokerEntity entity && SpellContainerHelper.getAvailable( player) != null && SpellContainerHelper.getAvailable( player).spell_ids() != null && SpellContainerHelper.getAvailable( player).spell_ids().contains("invoke:runic_invocation")) {
+            if (player != null && player instanceof InvokerEntity entity && SpellContainerSource.getSpellsOf(player).activeContainer().spell_ids() != null && SpellContainerSource.getSpellsOf(player).activeContainer().spell_ids() != null && SpellContainerSource.getSpellsOf(player).activeContainer().spell_ids().contains("invoke:runic_invocation")) {
                 int x = 0;
                 int y = 0;
                 int z = 0;
