@@ -3,6 +3,8 @@ package com.invoke.spells;
 import com.invoke.InvokeMod;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.spell_engine.api.spell.ExternalSpellSchools;
@@ -456,7 +458,7 @@ public class InvocationSpells {
         impacts[1].action.status_effect = new Spell.Impact.Action.StatusEffect();
         impacts[1].action.status_effect.effect_id = "spell_power:frost";
         impacts[1].action.status_effect.duration = 6;
-        impacts[1].action.status_effect.amplifier = 2;
+        impacts[1].action.status_effect.amplifier_cap = 2;
         impacts[1].action.status_effect.apply_mode = Spell.Impact.Action.StatusEffect.ApplyMode.ADD;
         spell.release = new Spell.Release();
 

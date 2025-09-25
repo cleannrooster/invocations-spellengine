@@ -44,7 +44,7 @@
         "status_effect": {
           "apply_mode": "ADD",
           "duration": 6,
-          "amplifier": 2,
+          "amplifier_cap": 2,
           "effect_id": "spell_power:arcane",
           "show_particles": false
         },
