@@ -124,7 +124,7 @@ public class SpellCustomImpact {
         impact.school = SpellSchools.ARCANE;
         ParticleBatch[] hitParticles = new ParticleBatch[]{
                 new ParticleBatch("spell_engine:magic_arcane_spark_float", ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,20,0.05f,0.1F,360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString()
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString()
                         , ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,20,0.05f,0.1F,360)
 
         };

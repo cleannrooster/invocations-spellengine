@@ -214,7 +214,10 @@
   "cost": {
     "effect_id": "spell_power:frost",
     "cooldown": {
-      "duration ": 1
+      "duration": 4
+    },
+    "item": {
+      "id": "runes:frost_stone"
     }
   }
 }

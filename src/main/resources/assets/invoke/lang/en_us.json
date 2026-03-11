@@ -1,83 +1,86 @@
 {
   "spell.invoke.wildshards.name": "Pannetti's Wildshards",
-  "spell.invoke.wildshards.description": "Unleash bounding arcane missiles in spirals around you, each dealing arcane damage..",
+  "spell.invoke.wildshards.description": "Unleash bounding arcane missiles in spirals around you, each dealing  {damage} arcane damage..",
 
   "spell.invoke.frozen_expanse.name": "Frozen Expanse",
-  "spell.invoke.frozen_expanse.description": "Place a frost rune under each enemy in an area in front of you, dealing frost damage and slowing all enemies on the rune after a short delay. ",
+  "spell.invoke.frozen_expanse.description": "Place a frost rune under each enemy in an area in front of you, dealing  {damage} frost damage and slowing all enemies on the rune after a short delay. ",
 
   "spell.invoke.greater_fireball.name": "Janus' Inferno",
-  "spell.invoke.greater_fireball.description": "Shoot an overcharged fireball, exploding violently for fire damage.",
+  "spell.invoke.greater_fireball.description": "Shoot an overcharged fireball, exploding violently for  {damage} fire damage.",
 
   "spell.invoke.ice_storm.name": "Eos' Blizzard",
-  "spell.invoke.ice_storm.description": "Ice shards rain on the target area or enemy for the next 4 seconds, each shard dealing frost damage in a small area.",
+  "spell.invoke.ice_storm.description": "Ice shards rain on the target area or enemy for the next 4 seconds, each shard dealing  {damage} frost damage in a small area.",
 
   "spell.invoke.replicating_missile.name": "Pannetti's Replicating Missile",
-  "spell.invoke.replicating_missile.description": "Shoot a chaining, volatile missile which replicates on hit, dealing arcane damage.",
+  "spell.invoke.replicating_missile.description": "Shoot a chaining, volatile missile which replicates on hit, dealing  {damage} arcane damage.",
 
   "spell.invoke.sea_of_lavos.name": "Arcane Sea",
-  "spell.invoke.sea_of_lavos.description": "Place an arcane rune under each enemy in an area in front of you, dealing arcane damage in a small area after a short delay.",
+  "spell.invoke.sea_of_lavos.description": "Place an arcane rune under each enemy in an area in front of you, dealing  {damage} arcane damage in a small area after a short delay.",
 
   "spell.invoke.self_immolate.name": "Self Immolate",
-  "spell.invoke.self_immolate.description": "Explode, dealing fire damage to each enemy in an area around you.",
+  "spell.invoke.self_immolate.description": "Explode, dealing {damage}fire damage to each enemy in an area around you.",
 
   "spell.invoke.greater_geyser.name": "Pillar of Xopec",
-  "spell.invoke.greater_geyser.description": "Place a large pillar of flames on your location, dealing fire dps in a large area and launching enemies upwards.",
+  "spell.invoke.greater_geyser.description": "Place a large pillar of flames on your location, dealing  {damage} fire dps in a large area and launching enemies upwards.",
 
   "spell.invoke.lance_of_eos.name": "Lance of Eos",
-  "spell.invoke.lance_of_eos.description": "Blast all enemies in a narrow cone in front of you, dealing arcane damage to each enemy.",
+  "spell.invoke.lance_of_eos.description": "Blast all enemies in a narrow cone in front of you, dealing {damage} arcane damage to each enemy.",
 
   "spell.invoke.lance_of_heorot.name": "Lance of Heorot",
-  "spell.invoke.lance_of_heorot.description": "Blast all enemies in a narrow cone in front of you, dealing arcane and frost damage to each enemy.",
+  "spell.invoke.lance_of_heorot.description": "Blast all enemies in a narrow cone in front of you, dealing  {damage_1} arcane and {damage_2} frost damage to each enemy.",
 
   "spell.invoke.rain_of_fire.name": "Evard's Embers",
-  "spell.invoke.rain_of_fire.description": "Launch an ember skywards for each enemy nearby, homing onto its target, dealing fire damage in an area.",
+  "spell.invoke.rain_of_fire.description": "Launch an ember skywards for each enemy nearby, homing onto its target, dealing {damage} fire damage in an area.",
 
 
   "spell.invoke.dancing_ember.name": "Unvar's Dancing Embers",
-  "spell.invoke.dancing_ember.description": "Launch eight bouncing, piercing embers that dance around you, dealing fire damage to enemies hit.",
+  "spell.invoke.dancing_ember.description": "Launch eight bouncing, piercing embers that dance around you, dealing {damage} fire damage to enemies hit.",
 
   "spell.invoke.combustion.name": "Sozin's Spontaneous Combustion",
-  "spell.invoke.combustion.description": "Violently explode an enemy, dealing fire damage to all enemies in an area.",
+  "spell.invoke.combustion.description": "Violently explode an enemy, dealing {damage} fire damage to all enemies in an area.",
 
   "spell.invoke.comet.name": "Comet",
-  "spell.invoke.comet.description": "Bring down a frozen chunk on the target area or enemy, dealing frost damage in an area.",
+  "spell.invoke.comet.description": "Bring down a frozen chunk on the target area or enemy, dealing {damage} frost damage in an area.",
 
   "spell.invoke.magic_missile.name": "Magic Missile",
-  "spell.invoke.magic_missile.description": "Unleash eight magic bolts in sequence on the target enemy, each homing in and dealing arcane damage.",
+  "spell.invoke.magic_missile.description": "Unleash eight magic bolts in sequence on the target enemy, each homing in and dealing {damage} arcane damage.",
 
   "spell.invoke.plasma_blast.name": "Plasma Orb",
-  "spell.invoke.plasma_blast.description": "Unleash an orb of volatile plasma into the sky, homing onto your target enemy. Deals fire and arcane damage in an area.",
+  "spell.invoke.plasma_blast.description": "Unleash an orb of volatile plasma into the sky, homing onto your target enemy. Deals {damage_1} fire and {damage_2} arcane damage in an area.",
 
   "spell.invoke.frostferno.name": "Frostferno",
-  "spell.invoke.frostferno.description": "Blast enemies in front of you with frost and flames, each enemy dealing frost damage and fire damage in an area around them, lighting them on fire..",
+  "spell.invoke.frostferno.description": "Blast enemies in front of you with frost and flames, each enemy dealing {damage_1} frost damage and {damage_2} fire damage in an area around them, lighting them on fire..",
 
   "spell.invoke.rimeblaze.name": "Rimeblaze",
-  "spell.invoke.rimeblaze.description": "Ignite all enemies in front of you in an area, dealing frost damage in an area around them after a delay..",
+  "spell.invoke.rimeblaze.description": "Ignite all enemies in front of you in an area, dealing {damage} frost damage in an area around them after a delay..",
 
   "spell.invoke.flame_geyser.name": "Korell's Flame Geyser",
-  "spell.invoke.flame_geyser.description": "Geysers erupt underneath nearby enemies, launching them into the air and dealing fire damage to each one.",
+  "spell.invoke.flame_geyser.description": "Geysers erupt underneath nearby enemies, launching them into the air and dealing {damage} fire damage to each one.",
 
   "spell.invoke.frozen_miasma.name": "Evard's Miasma",
-  "spell.invoke.frozen_miasma.description": "Place a lingering frozen miasma underneath you, dealing frost damage per second to enemies standing on it.",
+  "spell.invoke.frozen_miasma.description": "Place a lingering frozen miasma underneath you, dealing {damage} frost damage per second to enemies standing on it.",
 
   "spell.invoke.snare.name": "Rune Prison",
   "spell.invoke.snare.description": "Ensnare an enemy for 4 seconds, dealing negligible arcane damage.",
 
   "spell.invoke.starfall.name": "Stanford's Starfall",
-  "spell.invoke.starfall.description": "Four miniature star chunks fall on the target area or enemy, each dealing fire damage, arcane damage, and frost damage.",
+  "spell.invoke.starfall.description": "Four miniature star chunks fall on the target area or enemy, each dealing {damage_1} fire damage, {damage_2} arcane damage, and {damage_3} frost damage.",
 
   "spell.invoke.mass_combustion.name": "The Kindling",
-  "spell.invoke.mass_combustion.description": "All enemies in an area in front of you explode, dealing fire damage in an area around them.",
+  "spell.invoke.mass_combustion.description": "All enemies in an area in front of you explode, dealing {damage} fire damage in an area around them.",
+
+  "spell.invoke.frost_fangs.name": "Frost Fangs",
+  "spell.invoke.frost_fangs.description": "Target an enemy with a barrage of frozen projectiles, each dealing {damage_1} arcane damage and {damage_2} frost damage.",
 
 
   "spell.invoke.supernova.name": "Stanford's Supernova",
-  "spell.invoke.supernova.description": "Make an enemy go supernova, exploding and dealing arcane and fire damage to nearby enemies.",
+  "spell.invoke.supernova.description": "Make an enemy go supernova, exploding and dealing {damage_1} arcane and {damage_2} fire damage to nearby enemies.",
 
   "spell.invoke.frost_glyph.name": "Unvar's Frost Glyph",
-  "spell.invoke.frost_glyph.description": "Place a frost glyph under you, erupting after a delay, dealing frost damage in an area.",
+  "spell.invoke.frost_glyph.description": "Place a frost glyph under you, erupting after a delay, dealing {damage} frost damage in an area.",
 
   "spell.invoke.trailblaze.name": "Trailblaze",
-  "spell.invoke.trailblaze.description": "Conjure a firestorm on yourself for the next 6 seconds.",
+  "spell.invoke.trailblaze.description": "Conjure a firestorm on yourself for the next 6 seconds, each projectile dealing {damage} fire damage.",
 
   "spell.invoke.runic_invocation.name": "Runic Invocation",
   "spell.invoke.runic_invocation.description": "Invoke a spell based on your last three runes obtained via spellcasting.",

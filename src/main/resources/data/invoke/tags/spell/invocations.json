@@ -1,0 +1,32 @@
+{
+  "values": [
+    "invoke:flame_geyser",
+    "invoke:frozen_miasma",
+    "invoke:greater_geyser",
+    "invoke:snare",
+    "invoke:combustion",
+    "invoke:comet",
+    "invoke:dancing_ember",
+    "invoke:frost_fangs",
+    "invoke:frost_glyph",
+    "invoke:frostferno",
+    "invoke:frozen_expanse",
+    "invoke:greater_fireball",
+    "invoke:heo",
+    "invoke:ice_storm",
+    "invoke:lance_of_heorot",
+    "invoke:magic_missile",
+    "invoke:mass_combustion",
+    "invoke:plasma_blast",
+    "invoke:rain_of_fire",
+    "invoke:replicating_missile",
+    "invoke:rimeblaze",
+    "invoke:sea_of_lavos",
+    "invoke:self_immolate",
+    "invoke:starfall",
+    "invoke:supernova",
+    "invoke:trailblaze",
+    "invoke:wildshards",
+    "invoke:lance_of_eos"
+  ]
+}

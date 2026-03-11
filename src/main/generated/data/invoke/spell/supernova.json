@@ -4,7 +4,6 @@
   "tier": 3,
   "learn": {},
   "active": {
-    "scroll": {},
     "cast": {
       "duration": 1.0,
       "animation": "invoke:one_handed_projectile_charge",
@@ -27,7 +26,7 @@
           "scale": 2.0
         },
         {
-          "particle_id": "spell_engine:magic_arcane_stripe_float",
+          "particle_id": "spell_engine:magic_arcane_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -41,7 +40,7 @@
           "scale": 2.0
         },
         {
-          "particle_id": "spell_engine:magic_arcane_spark_float",
+          "particle_id": "spell_engine:magic_arcane_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -75,7 +74,7 @@
         "scale": 2.0
       },
       {
-        "particle_id": "spell_engine:magic_arcane_stripe_float",
+        "particle_id": "spell_engine:magic_arcane_float",
         "origin": "LAUNCH_POINT",
         "shape": "CIRCLE",
         "rotation": "LOOK",
@@ -89,7 +88,7 @@
         "scale": 2.0
       },
       {
-        "particle_id": "spell_engine:magic_arcane_spark_float",
+        "particle_id": "spell_engine:magic_arcane_float",
         "origin": "LAUNCH_POINT",
         "shape": "CIRCLE",
         "rotation": "LOOK",
@@ -194,7 +193,7 @@
           "angle": 360.0
         },
         {
-          "particle_id": "spell_engine:magic_arcane_spark_float",
+          "particle_id": "spell_engine:magic_arcane_float",
           "origin": "CENTER",
           "shape": "SPHERE",
           "count": 20.0,
@@ -249,7 +248,7 @@
         "max_speed": 0.8
       },
       {
-        "particle_id": "spell_engine:magic_arcane_spell_float",
+        "particle_id": "spell_engine:magic_arcane_float",
         "origin": "CENTER",
         "shape": "SPHERE",
         "count": 450.0,
@@ -257,7 +256,7 @@
         "max_speed": 0.8
       },
       {
-        "particle_id": "spell_engine:magic_arcane_stripe_float",
+        "particle_id": "spell_engine:magic_arcane_float",
         "origin": "CENTER",
         "shape": "SPHERE",
         "count": 450.0,
@@ -279,7 +278,10 @@
   },
   "cost": {
     "cooldown": {
-      "duration": 1.0
+      "duration": 4.0
+    },
+    "item": {
+      "id": "runes:arcane_stone"
     }
   }
 }

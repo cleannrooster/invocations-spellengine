@@ -4,7 +4,6 @@
   "tier": 3,
   "learn": {},
   "active": {
-    "scroll": {},
     "cast": {
       "duration": 1.0,
       "animation": "invoke:one_handed_projectile_charge",
@@ -13,7 +12,7 @@
       },
       "particles": [
         {
-          "particle_id": "spell_engine:magic_arcane_spell_float",
+          "particle_id": "spell_engine:magic_arcane_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -27,7 +26,7 @@
           "scale": 2.0
         },
         {
-          "particle_id": "spell_engine:magic_arcane_stripe_float",
+          "particle_id": "spell_engine:magic_arcane_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -41,7 +40,7 @@
           "scale": 2.0
         },
         {
-          "particle_id": "spell_engine:magic_arcane_spark_float",
+          "particle_id": "spell_engine:magic_arcane_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -61,7 +60,7 @@
     "animation": "invoke:one_handed_projectile_release",
     "particles": [
       {
-        "particle_id": "spell_engine:magic_arcane_spell_float",
+        "particle_id": "spell_engine:magic_arcane_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -71,7 +70,7 @@
         "angle": 5.0
       },
       {
-        "particle_id": "spell_engine:magic_arcane_spark_float",
+        "particle_id": "spell_engine:magic_arcane_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -81,7 +80,7 @@
         "angle": 5.0
       },
       {
-        "particle_id": "spell_engine:magic_arcane_stripe_float",
+        "particle_id": "spell_engine:magic_arcane_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -91,7 +90,7 @@
         "angle": 20.0
       },
       {
-        "particle_id": "spell_engine:magic_arcane_stripe_float",
+        "particle_id": "spell_engine:magic_arcane_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -101,7 +100,7 @@
         "angle": 40.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_spell_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -111,7 +110,7 @@
         "angle": 5.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_spark_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -121,7 +120,7 @@
         "angle": 5.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_stripe_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -131,7 +130,7 @@
         "angle": 20.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_stripe_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -169,7 +168,7 @@
           "angle": 360.0
         },
         {
-          "particle_id": "spell_engine:magic_arcane_spark_float",
+          "particle_id": "spell_engine:magic_arcane_float",
           "origin": "CENTER",
           "shape": "SPHERE",
           "count": 20.0,
@@ -229,7 +228,10 @@
   ],
   "cost": {
     "cooldown": {
-      "duration": 1.0
+      "duration": 4.0
+    },
+    "item": {
+      "id": "runes:frost_stone"
     }
   }
 }

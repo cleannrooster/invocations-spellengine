@@ -59,7 +59,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
 	// Dependencies
-	include(implementation("com.github.ZsoltMolnarrr:TinyConfig:${project.tiny_config_version}"))
+	include(implementation("maven.modrinth:tiny-config:${project.tiny_config_version}"))
 	modImplementation("maven.modrinth:structure-pool-api:${project.structure_pool_api_version}")
 	modImplementation("maven.modrinth:runes:${project.runes_version}")
 	modImplementation "mod.azure.azurelib:azurelib-fabric-1.21.1:2.3.19"

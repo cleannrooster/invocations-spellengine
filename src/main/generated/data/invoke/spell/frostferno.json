@@ -4,7 +4,6 @@
   "tier": 3,
   "learn": {},
   "active": {
-    "scroll": {},
     "cast": {
       "duration": 1.0,
       "animation": "invoke:one_handed_area_charge",
@@ -13,7 +12,7 @@
       },
       "particles": [
         {
-          "particle_id": "spell_engine:magic_frost_spell_float",
+          "particle_id": "spell_engine:magic_frost_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -61,7 +60,7 @@
     "animation": "invoke:one_handed_area_release",
     "particles": [
       {
-        "particle_id": "spell_engine:magic_frost_spell_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -71,7 +70,7 @@
         "angle": 90.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_spark_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -81,7 +80,7 @@
         "angle": 90.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_stripe_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -91,7 +90,7 @@
         "angle": 115.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_stripe_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CONE",
         "rotation": "LOOK",
@@ -250,7 +249,7 @@
       "action": {
         "type": "FIRE",
         "fire": {
-          "duration": 80
+          "duration": 80.0
         }
       }
     }
@@ -275,7 +274,10 @@
   },
   "cost": {
     "cooldown": {
-      "duration": 1.0
+      "duration": 4.0
+    },
+    "item": {
+      "id": "runes:frost_stone"
     }
   }
 }

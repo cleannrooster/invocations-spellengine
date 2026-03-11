@@ -41,32 +41,39 @@ public class InvocationSpells {
 
     public static ParticleBatch glyph(float scale, float angle, ParticleBatch.Origin origin, ParticleBatch.Rotation rotate, SpellSchool school, boolean follow){
         if(school.equals(FROST)){
-            return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.2F,0.2F,angle,0,10,false, FROST.color, scale,follow,1F);
+            return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.2F,0.2F,angle,0,10,false, FROST.color, scale,follow,1F);
         }
         if(school.equals(FIRE)){
             return  new ParticleBatch(SpellEngineParticles.flame.id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.2F,0.2F,angle,0,10,false, 4284889343L, scale,follow,1F);
         }
-            return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.2F,0.2F,angle,0,10,false, 4284940287L, scale,follow,1F);
+            return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.2F,0.2F,angle,0,10,false, 4284940287L, scale,follow,1F);
 
     }
+    public static ParticleBatch[] frostImpact = new ParticleBatch[]{
+
+            new ParticleBatch(SpellEngineParticles.frost_shard.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 15, 0.1F, .2F, 0),
+            new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 15, 0.1F, 0.2F, 0),
+            new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 15, 0.1F, 0.2F, 0),
+            new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 15, 0.1F, 0.2F, 0)
+    };
     public static ParticleBatch glyph_outer(float scale, float angle, ParticleBatch.Origin origin, ParticleBatch.Rotation rotate, SpellSchool school, boolean follow){
         if(school.equals(FROST)){
-            return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,50,false, FROST.color, scale,follow,1F);
+            return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,50,false, FROST.color, scale,follow,1F);
         }
         if(school.equals(FIRE)){
             return  new ParticleBatch(SpellEngineParticles.flame_medium_a.id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,50,false, 4284889343L, scale,follow,1F);
         }
-        return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,50,false, 4284940287L, scale,follow,1F);
+        return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,50,false, 4284940287L, scale,follow,1F);
 
     }
     public static ParticleBatch glyph_center(float scale, float angle, ParticleBatch.Origin origin, ParticleBatch.Rotation rotate, SpellSchool school, boolean follow){
         if(school.equals(FROST)){
-            return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,75,false, FROST.color, scale,follow,1F);
+            return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,75,false, FROST.color, scale,follow,1F);
         }
         if(school.equals(FIRE)){
             return  new ParticleBatch(SpellEngineParticles.flame_spark.id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,75,false, 4284889343L, scale,follow,1F);
         }
-        return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,75,false, 4284940287L, scale,follow,1F);
+        return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,10,0.02F,0.02F,angle,0,75,false, 4284940287L, scale,follow,1F);
 
     }
     public static ParticleBatch glyph_area(float scale, float angle, ParticleBatch.Origin origin, ParticleBatch.Rotation rotate, SpellSchool school, boolean follow){
@@ -81,32 +88,32 @@ public class InvocationSpells {
     }
     public static ParticleBatch glyph_release(float scale, float angle, ParticleBatch.Origin origin, ParticleBatch.Rotation rotate, SpellSchool school, boolean follow){
         if(school.equals(FROST)){
-            return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.2F,0.2F,angle,0,10,false, FROST.color, scale,follow,1F);
+            return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.2F,0.2F,angle,0,10,false, FROST.color, scale,follow,1F);
         }
         if(school.equals(FIRE)){
             return  new ParticleBatch(SpellEngineParticles.flame.id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.2F,0.2F,angle,0,10,false, 4284889343L, scale,follow,1F);
         }
-        return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.2F,0.2F,angle,0,10,false, 4284940287L, scale,follow,1F);
+        return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.2F,0.2F,angle,0,10,false, 4284940287L, scale,follow,1F);
 
     }
     public static ParticleBatch glyph_outer_release(float scale, float angle, ParticleBatch.Origin origin, ParticleBatch.Rotation rotate, SpellSchool school, boolean follow){
         if(school.equals(FROST)){
-            return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,50,false, FROST.color, scale,follow,1F);
+            return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,50,false, FROST.color, scale,follow,1F);
         }
         if(school.equals(FIRE)){
             return  new ParticleBatch(SpellEngineParticles.flame_medium_a.id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,50,false, 4284889343L, scale,follow,1F);
         }
-        return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,50,false, 4284940287L, scale,follow,1F);
+        return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,50,false, 4284940287L, scale,follow,1F);
 
     }
     public static ParticleBatch glyph_center_release(float scale, float angle, ParticleBatch.Origin origin, ParticleBatch.Rotation rotate, SpellSchool school, boolean follow){
         if(school.equals(FROST)){
-            return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,75,false, FROST.color, scale,follow,1F);
+            return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,75,false, FROST.color, scale,follow,1F);
         }
         if(school.equals(FIRE)){
             return  new ParticleBatch(SpellEngineParticles.flame_spark.id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,75,false, 4284889343L, scale,follow,1F);
         }
-        return  new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,75,false, 4284940287L, scale,follow,1F);
+        return  new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CIRCLE, origin, rotate,45,45,100,0.02F,0.02F,angle,0,75,false, 4284940287L, scale,follow,1F);
 
     }
 
@@ -130,10 +137,10 @@ public class InvocationSpells {
     }
     private static ParticleBatch arcaneCastingParticles() {
         return new ParticleBatch(
-                SpellEngineParticles.getMagicParticleVariant(
-                        SpellEngineParticles.ARCANE,
-                        SpellEngineParticles.MagicParticleFamily.Shape.SPELL,
-                        SpellEngineParticles.MagicParticleFamily.Motion.ASCEND
+                SpellEngineParticles.MagicParticles.get(
+                        SpellEngineParticles.MagicParticles.Shape.ARCANE,
+                        
+                        SpellEngineParticles.MagicParticles.Motion.ASCEND
                 ).id().toString(),
                 ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
                 1, 0.05F, 0.1F);
@@ -146,10 +153,10 @@ public class InvocationSpells {
     }
     private static ParticleBatch frostCastingParticles() {
         return new ParticleBatch(
-                SpellEngineParticles.getMagicParticleVariant(
-                        SpellEngineParticles.FROST,
-                        SpellEngineParticles.MagicParticleFamily.Shape.SPELL,
-                        SpellEngineParticles.MagicParticleFamily.Motion.ASCEND
+                SpellEngineParticles.MagicParticles.get(
+                        SpellEngineParticles.MagicParticles.Shape.FROST,
+                        
+                        SpellEngineParticles.MagicParticles.Motion.ASCEND
                 ).id().toString(),
                 ParticleBatch.Shape.WIDE_PIPE, ParticleBatch.Origin.FEET,
                 1, 0.05F, 0.1F);
@@ -161,7 +168,6 @@ public class InvocationSpells {
         spell.learn = new Spell.Learn();
         spell.type = Spell.Type.ACTIVE;
         spell.active = new Spell.Active();
-        spell.active.scroll = new Spell.Active.Scroll();
 
 
         return spell;
@@ -203,7 +209,7 @@ public class InvocationSpells {
         impact.school = SpellSchools.ARCANE;
         ParticleBatch[] hitParticles = new ParticleBatch[]{
                 new ParticleBatch("spell_engine:magic_arcane_spark_float", ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,20,0.05f,0.1F,360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString()
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString()
                         , ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,20,0.05f,0.1F,360)
 
         };
@@ -217,7 +223,7 @@ public class InvocationSpells {
         var impact = createImpact(Spell.Impact.Action.Type.DAMAGE,coeff, knockback);
         impact.school = SpellSchools.LIGHTNING;
         ParticleBatch[] hitParticles = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.WHITE, SpellEngineParticles.MagicParticleFamily.Shape.IMPACT, SpellEngineParticles.MagicParticleFamily.Motion.BURST).id().toString(), ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK, 20, 0.2f, 0.7F, 360)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.SPELL,  SpellEngineParticles.MagicParticles.Motion.BURST).id().toString(), ParticleBatch.Shape.CIRCLE, ParticleBatch.Origin.CENTER, ParticleBatch.Rotation.LOOK, 20, 0.2f, 0.7F, 360)
         };
         impact.particles = hitParticles;
         var sound = new Sound(SpellEngineSounds.GENERIC_LIGHTNING_RELEASE.id());
@@ -276,8 +282,8 @@ public class InvocationSpells {
         impact.school = SpellSchools.HEALING;
 
         impact.particles = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.HOLY, SpellEngineParticles.MagicParticleFamily.Shape.IMPACT, SpellEngineParticles.MagicParticleFamily.Motion.ASCEND).id().toString(), ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET, null, 20, 0.2f, 0.7F, 360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.HOLY, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET, null, 20, 0.1f, 0.35F, 360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.HOLY    ,  SpellEngineParticles.MagicParticles.Motion.ASCEND).id().toString(), ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET, null, 20, 0.2f, 0.7F, 360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.HOLY,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.PIPE, ParticleBatch.Origin.FEET, null, 20, 0.1f, 0.35F, 360),
 
         };
         impact.sound = new Sound(SpellEngineSounds.GENERIC_HEALING_IMPACT_1.id());
@@ -316,9 +322,9 @@ public class InvocationSpells {
         if (spell.cost.cooldown == null) {
             spell.cost.cooldown = new Spell.Cost.Cooldown();
         }
-        if(id != null){
+        if(true){
             spell.cost.item = new Spell.Cost.Item();
-            spell.cost.item.id = id;
+            spell.cost.item.id = "runes:"+ spell.school.id.getPath() + "_stone";
             spell.cost.item.amount = 1;
 
         }
@@ -326,6 +332,7 @@ public class InvocationSpells {
             spell.cost.cooldown.proportional = true;
         }
         spell.cost.cooldown.duration = duration;
+
     }
 
 
@@ -411,18 +418,18 @@ public class InvocationSpells {
         spell.release.sound = new Sound("wizards:arcane_missile_release");
         spell.release.animation = "invoke:one_handed_projectile_release";
         spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40)
 
         };
         spell.impacts = List.of(impacts);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -465,14 +472,14 @@ public class InvocationSpells {
         spell.release.sound = new Sound("spell_engine:generic_frost_release");
         spell.release.animation = "invoke:one_handed_projectile_release";
         spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 0.1f, 5F, 5),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 0.1f, 5, 5),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 50, 1, 2, 20),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 50, 0.5F, 1, 40)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 0.1f, 5F, 5),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 0.1f, 5, 5),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 50, 1, 2, 20),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 50, 0.5F, 1, 40)
 
         };
         spell.impacts = List.of(impacts);
-        configureCooldown(spell, 0F, false, "runes:frost_stone");
+        configureCooldown(spell, 1F, false, "runes:frost_stone");
 
         return new Entry(id, spell, title, description, null);
 
@@ -509,14 +516,14 @@ public class InvocationSpells {
         spell.release.sound = new Sound("wizards:arcane_missile_release");
         spell.release.animation = "invoke:one_handed_projectile_release";
         spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 400, 0.1f, 20F, 5),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE, SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40)
 
         };
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -561,8 +568,8 @@ public class InvocationSpells {
                 glyph_area(8,0, ParticleBatch.Origin.FEET,null,ARCANE,false),
                 new ParticleBatch(SpellEngineParticles.flame.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.7F, .8F, 0),
                 new ParticleBatch(SpellEngineParticles.flame_medium_a.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.7F, 0.8F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.7F, 0.8F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.7F, 0.8F, 0),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0),
                 new ParticleBatch(SpellEngineParticles.flame_medium_b.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0)};
         spell.release = new Spell.Release();
 
@@ -572,7 +579,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,ARCANE,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,ARCANE,false)};
         spell.impacts = List.of(impacts[0],impacts[1]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -624,7 +631,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FIRE,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FIRE,false)};
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -678,7 +685,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FIRE,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FIRE,false)};
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -754,7 +761,7 @@ public class InvocationSpells {
 
         };
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -803,7 +810,7 @@ public class InvocationSpells {
                 new ParticleBatch(SpellEngineParticles.flame_medium_b.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0)};
 
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -841,10 +848,10 @@ public class InvocationSpells {
                 new Spell.Delivery.ShootProjectile.DirectionOffset(120,0)};
 
         ParticleBatch[] particlebatch = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360),
                 new ParticleBatch(SpellEngineParticles.snowflake.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360)
 
         };
@@ -873,7 +880,7 @@ public class InvocationSpells {
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,ARCANE,false)};
 
         spell.impacts = List.of(impacts);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -910,8 +917,8 @@ public class InvocationSpells {
                 new Spell.Delivery.ShootProjectile.DirectionOffset(120,0)};
 
         ParticleBatch[] particlebatch = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360)
 
         };
         spell.deliver.projectile.projectile.client_data.travel_particles = particlebatch;
@@ -938,7 +945,7 @@ public class InvocationSpells {
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,ARCANE,false)};
 
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -976,8 +983,8 @@ public class InvocationSpells {
                 new Spell.Delivery.ShootProjectile.DirectionOffset(315,0)};
 
         ParticleBatch[] particlebatch = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360)
 
         };
         spell.deliver.projectile.projectile.client_data.travel_particles = particlebatch;
@@ -1000,14 +1007,14 @@ public class InvocationSpells {
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_FROST_RELEASE.id());
         spell.release.animation = "invoke:one_handed_area_release";
         spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 0.5F, 1, 75)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 0.5F, 1, 75)
 
 
         };
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1054,21 +1061,21 @@ public class InvocationSpells {
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_ARCANE_RELEASE.id());
         spell.release.animation = "invoke:one_handed_area_release";
         spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 0.5F, 1, 75)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 2, 4, 20),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 1, 2, 40),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 100, 0.5F, 1, 75)
 
 
         };
         ParticleBatch[] particlebatch = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360)
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,3,0.05f,0.1F,360),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null,1,0.05f,0.1F,360)
 
         };
         spell.deliver.projectile.projectile.client_data.travel_particles = particlebatch;
 
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1101,7 +1108,7 @@ public class InvocationSpells {
                 glyph_center(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false)};
         Spell.Impact[] impacts = new Spell.Impact[2];
 
-        impacts[0] = createFrostImpact(0.4F,0F);
+        impacts[0] = createFrostImpact(2.2F,2F);
         spell.area_impact = new Spell.AreaImpact();
         spell.area_impact.area = new Spell.Target.Area();
         spell.area_impact.area.angle_degrees = 360F;
@@ -1110,9 +1117,9 @@ public class InvocationSpells {
         spell.area_impact.particles  = new ParticleBatch[]{
 
                 new ParticleBatch(SpellEngineParticles.frost_shard.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.7F, .8F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.7F, 0.8F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0)};
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.7F, 0.8F, 0),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0)};
 
 
         spell.release = new Spell.Release();
@@ -1123,7 +1130,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false)};
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1176,7 +1183,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.FEET, null,FIRE,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.FEET, null,FIRE,false)};
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1217,13 +1224,7 @@ public class InvocationSpells {
         spell.area_impact.area.angle_degrees = 360F;
         spell.area_impact.radius = 4;
         spell.area_impact.sound  = new Sound("wizards:frost_shard_impact");
-        spell.area_impact.particles  = new ParticleBatch[]{
-
-                new ParticleBatch(SpellEngineParticles.frost_shard.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 15, 0.1F, .2F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 15, 0.1F, 0.2F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 15, 0.1F, 0.2F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 15, 0.1F, 0.2F, 0)
-        };
+        spell.area_impact.particles  = frostImpact;
         spell.release = new Spell.Release();
 
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_FROST_RELEASE.id());
@@ -1232,7 +1233,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false)};
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1315,7 +1316,7 @@ public class InvocationSpells {
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FIRE,false)};
 
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1369,9 +1370,9 @@ public class InvocationSpells {
                 glyph_center(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false)};
         Spell.Impact[] impacts = new Spell.Impact[3];
 
-        impacts[0] = createFireImpact(0.4F,0.5F);
-        impacts[1] = createArcaneImpact(0.4F,0.5F);
-        impacts[2] = createFrostImpact(0.4F,0.5F);
+        impacts[0] = createFireImpact(0.9F,1.5F);
+        impacts[1] = createArcaneImpact(0.9F,1.5F);
+        impacts[2] = createFrostImpact(0.9F,1.5F);
 
         spell.area_impact = new Spell.AreaImpact();
         spell.area_impact.area = new Spell.Target.Area();
@@ -1384,9 +1385,9 @@ public class InvocationSpells {
 
                 new ParticleBatch(SpellEngineParticles.snowflake.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.5F, .7F, 0),
                 new ParticleBatch(SpellEngineParticles.flame_medium_a.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.5F, 0.7F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.5F, 0.7F, 0),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.5F, 0.7F, 0),
                 new ParticleBatch(SpellEngineParticles.flame_medium_a.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0)};
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0)};
         spell.release = new Spell.Release();
 
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_ARCANE_RELEASE.id());
@@ -1396,7 +1397,7 @@ public class InvocationSpells {
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false)};
 
         spell.impacts = List.of(impacts);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1467,9 +1468,9 @@ public class InvocationSpells {
 
                 new ParticleBatch(SpellEngineParticles.flame.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.5F, .7F, 0),
                 new ParticleBatch(SpellEngineParticles.flame_medium_a.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.5F, 0.7F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.5F, 0.7F, 0),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.5F, 0.7F, 0),
                 new ParticleBatch(SpellEngineParticles.flame_medium_a.id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.ARCANE, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0)};
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.ARCANE,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.SPHERE, ParticleBatch.Origin.CENTER, null, 450, 0.4F, 0.4F, 0)};
         spell.release = new Spell.Release();
 
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_FIRE_RELEASE.id());
@@ -1479,7 +1480,7 @@ public class InvocationSpells {
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,ARCANE,false)};
 
         spell.impacts = List.of(impacts[0],impacts[1]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1554,7 +1555,7 @@ public class InvocationSpells {
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FIRE,false)};
 
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1607,7 +1608,7 @@ public class InvocationSpells {
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,ARCANE,false)};
 
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
     }
@@ -1657,7 +1658,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.FEET, null,FROST,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.FEET, null,FROST,false)};
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1707,7 +1708,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FROST,false)};
         spell.impacts = List.of(impacts[0]);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1755,17 +1756,17 @@ public class InvocationSpells {
         spell.release.sound = new Sound(SpellEngineSounds.GENERIC_FROST_RELEASE.id());
         spell.release.animation = "invoke:one_handed_area_release";
         spell.release.particles = new ParticleBatch[]{
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPELL, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 600, 0.1f, 20F, 90),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.SPARK, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 600, 0.1f, 20F, 90),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 300, 2, 4, 115),
-                new ParticleBatch(SpellEngineParticles.getMagicParticleVariant(SpellEngineParticles.FROST, SpellEngineParticles.MagicParticleFamily.Shape.STRIPE, SpellEngineParticles.MagicParticleFamily.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 1, 2, 135),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 600, 0.1f, 20F, 90),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 600, 0.1f, 20F, 90),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 300, 2, 4, 115),
+                new ParticleBatch(SpellEngineParticles.MagicParticles.get(SpellEngineParticles.MagicParticles.Shape.FROST,  SpellEngineParticles.MagicParticles.Motion.FLOAT).id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 1, 2, 135),
                 new ParticleBatch(SpellEngineParticles.flame.id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 600, 0.1f, 20F, 90),
                 new ParticleBatch(SpellEngineParticles.flame_spark.id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 600, 0.1f, 20F, 90),
                 new ParticleBatch(SpellEngineParticles.flame_medium_a.id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 300, 2, 4, 115),
                 new ParticleBatch(SpellEngineParticles.flame_medium_b.id().toString(), ParticleBatch.Shape.CONE, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK, 200, 1, 2, 135)
 
         };        spell.impacts = List.of(impacts);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 
@@ -1823,7 +1824,7 @@ public class InvocationSpells {
                 glyph_outer_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FIRE,false),
                 glyph_center_release(2,0, ParticleBatch.Origin.LAUNCH_POINT, ParticleBatch.Rotation.LOOK,FIRE,false)};
         spell.impacts = List.of(impacts);
-        configureCooldown(spell, 1F, false, null);
+        configureCooldown(spell, 4F, false, null);
 
         return new Entry(id, spell, title, description, null);
 

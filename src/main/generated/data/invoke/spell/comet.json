@@ -4,7 +4,6 @@
   "tier": 3,
   "learn": {},
   "active": {
-    "scroll": {},
     "cast": {
       "duration": 1.0,
       "animation": "invoke:one_handed_area_charge",
@@ -13,7 +12,7 @@
       },
       "particles": [
         {
-          "particle_id": "spell_engine:magic_frost_spell_float",
+          "particle_id": "spell_engine:magic_frost_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -27,7 +26,7 @@
           "scale": 2.0
         },
         {
-          "particle_id": "spell_engine:magic_frost_stripe_float",
+          "particle_id": "spell_engine:magic_frost_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -41,7 +40,7 @@
           "scale": 2.0
         },
         {
-          "particle_id": "spell_engine:magic_frost_spark_float",
+          "particle_id": "spell_engine:magic_frost_float",
           "origin": "LAUNCH_POINT",
           "shape": "CIRCLE",
           "rotation": "LOOK",
@@ -61,7 +60,7 @@
     "animation": "invoke:one_handed_area_release",
     "particles": [
       {
-        "particle_id": "spell_engine:magic_frost_spell_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CIRCLE",
         "rotation": "LOOK",
@@ -75,7 +74,7 @@
         "scale": 2.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_stripe_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CIRCLE",
         "rotation": "LOOK",
@@ -89,7 +88,7 @@
         "scale": 2.0
       },
       {
-        "particle_id": "spell_engine:magic_frost_spark_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "LAUNCH_POINT",
         "shape": "CIRCLE",
         "rotation": "LOOK",
@@ -162,8 +161,8 @@
       "action": {
         "type": "DAMAGE",
         "damage": {
-          "spell_power_coefficient": 0.4,
-          "knockback": 0.0
+          "spell_power_coefficient": 2.2,
+          "knockback": 2.0
         }
       },
       "particles": [
@@ -198,7 +197,7 @@
         "max_speed": 0.8
       },
       {
-        "particle_id": "spell_engine:magic_frost_spell_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "CENTER",
         "shape": "SPHERE",
         "count": 450.0,
@@ -206,7 +205,7 @@
         "max_speed": 0.8
       },
       {
-        "particle_id": "spell_engine:magic_frost_stripe_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "CENTER",
         "shape": "SPHERE",
         "count": 450.0,
@@ -214,7 +213,7 @@
         "max_speed": 0.4
       },
       {
-        "particle_id": "spell_engine:magic_frost_spark_float",
+        "particle_id": "spell_engine:magic_frost_float",
         "origin": "CENTER",
         "shape": "SPHERE",
         "count": 450.0,
@@ -228,7 +227,10 @@
   },
   "cost": {
     "cooldown": {
-      "duration": 1.0
+      "duration": 4.0
+    },
+    "item": {
+      "id": "runes:frost_stone"
     }
   }
 }

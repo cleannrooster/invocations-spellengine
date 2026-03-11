@@ -169,9 +169,11 @@
 
   ],
   "cost": {
-    "item_id": "runes:arcane_stone",
     "cooldown": {
       "duration": 2
+    },
+    "item": {
+      "id": "runes:arcane_stone"
     }
   }
 }
