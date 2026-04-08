@@ -3,6 +3,7 @@ package com.invoke;
 import com.invoke.entities.EndersGaze;
 import com.invoke.entities.GlacierSmall;
 import com.invoke.interfaces.InvokerEntity;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -473,7 +474,7 @@ public class InvokeMod implements ModInitializer {
 							for (Entity target : data1.targets()) {
 								if(target instanceof LivingEntity living){
 									if(living.getHealth() <= data1.impactContext().power().randomValue()){
-										living.damage(living.getDamageSources().genericKill(),9999999);
+										living.damage(living.getDamageSources().genericKill(),1000);
 									}
 								}
 							}
